@@ -1,0 +1,65 @@
+.accountCircle_btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.accountCircle_btn .accountCircle_btnText > :is(span, p) {
+  font-size: 1.5rem;
+}
+
+.aside {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ellipsisIcon {
+  height: 2rem;
+  margin-left: 1.5rem;
+  width: 3rem;
+}
+
+.ellipsisIcon > path {
+  transform: translate(-10%, -10%) scale(0.5);
+}
+
+.link {
+  border-radius: 3.5rem;
+  margin-bottom: 0.5rem;
+  max-width: max-content;
+  transition: background-color 0.3s;
+}
+
+.link:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+.listText > :is(span, p) {
+  color: var(--COLOR-TEXT);
+  font-size: 2.2rem;
+  padding-left: 1rem;
+}
+
+.listText_active > span {
+  font-weight: 600;
+}
+
+.logoImg {
+  height: 5.4rem;
+  width: 5.4rem;
+}
+
+.navIcon {
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
+.navIcon > path {
+  transform: translate(-10%, -10%) scale(0.8);
+}
+
+.ellipsisIcon,
+.navIcon {
+  fill: var(--COLOR-TEXT);
+}

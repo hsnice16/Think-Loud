@@ -1,0 +1,18 @@
+/* LeftSideNavbar.jsx */
+
+.btn_broadCast.MuiButton-root {
+  background-color: var(--COLOR-PRIMARY);
+  border-radius: 3.5rem;
+  box-shadow: 0.1rem 0.1rem 0.2rem var(--COLOR-TEXT);
+  font-weight: 400;
+  font-size: 2.2rem;
+  margin-top: 3rem;
+  padding: 0.5rem 1.2rem;
+  text-transform: none;
+  width: 18rem;
+}
+
+.btn_broadCast.MuiButton-root:hover {
+  background-color: var(--COLOR-PRIMARY-DARK-100);
+  box-shadow: 0.1rem 0.1rem 0.2rem var(--COLOR-TEXT);
+}
