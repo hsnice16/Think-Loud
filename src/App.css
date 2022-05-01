@@ -1,4 +1,15 @@
+@import url("global.css");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+
+:root {
+  --COLOR-BACKGROUND: #eff6ff;
+  --COLOR-BACKGROUND-DARK-100: #d6dce4;
+
+  --COLOR-PRIMARY: #3b82f6;
+  --COLOR-PRIMARY-DARK-100: #3a7be4;
+
+  --COLOR-TEXT: #475569;
+}
 
 html {
   font-size: 62.5%;
@@ -6,5 +17,14 @@ html {
 }
 
 body {
+  background: var(--COLOR-BACKGROUND);
   font-size: 1.6rem;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
