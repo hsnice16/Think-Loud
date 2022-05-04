@@ -1,14 +1,23 @@
-@import url("global.css");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 
 :root {
   --COLOR-BACKGROUND: #eff6ff;
   --COLOR-BACKGROUND-DARK-100: #d6dce4;
 
+  --COLOR-FOLLOW-BACKGROUND: #c47d09;
+  --COLOR-FOLLOW-BACKGROUND-DARK-100: #ab6d08;
+
+  --COLOR-LOGOUT-DIALOG-TICK: #84cc16;
+
   --COLOR-PRIMARY: #3b82f6;
   --COLOR-PRIMARY-DARK-100: #3a7be4;
 
+  --COLOR-SEARCH-INNER-SHADOW: rgba(0, 0, 0, 0.25);
+
   --COLOR-TEXT: #475569;
+  --COLOR-SEARCH-BACKGROUND: white;
+
+  --SIZE-CONTAINER-LG: 1300px;
 }
 
 html {
@@ -18,6 +27,7 @@ html {
 
 body {
   background: var(--COLOR-BACKGROUND);
+  font-family: "Roboto", sans-serif;
   font-size: 1.6rem;
 }
 
@@ -27,4 +37,9 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+div.container-lg {
+  margin: auto;
+  max-width: var(--SIZE-CONTAINER-LG);
 }

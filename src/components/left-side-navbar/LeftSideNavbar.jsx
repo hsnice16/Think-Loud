@@ -1,39 +1,51 @@
 import styles from "./LeftSideNavbar.module.css";
 import classNames from "classnames";
-import React from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import {
-  Avatar,
-  Button,
-  Grid,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 
 import { ROUTE_HOME } from "utils";
 import { LeftSideNavbarData } from "data";
-import { EllipsisHorizontalIcon, HimanshuJPG } from "assets";
-import { AccountCircleStyles, ListItemStyles } from "./styles-constants";
+import { EllipsisHorizontalIcon } from "assets";
+import {
+  AccountCircleSx,
+  BroadcastBtnSx,
+  ListItemSx,
+} from "./styles-constants";
+import {
+  BroadcastDialog,
+  CustomButton,
+  FollowItem,
+  LogoutDialog,
+} from "components";
 
 export const LeftSideNavbar = () => {
   const location = useLocation();
   const { logoImg, links } = LeftSideNavbarData;
 
+  const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
+  const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);
+
   return (
-    <Grid
+    <Box
       component="aside"
-      item
-      sm={3}
-      md={3}
-      p={2}
+      gridColumn="span 3"
+      py={2}
       className={styles.aside}
       sx={{ flexDirection: "column" }}
     >
-      <div>
+      <BroadcastDialog
+        openBroadcastDialog={openBroadcastDialog}
+        setOpenBroadcastDialog={setOpenBroadcastDialog}
+      />
+
+      <LogoutDialog
+        openLogoutDialog={openLogoutDialog}
+        setOpenLogoutDialog={setOpenLogoutDialog}
+      />
+
+      <Box>
         <Link to={ROUTE_HOME}>
           <img
             className={styles.logoImg}
@@ -52,7 +64,7 @@ export const LeftSideNavbar = () => {
                 component={Link}
                 to={link.url}
                 className={styles.link}
-                sx={ListItemStyles}
+                sx={ListItemSx}
               >
                 <ListItemIcon sx={{ minWidth: "1rem" }}>
                   {isLinkActive ? (
@@ -73,42 +85,29 @@ export const LeftSideNavbar = () => {
           })}
         </List>
 
-        <Button
-          disableElevation
-          disableRipple
-          variant="contained"
-          className="btn_broadCast"
+        <CustomButton
+          onClick={() => setOpenBroadcastDialog(true)}
+          sxStyles={BroadcastBtnSx}
         >
           Broadcast
-        </Button>
-      </div>
+        </CustomButton>
+      </Box>
 
-      <ListItem
-        component="button"
-        className={classNames(styles.link, styles.accountCircle_btn)}
-        sx={AccountCircleStyles}
+      <FollowItem
+        onClick={() => setOpenLogoutDialog(true)}
+        itemComponent="button"
+        itemSxStyles={AccountCircleSx}
+        textClassName={classNames(
+          styles.listText,
+          styles.listText_active,
+          styles.accountCircle_btnText
+        )}
+        itemClassName={classNames(styles.link, styles.accountCircle_btn)}
       >
-        <ListItemAvatar sx={{ minWidth: "1rem" }}>
-          <Avatar
-            className={styles.navIcon}
-            alt="Himanshu Avatar"
-            src={HimanshuJPG}
-          />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Himanshu Singh"
-          secondary="@hsnice16"
-          className={classNames(
-            styles.listText,
-            styles.listText_active,
-            styles.accountCircle_btnText
-          )}
-        />
-
         <ListItemIcon sx={{ minWidth: "1rem" }}>
           <EllipsisHorizontalIcon className={classNames(styles.ellipsisIcon)} />
         </ListItemIcon>
-      </ListItem>
-    </Grid>
+      </FollowItem>
+    </Box>
   );
 };

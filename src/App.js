@@ -1,9 +1,8 @@
 import "./App.css";
-
 import { Route, Routes } from "react-router-dom";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Container, Grid } from "@mui/material";
+import { Box, Container, useMediaQuery } from "@mui/material";
 
 import { LeftSideNavbar, RightSideBar } from "components";
 import { Bookmarks, Explore, Home, Profile } from "pages";
@@ -16,24 +15,33 @@ import {
 
 function App() {
   const theme = createTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="xl">
-        <Grid container sx={{ minHeight: "100vh" }}>
+      <Container className="container-lg">
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(12, 1fr)"
+          sx={{ minHeight: "100vh" }}
+        >
           <LeftSideNavbar />
 
-          <Grid component="main" item sm={9} md={6} p={2}>
+          <Box
+            component="main"
+            gridColumn={matches ? "span 9" : "span 6"}
+            p={2}
+          >
             <Routes>
               <Route path={ROUTE_BOOKMARKS} element={<Bookmarks />} />
               <Route path={ROUTE_EXPLORE} element={<Explore />} />
               <Route path={ROUTE_HOME} element={<Home />} />
               <Route path={ROUTE_PROFILE} element={<Profile />} />
             </Routes>
-          </Grid>
+          </Box>
 
           <RightSideBar />
-        </Grid>
+        </Box>
       </Container>
     </ThemeProvider>
   );

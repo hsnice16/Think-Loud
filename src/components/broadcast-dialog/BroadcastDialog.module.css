@@ -1,0 +1,74 @@
+button.btn_broadcast {
+  background-color: var(--COLOR-PRIMARY);
+  font-size: 1.2rem;
+  padding: 0.5rem 1.2rem;
+}
+
+button.btn_broadcast:hover {
+  background-color: var(--COLOR-PRIMARY-DARK-100);
+}
+
+button.btn_broadcast.btn_disabled {
+  background-color: var(--COLOR-PRIMARY);
+  color: var(--COLOR-SEARCH-BACKGROUND);
+  opacity: 0.5;
+}
+
+button.btn_closeIcon {
+  border-radius: 50%;
+  height: 3.5rem;
+  min-width: 3.5rem;
+}
+
+button.btn_closeIcon:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+div.action_broadcast {
+  padding: 0.5rem 1.5rem 1rem;
+}
+
+div.action_closeIcon {
+  justify-content: flex-start;
+}
+
+div.dialog_content {
+  padding: 0.5rem 2rem 0;
+}
+
+div.dialog_content textarea {
+  border-bottom: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  color: var(--COLOR-TEXT);
+  font-size: 1.8rem;
+  line-height: 1.5em;
+  padding: 0.5rem 0;
+}
+
+div.dialog_content *::after,
+div.dialog_content *::before {
+  display: none;
+}
+
+.closeIcon {
+  fill: var(--COLOR-TEXT);
+  height: 2rem;
+  width: 2rem;
+}
+
+.closeIcon > path {
+  transform: translate(-10%, -10%) scale(0.5);
+}
+
+.dialogContainer > div:nth-child(1) {
+  background-color: var(--COLOR-SEARCH-INNER-SHADOW);
+}
+
+.dialogContainer > div:nth-child(3) {
+  align-items: flex-start;
+}
+
+.dialogContainer > div:nth-child(3) > div {
+  border-radius: 1.5rem;
+  box-shadow: none;
+  width: 50rem;
+}

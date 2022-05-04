@@ -1,0 +1,63 @@
+button.btn_dialogLogOut {
+  border-radius: 0;
+  color: var(--COLOR-TEXT);
+  display: inline-block;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 1.5rem 0 1.5rem 2.2rem;
+  text-align: left;
+  text-transform: none;
+  width: 100%;
+}
+
+button.btn_dialogLogOut:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+div.dialogAction {
+  padding: 0;
+}
+
+h2.dialogTitle {
+  border-bottom: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  padding: 0.5rem;
+}
+
+.dialogContainer > div:nth-child(1) {
+  background-color: unset;
+}
+
+.dialogContainer > div:nth-child(3) {
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin: auto;
+  max-width: var(--SIZE-CONTAINER-LG);
+  padding: 0 0 5rem 1rem;
+}
+
+.dialogContainer > div:nth-child(3) > div {
+  border-radius: 1.5rem;
+  box-shadow: 0.2rem 0.2rem 2rem var(--COLOR-BACKGROUND-DARK-100);
+  margin-left: 2rem;
+  width: 25rem;
+}
+
+.followItemText > :is(span, p) {
+  color: var(--COLOR-TEXT);
+  font-size: 1.4rem;
+  padding-left: 1rem;
+}
+
+.followItemText > span {
+  font-weight: 600;
+}
+
+.tickIcon {
+  fill: var(--COLOR-LOGOUT-DIALOG-TICK);
+  height: 2rem;
+  width: 2rem;
+}
+
+.tickIcon > path {
+  transform: translate(-10%, -10%) scale(0.5);
+}

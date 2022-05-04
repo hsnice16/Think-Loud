@@ -1,0 +1,59 @@
+div.inputField {
+  background-color: var(--COLOR-SEARCH-BACKGROUND);
+  border-radius: 5rem;
+  box-shadow: inset 0px 1px 4px var(--COLOR-SEARCH-INNER-SHADOW);
+  color: var(--COLOR-TEXT);
+  display: flex;
+  font-size: 1.7rem;
+  margin: auto;
+  padding: 0.5rem 1.5rem;
+  width: 100%;
+}
+
+.followBox {
+  background-color: var(--COLOR-SEARCH-BACKGROUND);
+  border-radius: 1.5rem;
+  color: var(--COLOR-TEXT);
+  margin: 3rem auto 0.5rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.followBox h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.link_connectWithMe {
+  color: var(--COLOR-TEXT);
+  font-size: 1.8rem;
+}
+
+.link_connectWithMe > svg {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.link_connectWithMe path {
+  transform: translate(-10%, -10%) scale(0.3);
+}
+
+.listText > :is(span, p) {
+  color: var(--COLOR-TEXT);
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
+
+.listText > span {
+  font-weight: 600;
+}
+
+.searchIcon {
+  fill: var(--COLOR-TEXT);
+  height: 2rem;
+  width: 2rem;
+}
+
+.searchIcon > path {
+  transform: translate(-10%, -10%) scale(0.5);
+}
