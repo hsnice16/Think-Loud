@@ -1,5 +1,9 @@
+import { SearchIcon } from "assets";
 import styles from "./RightSideBar.module.css";
 import { useTheme } from "@mui/material/styles";
+import { AvatarIconSx, FollowBtnSx } from "./styles-constants";
+import { ConnectWithMeLink, CustomButton, FollowItem } from "components";
+
 import {
   Box,
   InputAdornment,
@@ -8,10 +12,6 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-
-import { OpenInNewIcon, SearchIcon } from "assets";
-import { CustomButton, FollowItem } from "components";
-import { AvatarIconSx, FollowBtnSx } from "./styles-constants";
 
 export const RightSideBar = () => {
   const theme = useTheme();
@@ -52,16 +52,7 @@ export const RightSideBar = () => {
         </List>
       </Box>
 
-      <Box sx={{ textAlign: "center" }}>
-        <a
-          href="https://twitter.com/hsnice16"
-          target="_blank"
-          rel="noreferrer"
-          className={styles.link_connectWithMe}
-        >
-          connect with me <OpenInNewIcon />
-        </a>
-      </Box>
+      <ConnectWithMeLink />
     </Box>
   );
 };

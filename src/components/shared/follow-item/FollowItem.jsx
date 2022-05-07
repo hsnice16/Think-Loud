@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { HimanshuJPG } from "assets";
-
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 
 export const FollowItem = ({

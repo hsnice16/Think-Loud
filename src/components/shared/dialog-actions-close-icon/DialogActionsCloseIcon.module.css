@@ -1,0 +1,23 @@
+button.btn_closeIcon {
+  border-radius: 50%;
+  height: 3.5rem;
+  min-width: 3.5rem;
+}
+
+button.btn_closeIcon:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+div.action_closeIcon {
+  justify-content: flex-start;
+}
+
+.closeIcon {
+  fill: var(--COLOR-TEXT);
+  height: 2rem;
+  width: 2rem;
+}
+
+.closeIcon > path {
+  transform: translate(-10%, -10%) scale(0.5);
+}

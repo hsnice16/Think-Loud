@@ -1,0 +1,13 @@
+.link_connectWithMe {
+  color: var(--COLOR-TEXT);
+  font-size: 1.8rem;
+}
+
+.link_connectWithMe > svg {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.link_connectWithMe path {
+  transform: translate(-10%, -10%) scale(0.3);
+}

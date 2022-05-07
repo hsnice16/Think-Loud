@@ -1,8 +1,7 @@
-import styles from "./LogoutDialog.module.css";
-import PropTypes from "prop-types";
 import { TickIcon } from "assets";
+import PropTypes from "prop-types";
 import { FollowItem } from "components";
-
+import styles from "./LogoutDialog.module.css";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 
 export const LogoutDialog = ({ openLogoutDialog, setOpenLogoutDialog }) => {
@@ -31,7 +30,6 @@ export const LogoutDialog = ({ openLogoutDialog, setOpenLogoutDialog }) => {
       </DialogTitle>
       <DialogActions className={styles.dialogAction}>
         <Button
-          disableRipple
           variant="text"
           onClick={handleClose}
           className={styles.btn_dialogLogOut}

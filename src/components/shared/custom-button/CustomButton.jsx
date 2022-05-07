@@ -12,13 +12,10 @@ export const CustomButton = ({
     <Button
       onClick={onClick}
       disabled={disabled}
-      disableElevation
-      disableRipple
       variant="contained"
       sx={{
         borderRadius: "3.5rem",
         fontWeight: "400",
-        textTransform: "none",
         ...sxStyles,
       }}
       className={className}
