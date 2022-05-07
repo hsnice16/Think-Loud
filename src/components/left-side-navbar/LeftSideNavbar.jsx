@@ -48,6 +48,7 @@ export const LeftSideNavbar = () => {
       <Box>
         <Link to={ROUTE_HOME}>
           <img
+            loading="lazy"
             className={styles.logoImg}
             src={logoImg.src}
             alt={logoImg.altText}

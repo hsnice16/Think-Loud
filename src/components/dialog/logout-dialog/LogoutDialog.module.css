@@ -35,8 +35,7 @@ h2.dialogTitle {
   padding: 0 0 5rem 1rem;
 }
 
-.dialogContainer > div:nth-child(3) > div {
-  border-radius: 1.5rem;
+.dialogContainer > div:nth-child(3) > div:nth-child(1) {
   box-shadow: 0.2rem 0.2rem 2rem var(--COLOR-BACKGROUND-DARK-100);
   margin-left: 2rem;
   width: 25rem;

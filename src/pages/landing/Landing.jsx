@@ -8,10 +8,12 @@ import {
   ConnectWithMeLink,
   CustomButton,
   SignInDialog,
+  SignUpDialog,
 } from "components";
 
 export const Landing = () => {
   const [openSignInDialog, setOpenSignInDialog] = useState(false);
+  const [openSignUpDialog, setOpenSignUpDialog] = useState(false);
   useDocumentTitle("Join today");
 
   return (
@@ -21,12 +23,28 @@ export const Landing = () => {
         setOpenSignInDialog={setOpenSignInDialog}
       />
 
+      <SignUpDialog
+        openSignUpDialog={openSignUpDialog}
+        setOpenSignUpDialog={setOpenSignUpDialog}
+      />
+
       <Grid container minHeight="100vh" mb={1} component="main">
         <Grid item sm={6}>
-          <img src={thinkJPG} alt="think poster" className={styles.thinkImg} />
+          <img
+            loading="lazy"
+            src={thinkJPG}
+            alt="think poster"
+            className={styles.thinkImg}
+          />
         </Grid>
+
         <Grid item sm={6} p={6}>
-          <img className={styles.logoImg} src={logoPNG} alt="think loud logo" />
+          <img
+            loading="lazy"
+            className={styles.logoImg}
+            src={logoPNG}
+            alt="think loud logo"
+          />
 
           <Box>
             <Typography variant="h1" component="h1" className={styles.text}>
@@ -37,6 +55,7 @@ export const Landing = () => {
             </Typography>
 
             <CustomButton
+              onClick={() => setOpenSignUpDialog(true)}
               sxStyles={{
                 ...BroadcastBtnSx,
                 fontSize: "2rem",

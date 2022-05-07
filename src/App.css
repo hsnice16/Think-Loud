@@ -12,10 +12,9 @@
   --COLOR-PRIMARY: #3b82f6;
   --COLOR-PRIMARY-DARK-100: #3a7be4;
 
-  --COLOR-SEARCH-INNER-SHADOW: rgba(0, 0, 0, 0.25);
-
   --COLOR-TEXT: #475569;
   --COLOR-SEARCH-BACKGROUND: white;
+  --COLOR-SEARCH-INNER-SHADOW: rgba(0, 0, 0, 0.25);
 
   --SIZE-CONTAINER-LG: 1300px;
 }
@@ -42,4 +41,10 @@ body {
 div.container-lg {
   margin: auto;
   max-width: var(--SIZE-CONTAINER-LG);
+}
+
+/* override */
+
+::-ms-reveal {
+  display: none !important;
 }

@@ -28,6 +28,7 @@ export const LogoutDialog = ({ openLogoutDialog, setOpenLogoutDialog }) => {
           <TickIcon className={styles.tickIcon} />
         </FollowItem>
       </DialogTitle>
+
       <DialogActions className={styles.dialogAction}>
         <Button
           variant="text"

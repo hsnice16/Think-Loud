@@ -1,0 +1,28 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+}
+
+.form > div {
+  margin: 1rem 0;
+}
+
+.form :is(label, input) {
+  color: var(--COLOR-TEXT);
+  font-size: 1.8rem;
+}
+
+.form label {
+  background-color: var(--COLOR-SEARCH-BACKGROUND);
+  padding-right: 0.5rem;
+}
+
+.form > label svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+.form > label span {
+  font-size: 1.4rem;
+}

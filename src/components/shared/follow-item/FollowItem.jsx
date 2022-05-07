@@ -19,8 +19,16 @@ export const FollowItem = ({
       onClick={onClick}
     >
       <ListItemAvatar sx={{ minWidth: "1rem" }}>
-        <Avatar sx={avatarSxStyles} alt="Himanshu Avatar" src={HimanshuJPG} />
+        <Avatar
+          sx={avatarSxStyles}
+          alt="Himanshu Avatar"
+          src={HimanshuJPG}
+          imgProps={{
+            loading: "lazy",
+          }}
+        />
       </ListItemAvatar>
+
       <ListItemText
         primary="Himanshu Singh"
         secondary="@hsnice16"
