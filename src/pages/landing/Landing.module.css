@@ -1,0 +1,38 @@
+button.btn_logIn {
+  background-color: var(--COLOR-BACKGROUND);
+  border: thin solid var(--COLOR-PRIMARY);
+  box-shadow: none;
+  color: var(--COLOR-PRIMARY);
+  font-size: 2rem;
+  padding: 0.3rem 2rem;
+  width: 18rem;
+}
+
+button.btn_logIn:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+h1.text {
+  margin: 4rem 0 2rem;
+}
+
+h3.text {
+  font-size: 2rem;
+  margin: 4rem 0 2rem;
+}
+
+:is(h1, h2, h3).text {
+  color: var(--COLOR-TEXT);
+  font-weight: 700;
+}
+
+.logoImg {
+  height: 6rem;
+  width: 6rem;
+}
+
+.thinkImg {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}

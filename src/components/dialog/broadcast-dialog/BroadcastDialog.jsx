@@ -1,20 +1,18 @@
-import styles from "./BroadcastDialog.module.css";
-import classNames from "classnames";
-import PropTypes from "prop-types";
 import { useState } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { HimanshuJPG } from "assets";
+import styles from "./BroadcastDialog.module.css";
+import { CustomButton, DialogActionsCloseIcon } from "components";
 
 import {
   Avatar,
-  Button,
   Box,
   Dialog,
   DialogActions,
   DialogContent,
   TextField,
 } from "@mui/material";
-
-import { CloseIcon, HimanshuJPG } from "assets";
-import { CustomButton } from "components";
 
 export const BroadcastDialog = ({
   openBroadcastDialog,
@@ -36,16 +34,7 @@ export const BroadcastDialog = ({
       onClose={handleClose}
       className={styles.dialogContainer}
     >
-      <DialogActions className={styles.action_closeIcon}>
-        <Button
-          onClick={handleClose}
-          disableRipple
-          variant="text"
-          className={styles.btn_closeIcon}
-        >
-          <CloseIcon className={styles.closeIcon} />
-        </Button>
-      </DialogActions>
+      <DialogActionsCloseIcon handleClose={handleClose} />
       <DialogContent className={styles.dialog_content}>
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
           <Box gridColumn="span 1">

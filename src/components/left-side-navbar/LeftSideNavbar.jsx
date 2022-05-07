@@ -1,13 +1,11 @@
-import styles from "./LeftSideNavbar.module.css";
-import classNames from "classnames";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-
-import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-
 import { ROUTE_HOME } from "utils";
+import classNames from "classnames";
 import { LeftSideNavbarData } from "data";
 import { EllipsisHorizontalIcon } from "assets";
+import styles from "./LeftSideNavbar.module.css";
+import { Link, useLocation } from "react-router-dom";
+
 import {
   AccountCircleSx,
   BroadcastBtnSx,
@@ -19,10 +17,12 @@ import {
   FollowItem,
   LogoutDialog,
 } from "components";
+import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+
+const { logoImg, links } = LeftSideNavbarData;
 
 export const LeftSideNavbar = () => {
   const location = useLocation();
-  const { logoImg, links } = LeftSideNavbarData;
 
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
   const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);

@@ -6,14 +6,12 @@ export const AccountCircleSx = {
 };
 
 export const BroadcastBtnSx = {
-  backgroundColor: "var(--COLOR-PRIMARY)",
   boxShadow: "0.1rem 0.1rem 0.2rem var(--COLOR-TEXT)",
   fontSize: "2.2rem",
   marginTop: "3rem",
   padding: "0.5rem 1.2rem",
   width: "18rem",
   "&:hover": {
-    backgroundColor: "var(--COLOR-PRIMARY-DARK-100)",
     boxShadow: "0.1rem 0.1rem 0.2rem var(--COLOR-TEXT)",
   },
 };

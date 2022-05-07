@@ -1,0 +1,79 @@
+button.btn_eyeIcon {
+  height: 3rem;
+  padding: 0;
+  width: 3.5rem;
+}
+
+h1.heading {
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+div.action_logIn {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem 2rem;
+}
+
+div.action_logIn button:not(:first-of-type) {
+  margin-left: 0;
+}
+
+div.dialogContent {
+  padding: 0 2rem;
+  color: var(--COLOR-TEXT);
+}
+
+.eyeIcon {
+  fill: var(--COLOR-TEXT);
+  height: 100%;
+  width: 100%;
+}
+
+.eyeIcon > path {
+  transform: translate(10%, 10%) scale(0.5);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+}
+
+.form > div {
+  margin: 1rem 0;
+}
+
+.form :is(label, input) {
+  color: var(--COLOR-TEXT);
+  font-size: 1.8rem;
+}
+
+.form label {
+  background-color: var(--COLOR-SEARCH-BACKGROUND);
+  padding-right: 0.5rem;
+}
+
+.form > label svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+.dialogContainer > div:nth-child(1) {
+  background-color: var(--COLOR-SEARCH-INNER-SHADOW);
+}
+
+.dialogContainer > div:nth-child(3) > div {
+  border-radius: 1.5rem;
+  box-shadow: none;
+  width: 35rem;
+}
+
+.spinnerImg {
+  margin-right: 0.5rem;
+}
+
+div.action_logIn button,
+.form > label span {
+  font-size: 1.4rem;
+}
