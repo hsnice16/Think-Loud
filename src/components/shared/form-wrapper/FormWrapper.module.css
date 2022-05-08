@@ -8,7 +8,7 @@
   margin: 1rem 0;
 }
 
-.form :is(label, input) {
+.form :is(label, input, textarea) {
   color: var(--COLOR-TEXT);
   font-size: 1.8rem;
 }

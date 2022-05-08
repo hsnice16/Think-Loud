@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { HimanshuJPG } from "assets";
+import { BROADCAST_MAX_CHARACTERS } from "utils";
 import styles from "./BroadcastDialog.module.css";
 import {
   CircularProgressWithLabel,
@@ -18,11 +19,6 @@ import {
   TextField,
 } from "@mui/material";
 
-/**
- * maximum characters length in a post
- */
-const maxCharacters = 256;
-
 export const BroadcastDialog = ({
   openBroadcastDialog,
   setOpenBroadcastDialog,
@@ -30,7 +26,7 @@ export const BroadcastDialog = ({
   const [postText, setPostText] = useState("");
 
   const handlePostTextChange = (event) => {
-    if (maxCharacters - event.target.value.length >= 0)
+    if (BROADCAST_MAX_CHARACTERS - event.target.value.length >= 0)
       setPostText(event.target.value);
   };
 
@@ -79,15 +75,19 @@ export const BroadcastDialog = ({
       </DialogContent>
 
       <DialogActions className={styles.action_broadcast}>
-        {maxCharacters - postText.length > 20 ? (
+        {BROADCAST_MAX_CHARACTERS - postText.length > 20 ? (
           <CircularProgress
             size="2rem"
             sx={{ marginRight: "1rem" }}
             variant="determinate"
-            value={Math.round((postText.length * 100) / maxCharacters)}
+            value={Math.round(
+              (postText.length * 100) / BROADCAST_MAX_CHARACTERS
+            )}
           />
         ) : (
-          <CircularProgressWithLabel value={maxCharacters - postText.length} />
+          <CircularProgressWithLabel
+            value={BROADCAST_MAX_CHARACTERS - postText.length}
+          />
         )}
 
         <CustomButton

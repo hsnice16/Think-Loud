@@ -10,6 +10,7 @@ export { FilledHomeIcon } from "./icons/FilledHomeIcon";
 export { FilledProfileIcon } from "./icons/FilledProfileIcon";
 
 export { HashtagIcon } from "./icons/HashtagIcon";
+export { LinkIcon } from "./icons/LinkIcon";
 
 export { OpenInNewIcon } from "./icons/OpenInNewIcon";
 export { OutlinedBookmarkIcon } from "./icons/OutlinedBookmarkIcon";

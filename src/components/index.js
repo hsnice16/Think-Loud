@@ -1,4 +1,5 @@
 export { BroadcastDialog } from "./dialog/broadcast-dialog/BroadcastDialog";
+export { EditProfileDialog } from "./dialog/edit-profile-dialog/EditProfileDialog";
 export { LogoutDialog } from "./dialog/logout-dialog/LogoutDialog";
 export { SignInDialog } from "./dialog/sign-in-dialog/SignInDialog";
 export { SignUpDialog } from "./dialog/sign-up-dialog/SignUpDialog";
