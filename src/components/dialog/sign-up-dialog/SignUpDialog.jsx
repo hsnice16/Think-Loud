@@ -65,7 +65,7 @@ export const SignUpDialog = ({ openSignUpDialog, setOpenSignUpDialog }) => {
         </FormWrapper>
 
         <Typography mb="1rem" mt="1rem" fontSize="1.2rem">
-          By continuing, you agree to Dekho Videos' Terms of Use and Privacy
+          By continuing, you agree to Think Loud's Terms of Use and Privacy
           Policy.
         </Typography>
       </DialogContent>
