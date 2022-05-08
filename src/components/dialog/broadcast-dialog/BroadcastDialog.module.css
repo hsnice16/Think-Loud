@@ -30,16 +30,10 @@ div.dialog_content *::before {
   display: none;
 }
 
-.dialogContainer > div:nth-child(1) {
-  background-color: var(--COLOR-SEARCH-INNER-SHADOW);
-}
-
 .dialogContainer > div:nth-child(3) {
   align-items: flex-start;
 }
 
 .dialogContainer > div:nth-child(3) > div {
-  border-radius: 1.5rem;
-  box-shadow: none;
   width: 50rem;
 }

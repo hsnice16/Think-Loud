@@ -3,16 +3,25 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { HimanshuJPG } from "assets";
 import styles from "./BroadcastDialog.module.css";
-import { CustomButton, DialogActionsCloseIcon } from "components";
-
+import {
+  CircularProgressWithLabel,
+  CustomButton,
+  DialogActionsCloseIcon,
+} from "components";
 import {
   Avatar,
   Box,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   TextField,
 } from "@mui/material";
+
+/**
+ * maximum characters length in a post
+ */
+const maxCharacters = 256;
 
 export const BroadcastDialog = ({
   openBroadcastDialog,
@@ -21,7 +30,8 @@ export const BroadcastDialog = ({
   const [postText, setPostText] = useState("");
 
   const handlePostTextChange = (event) => {
-    setPostText(event.target.value);
+    if (maxCharacters - event.target.value.length >= 0)
+      setPostText(event.target.value);
   };
 
   const handleClose = () => {
@@ -35,6 +45,7 @@ export const BroadcastDialog = ({
       className={styles.dialogContainer}
     >
       <DialogActionsCloseIcon handleClose={handleClose} />
+
       <DialogContent className={styles.dialog_content}>
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
           <Box gridColumn="span 1">
@@ -45,15 +56,19 @@ export const BroadcastDialog = ({
               }}
               alt="Himanshu Avatar"
               src={HimanshuJPG}
+              imgProps={{
+                loading: "lazy",
+              }}
             />
           </Box>
+
           <Box gridColumn="span 11">
             <TextField
               autoFocus
               type="text"
               fullWidth
               multiline
-              rows={4}
+              minRows={4}
               variant="standard"
               placeholder="What are you thinking?"
               value={postText}
@@ -62,7 +77,19 @@ export const BroadcastDialog = ({
           </Box>
         </Box>
       </DialogContent>
+
       <DialogActions className={styles.action_broadcast}>
+        {maxCharacters - postText.length > 20 ? (
+          <CircularProgress
+            size="2rem"
+            sx={{ marginRight: "1rem" }}
+            variant="determinate"
+            value={Math.round((postText.length * 100) / maxCharacters)}
+          />
+        ) : (
+          <CircularProgressWithLabel value={maxCharacters - postText.length} />
+        )}
+
         <CustomButton
           disabled={postText === ""}
           className={classNames(

@@ -1,0 +1,21 @@
+div.action_signUp {
+  padding: 0 2rem 2rem;
+}
+
+div.action_signUp button {
+  font-size: 1.4rem;
+}
+
+div.dialogContent {
+  color: var(--COLOR-TEXT);
+  padding: 0 2rem;
+}
+
+.dialogContainer > div:nth-child(3) > div {
+  width: 45rem;
+}
+
+.textInput_container {
+  display: flex;
+  gap: 1rem;
+}

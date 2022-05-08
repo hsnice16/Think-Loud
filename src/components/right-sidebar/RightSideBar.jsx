@@ -3,7 +3,6 @@ import styles from "./RightSideBar.module.css";
 import { useTheme } from "@mui/material/styles";
 import { AvatarIconSx, FollowBtnSx } from "./styles-constants";
 import { ConnectWithMeLink, CustomButton, FollowItem } from "components";
-
 import {
   Box,
   InputAdornment,
