@@ -1,15 +1,37 @@
-button.btn_editProfile {
-  border: thin solid var(--COLOR-BACKGROUND-DARK-100);
+button.btn {
   border-radius: 3.5rem;
-  color: var(--COLOR-TEXT);
   font-size: 1.5rem;
   font-weight: bold;
   margin: 1.6rem 1.6rem 1.6rem auto;
 }
 
+button.btn_editProfile {
+  border: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  color: var(--COLOR-TEXT);
+}
+
 button.btn_editProfile:hover {
   background-color: var(--COLOR-BACKGROUND-DARK-100);
   border-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+button.btn_follow {
+  background-color: var(--COLOR-FOLLOW-BACKGROUND);
+}
+
+button.btn_follow:hover {
+  background-color: var(--COLOR-FOLLOW-BACKGROUND-DARK-100);
+}
+
+button.btn_unfollow {
+  border: thin solid var(--COLOR-FOLLOW-BACKGROUND-DARK-100);
+  color: var(--COLOR-FOLLOW-BACKGROUND-DARK-100);
+}
+
+button.btn_unfollow:hover {
+  background-color: var(--COLOR-FOLLOW-BACKGROUND);
+  border-color: var(--COLOR-FOLLOW-BACKGROUND);
+  color: var(--COLOR-SEARCH-BACKGROUND);
 }
 
 div.tabs button {

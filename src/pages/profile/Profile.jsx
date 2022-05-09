@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { ProfileData } from "data";
+import classNames from "classnames";
 import styles from "./Profile.module.css";
-import { EditProfileDialog } from "components";
-import { useDocumentTitle } from "custom-hooks";
 import { FilledAccountCircleIcon, LinkIcon } from "assets";
+import { useDocumentTitle, useScrollToTop } from "custom-hooks";
 import { Button, Box, Link, Tab, Tabs, Typography } from "@mui/material";
+import { EditProfileDialog, ListBroadcasts, PageHeading } from "components";
 
 const { tabsOptions } = ProfileData;
 
@@ -20,6 +21,7 @@ export const Profile = () => {
   const [selectedTab, setSelectedTab] = useState("Broadcasts");
 
   useDocumentTitle("Himanshu Singh (@hsnice16)");
+  useScrollToTop();
 
   const handleTabChange = (_, newValue) => {
     setSelectedTab(newValue);
@@ -34,14 +36,14 @@ export const Profile = () => {
         setNewProfileData={setNewProfileData}
       />
 
-      <Box pb={0.5} pl={2} pt={2} className={styles.border_bottom}>
+      <PageHeading>
         <Typography component="h1" fontWeight="bold" variant="h4">
           Himanshu Singh
         </Typography>
         <Typography component="p" fontSize="1.2rem">
           1,629 Broadcasts
         </Typography>
-      </Box>
+      </PageHeading>
 
       <Box position="relative">
         <Box className={styles.background_img}></Box>
@@ -50,13 +52,31 @@ export const Profile = () => {
         </Box>
       </Box>
 
-      <Button
+      {/* these comments will get removed in subsequent PR's */}
+
+      {/* <Button
         variant="outlined"
         onClick={() => setOpenEditProfileDialog(true)}
-        className={styles.btn_editProfile}
+        className={classNames(styles.btn, styles.btn_editProfile)}
       >
         Edit Profile
+      </Button> */}
+
+      <Button
+        variant="contained"
+        onClick={() => setOpenEditProfileDialog(true)}
+        className={classNames(styles.btn, styles.btn_follow)}
+      >
+        Follow
       </Button>
+
+      {/* <Button
+        variant="outlined"
+        onClick={() => setOpenEditProfileDialog(true)}
+        className={classNames(styles.btn, styles.btn_unfollow)}
+      >
+        Unfollow
+      </Button> */}
 
       <Box mt={2} pl={2} className={styles.border_bottom}>
         <Typography component="h3" fontWeight="bold" variant="h4">
@@ -110,6 +130,8 @@ export const Profile = () => {
           ))}
         </Tabs>
       </Box>
+
+      <ListBroadcasts />
     </Box>
   );
 };

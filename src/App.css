@@ -2,7 +2,12 @@
 
 :root {
   --COLOR-BACKGROUND: #eff6ff;
+  --COLOR-BACKGROUND-DARK-50: #e3e9f2;
   --COLOR-BACKGROUND-DARK-100: #d6dce4;
+  --COLOR-BACKGROUND-DARK-150: #c3c8cf;
+  --COLOR-BACKGROUND-OPACITY-70: rgb(239 246 255 / 70%);
+
+  --COLOR-ERROR: #ef4444;
 
   --COLOR-FOLLOW-BACKGROUND: #c47d09;
   --COLOR-FOLLOW-BACKGROUND-DARK-100: #ab6d08;
@@ -42,6 +47,13 @@ div.container-lg {
   margin: auto;
   max-width: var(--SIZE-CONTAINER-LG);
   padding-right: 1rem;
+}
+
+.aside {
+  max-height: 100vh;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
 }
 
 .main-container {
