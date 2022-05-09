@@ -1,0 +1,71 @@
+button.btnAction_icon {
+  margin-right: 0.5rem;
+}
+
+button.btnAction_icon svg path {
+  transform: translate(9%, -6%) scale(0.5);
+}
+
+button.btnMenu_icon svg path {
+  transform: translate(-0.2rem, -12%) scale(0.5);
+}
+
+button.likedIcon svg {
+  fill: var(--COLOR-ERROR);
+}
+
+.avatarBox {
+  border-bottom: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  cursor: pointer;
+  padding: 1rem 2rem;
+}
+
+.avatarBox:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-50);
+}
+
+.broadcast_message {
+  white-space: pre-line;
+}
+
+.container {
+  color: var(--COLOR-TEXT);
+}
+
+.footer_actions,
+.footer_actions > div {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header button.btnMenu_icon {
+  height: 3rem;
+  width: 3rem;
+}
+
+.name {
+  align-items: baseline;
+  display: flex;
+}
+
+.name h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.name p {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+}
+
+.header button.btnMenu_icon:hover,
+.footer_actions button.btnAction_icon:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-150);
+}

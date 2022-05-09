@@ -32,7 +32,7 @@ export const LeftSideNavbar = () => {
       component="aside"
       gridColumn="span 2"
       py={2}
-      className={styles.aside}
+      className={classNames("aside", styles.aside)}
       sx={{ flexDirection: "column" }}
     >
       <BroadcastDialog

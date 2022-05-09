@@ -1,0 +1,9 @@
+.page_heading {
+  backdrop-filter: blur(2px);
+  background-color: var(--COLOR-BACKGROUND-OPACITY-70);
+  border-bottom: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  color: var(--COLOR-TEXT);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

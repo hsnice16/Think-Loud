@@ -1,0 +1,18 @@
+button.btn_icon {
+  height: 4rem;
+  width: 4rem;
+}
+
+button.btn_icon:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+.icon {
+  fill: var(--COLOR-TEXT);
+  height: 2rem;
+  width: 3rem;
+}
+
+.icon > path {
+  transform: translate(0.1rem, -15%) scale(0.6);
+}

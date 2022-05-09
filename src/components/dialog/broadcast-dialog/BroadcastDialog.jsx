@@ -5,13 +5,12 @@ import { HimanshuJPG } from "assets";
 import { BROADCAST_MAX_CHARACTERS } from "utils";
 import styles from "./BroadcastDialog.module.css";
 import {
+  AvatarGridBox,
   CircularProgressWithLabel,
   CustomButton,
   DialogActionsCloseIcon,
 } from "components";
 import {
-  Avatar,
-  Box,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -43,35 +42,19 @@ export const BroadcastDialog = ({
       <DialogActionsCloseIcon handleClose={handleClose} />
 
       <DialogContent className={styles.dialog_content}>
-        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-          <Box gridColumn="span 1">
-            <Avatar
-              sx={{
-                height: "5rem",
-                width: "5rem",
-              }}
-              alt="Himanshu Avatar"
-              src={HimanshuJPG}
-              imgProps={{
-                loading: "lazy",
-              }}
-            />
-          </Box>
-
-          <Box gridColumn="span 11">
-            <TextField
-              autoFocus
-              type="text"
-              fullWidth
-              multiline
-              minRows={4}
-              variant="standard"
-              placeholder="What are you thinking?"
-              value={postText}
-              onChange={handlePostTextChange}
-            />
-          </Box>
-        </Box>
+        <AvatarGridBox imgSrc={HimanshuJPG} imgAlt="Himanshu Avatar">
+          <TextField
+            autoFocus
+            type="text"
+            fullWidth
+            multiline
+            minRows={4}
+            variant="standard"
+            placeholder="What are you thinking?"
+            value={postText}
+            onChange={handlePostTextChange}
+          />
+        </AvatarGridBox>
       </DialogContent>
 
       <DialogActions className={styles.action_broadcast}>

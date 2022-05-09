@@ -23,6 +23,7 @@ export const RightSideBar = () => {
       py={2}
       pl={3}
       sx={{ display: matches ? "none" : "unset" }}
+      className="aside"
     >
       <InputBase
         className={styles.inputField}
