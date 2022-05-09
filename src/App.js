@@ -35,8 +35,8 @@ function App() {
 
             <Box
               component="main"
+              className="main-container"
               gridColumn={matches ? "span 9" : "span 6"}
-              p={2}
             >
               <Routes>
                 <Route path={ROUTE_BOOKMARKS} element={<Bookmarks />} />

@@ -19,8 +19,9 @@ export const RightSideBar = () => {
   return (
     <Box
       component="aside"
-      gridColumn="span 3"
+      gridColumn="span 4"
       py={2}
+      pl={3}
       sx={{ display: matches ? "none" : "unset" }}
     >
       <InputBase

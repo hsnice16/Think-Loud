@@ -41,6 +41,12 @@ body {
 div.container-lg {
   margin: auto;
   max-width: var(--SIZE-CONTAINER-LG);
+  padding-right: 1rem;
+}
+
+.main-container {
+  border: solid var(--COLOR-BACKGROUND-DARK-100);
+  border-width: 0 thin 0 thin;
 }
 
 /* override */

@@ -1,0 +1,61 @@
+button.btn_save {
+  font-size: 1.4rem;
+  padding: 0.5rem 1.2rem;
+}
+
+div.action_save {
+  padding: 0.5rem 2rem 1rem;
+}
+
+div.dialogContent {
+  padding: 0;
+}
+
+div.dialogContent form {
+  margin-top: 4rem;
+  padding: 2rem 2rem 0;
+}
+
+div.dialogContent textarea[placeholder="Your Bio..."] {
+  line-height: 1.5em;
+  margin-top: 1rem;
+}
+
+p.bioText_count {
+  font-size: 1.4rem;
+  position: absolute;
+  transform: translate(-100%, 20%);
+  top: 0;
+}
+
+.accountCircle_icon {
+  fill: var(--COLOR-TEXT);
+  height: 100%;
+  margin: -0.1rem 0 0 -0.1rem;
+  width: 100%;
+}
+
+.accountCircle_icon > path {
+  transform: translate(-8%, -8%) scale(2.2);
+}
+
+.background_img {
+  background-color: var(--COLOR-SEARCH-INNER-SHADOW);
+  height: 14rem;
+  width: 100%;
+}
+
+.dialogContainer > div:nth-child(3) > div {
+  color: var(--COLOR-TEXT);
+  width: 55rem;
+}
+
+.profile_pic {
+  background-color: var(--COLOR-SEARCH-BACKGROUND);
+  border: thick solid var(--COLOR-SEARCH-BACKGROUND);
+  border-radius: 50%;
+  height: 10rem;
+  position: absolute;
+  transform: translateY(-50%);
+  width: 10rem;
+}

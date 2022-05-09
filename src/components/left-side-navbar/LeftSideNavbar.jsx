@@ -30,7 +30,7 @@ export const LeftSideNavbar = () => {
   return (
     <Box
       component="aside"
-      gridColumn="span 3"
+      gridColumn="span 2"
       py={2}
       className={styles.aside}
       sx={{ flexDirection: "column" }}

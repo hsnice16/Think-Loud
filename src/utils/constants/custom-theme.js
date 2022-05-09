@@ -2,8 +2,8 @@ export const CustomTheme = {
   components: {
     MuiButton: {
       defaultProps: {
-        disableRipple: true,
         disableElevation: true,
+        disableRipple: true,
       },
 
       styleOverrides: {
@@ -39,8 +39,8 @@ export const CustomTheme = {
 
   palette: {
     primary: {
-      main: "#3b82f6", // --COLOR-PRIMARY
       dark: "#3a7be4", // --COLOR-PRIMARY-DARK-100
+      main: "#3b82f6", // --COLOR-PRIMARY
     },
   },
 };

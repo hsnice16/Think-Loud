@@ -1,0 +1,2 @@
+export const BIO_MAX_CHARACTERS = 180;
+export const BROADCAST_MAX_CHARACTERS = 280;
