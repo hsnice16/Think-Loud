@@ -1,0 +1,14 @@
+button.btn_broadcast {
+  font-size: 1.2rem;
+  padding: 0.5rem 1.2rem;
+}
+
+button.btn_broadcast.btn_disabled {
+  background-color: var(--COLOR-PRIMARY);
+  color: var(--COLOR-SEARCH-BACKGROUND);
+  opacity: 0.5;
+}
+
+div.action_broadcast {
+  padding: 0.5rem 1.5rem 1rem;
+}

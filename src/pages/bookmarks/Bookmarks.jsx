@@ -1,10 +1,12 @@
 import { useState } from "react";
 import styles from "./Bookmarks.module.css";
-import { EllipsisHorizontalIcon } from "assets";
 import { Box, Typography } from "@mui/material";
+import { emptyBookmark, EllipsisHorizontalIcon } from "assets";
 import { useDocumentTitle, useScrollToTop } from "custom-hooks";
+
 import {
   CustomIconButton,
+  EmptyBookmark,
   ListBroadcasts,
   OptionsMenu,
   PageHeading,
@@ -42,11 +44,22 @@ export const Bookmarks = () => {
         <OptionsMenu
           anchorEl={anchorEl}
           setAnchorEl={setAnchorEl}
-          menuItems={[{ _id: "007", item: "Clear all Bookmakrs" }]}
+          menuItems={[
+            { _id: "007", color: "error", item: "Clear all Bookmakrs" },
+          ]}
         />
       </PageHeading>
 
-      <ListBroadcasts />
+      <EmptyBookmark
+        imgSrc={emptyBookmark}
+        imgAlt="empty bookmark"
+        h1Text="Want to read a Broadcast later?"
+        h2Text="Bookmark that"
+      />
+
+      {/* this commented code will get removed in subsequent PR's */}
+
+      {/* <ListBroadcasts /> */}
     </>
   );
 };

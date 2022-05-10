@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import styles from "./OptionsMenu.module.css";
 import { Menu, MenuItem } from "@mui/material";
 
@@ -24,8 +25,16 @@ export const OptionsMenu = ({ anchorEl, setAnchorEl, menuItems }) => {
       }}
       className={styles.menuContainer}
     >
-      {menuItems.map(({ _id, item }) => (
-        <MenuItem key={_id} disableRipple onClick={handleClose}>
+      {menuItems.map(({ _id, color, item }) => (
+        <MenuItem
+          key={_id}
+          disableRipple
+          onClick={handleClose}
+          className={classNames(
+            styles.menuItem,
+            color === "error" ? styles.error : ""
+          )}
+        >
           {item}
         </MenuItem>
       ))}

@@ -1,0 +1,16 @@
+div.dialog_content {
+  padding: 0.5rem 2rem 0;
+}
+
+div.dialog_content textarea {
+  border-bottom: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  color: var(--COLOR-TEXT);
+  font-size: 1.8rem;
+  line-height: 1.5em;
+  padding: 0.5rem 0;
+}
+
+div.dialog_content *::after,
+div.dialog_content *::before {
+  display: none;
+}

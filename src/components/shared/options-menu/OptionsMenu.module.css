@@ -1,0 +1,41 @@
+li.menuItem {
+  font-size: 1.5rem;
+  padding: 1.5rem;
+}
+
+li.menuItem:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+li.menuItem.error {
+  color: var(--COLOR-ERROR);
+}
+
+li.menuItem:not(.error) {
+  color: var(--COLOR-TEXT);
+}
+
+li.menuItem svg {
+  height: 3rem;
+  width: 3rem;
+}
+
+li.menuItem.error svg {
+  fill: var(--COLOR-ERROR);
+}
+
+li.menuItem:not(.error) svg {
+  fill: var(--COLOR-TEXT);
+}
+
+li.menuItem svg > path {
+  transform: translate(10%, 10%) scale(0.5);
+}
+
+.menuContainer > div:nth-child(3) {
+  box-shadow: 0.2rem 0.2rem 2rem var(--COLOR-BACKGROUND-DARK-100);
+}
+
+.menuContainer > div:nth-child(3) ul {
+  padding: 0;
+}

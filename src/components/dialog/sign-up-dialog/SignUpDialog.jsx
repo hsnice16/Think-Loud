@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "./SignUpDialog.module.css";
+
 import {
   DialogActionsCloseIcon,
   FormButton,

@@ -1,22 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
-import { HimanshuJPG } from "assets";
 import { BROADCAST_MAX_CHARACTERS } from "utils";
-import styles from "./BroadcastDialog.module.css";
+
 import {
-  AvatarGridBox,
-  CircularProgressWithLabel,
-  CustomButton,
+  BroadcastDialogActions,
+  BroadcastDialogContainer,
+  BroadcastDialogContent,
   DialogActionsCloseIcon,
 } from "components";
-import {
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  TextField,
-} from "@mui/material";
 
 export const BroadcastDialog = ({
   openBroadcastDialog,
@@ -34,56 +25,19 @@ export const BroadcastDialog = ({
   };
 
   return (
-    <Dialog
-      open={openBroadcastDialog}
-      onClose={handleClose}
-      className={styles.dialogContainer}
+    <BroadcastDialogContainer
+      openDialog={openBroadcastDialog}
+      handleClose={handleClose}
     >
       <DialogActionsCloseIcon handleClose={handleClose} />
 
-      <DialogContent className={styles.dialog_content}>
-        <AvatarGridBox imgSrc={HimanshuJPG} imgAlt="Himanshu Avatar">
-          <TextField
-            autoFocus
-            type="text"
-            fullWidth
-            multiline
-            minRows={4}
-            variant="standard"
-            placeholder="What are you thinking?"
-            value={postText}
-            onChange={handlePostTextChange}
-          />
-        </AvatarGridBox>
-      </DialogContent>
+      <BroadcastDialogContent
+        postText={postText}
+        handlePostTextChange={handlePostTextChange}
+      />
 
-      <DialogActions className={styles.action_broadcast}>
-        {BROADCAST_MAX_CHARACTERS - postText.length > 20 ? (
-          <CircularProgress
-            size="2rem"
-            sx={{ marginRight: "1rem" }}
-            variant="determinate"
-            value={Math.round(
-              (postText.length * 100) / BROADCAST_MAX_CHARACTERS
-            )}
-          />
-        ) : (
-          <CircularProgressWithLabel
-            value={BROADCAST_MAX_CHARACTERS - postText.length}
-          />
-        )}
-
-        <CustomButton
-          disabled={postText === ""}
-          className={classNames(
-            styles.btn_broadcast,
-            postText === "" ? styles.btn_disabled : ""
-          )}
-        >
-          Broadcast
-        </CustomButton>
-      </DialogActions>
-    </Dialog>
+      <BroadcastDialogActions postText={postText} btnText="Broadcast" />
+    </BroadcastDialogContainer>
   );
 };
 

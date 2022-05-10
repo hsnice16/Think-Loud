@@ -2,18 +2,24 @@ import { useState } from "react";
 import { ProfileData } from "data";
 import classNames from "classnames";
 import styles from "./Profile.module.css";
-import { FilledAccountCircleIcon, LinkIcon } from "assets";
 import { useDocumentTitle, useScrollToTop } from "custom-hooks";
 import { Button, Box, Link, Tab, Tabs, Typography } from "@mui/material";
-import { EditProfileDialog, ListBroadcasts, PageHeading } from "components";
+import { FilledAccountCircleIcon, LinkIcon, noBroadcasts } from "assets";
+
+import {
+  EditProfileDialog,
+  EmptyBookmark,
+  ListBroadcasts,
+  PageHeading,
+} from "components";
 
 const { tabsOptions } = ProfileData;
 
 export const Profile = () => {
   const [newProfileData, setNewProfileData] = useState({
     name: "Himanshu Singh",
-    bio: "Learning at @neogcamp '22 | Participant @girlscriptsoc | Contributor @hacktoberfest\n\nFollow to read tweets around React JS, JavaScript, Web Dev, and Programming",
-    websiteURL: "https://dynamicprogrammer.hashnode.dev",
+    bio: "",
+    websiteURL: "",
   });
   const slicedWebsiteURL = newProfileData.websiteURL.slice(8);
 
@@ -62,21 +68,21 @@ export const Profile = () => {
         Edit Profile
       </Button> */}
 
-      <Button
+      {/* <Button
         variant="contained"
         onClick={() => setOpenEditProfileDialog(true)}
         className={classNames(styles.btn, styles.btn_follow)}
       >
         Follow
-      </Button>
+      </Button> */}
 
-      {/* <Button
+      <Button
         variant="outlined"
         onClick={() => setOpenEditProfileDialog(true)}
         className={classNames(styles.btn, styles.btn_unfollow)}
       >
         Unfollow
-      </Button> */}
+      </Button>
 
       <Box mt={2} pl={2} className={styles.border_bottom}>
         <Typography component="h3" fontWeight="bold" variant="h4">
@@ -112,10 +118,10 @@ export const Profile = () => {
 
         <Box className={styles.url_container}>
           <Typography fontSize="1.5rem">
-            <Box component="strong">320</Box> Following
+            <Box component="strong">0</Box> Following
           </Typography>
           <Typography fontSize="1.5rem" ml="1rem">
-            <Box component="strong">326</Box> Followers
+            <Box component="strong">0</Box> Followers
           </Typography>
         </Box>
 
@@ -131,7 +137,16 @@ export const Profile = () => {
         </Tabs>
       </Box>
 
-      <ListBroadcasts />
+      <EmptyBookmark
+        imgSrc={noBroadcasts}
+        imgAlt="no broadcasts"
+        h1Text="Something's going in your mind?"
+        h2Text="Broadcast it"
+      />
+
+      {/* this commented code will get removed in subsequent PR's */}
+
+      {/* <ListBroadcasts /> */}
     </Box>
   );
 };

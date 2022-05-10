@@ -1,0 +1,7 @@
+.dialogContainer > div:nth-child(3) {
+  align-items: flex-start;
+}
+
+.dialogContainer > div:nth-child(3) > div {
+  width: 50rem;
+}

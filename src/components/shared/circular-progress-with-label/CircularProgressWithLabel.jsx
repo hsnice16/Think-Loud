@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Box, CircularProgress, Typography } from "@mui/material";
 
 export const CircularProgressWithLabel = ({ value }) => {
@@ -34,4 +35,12 @@ export const CircularProgressWithLabel = ({ value }) => {
       </Box>
     </Box>
   );
+};
+
+CircularProgressWithLabel.propTypes = {
+  value: PropTypes.number,
+};
+
+CircularProgressWithLabel.defaultProps = {
+  value: 0,
 };

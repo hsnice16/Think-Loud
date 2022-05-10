@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
 import PropTypes from "prop-types";
+import { Box } from "@mui/material";
 import styles from "./FormWrapper.module.css";
 
 export const FormWrapper = ({ children }) => {
