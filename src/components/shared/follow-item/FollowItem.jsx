@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { HimanshuJPG } from "assets";
-import { Avatar, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
+import { CustomAvatar } from "components";
+import { ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 
 export const FollowItem = ({
   avatarSxStyles,
@@ -19,14 +19,7 @@ export const FollowItem = ({
       onClick={onClick}
     >
       <ListItemAvatar sx={{ minWidth: "1rem" }}>
-        <Avatar
-          sx={avatarSxStyles}
-          alt="Himanshu Avatar"
-          src={HimanshuJPG}
-          imgProps={{
-            loading: "lazy",
-          }}
-        />
+        <CustomAvatar sxStyles={avatarSxStyles} />
       </ListItemAvatar>
 
       <ListItemText

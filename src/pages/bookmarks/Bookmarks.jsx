@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "./Bookmarks.module.css";
 import { Box, Typography } from "@mui/material";
 import { emptyBookmark, EllipsisHorizontalIcon } from "assets";
 import { useDocumentTitle, useScrollToTop } from "custom-hooks";
@@ -24,7 +23,7 @@ export const Bookmarks = () => {
 
   return (
     <>
-      <PageHeading className={styles.pageHeading}>
+      <PageHeading>
         <Box>
           <Typography component="h1" fontWeight="bold" variant="h4">
             Bookmarks
@@ -50,16 +49,16 @@ export const Bookmarks = () => {
         />
       </PageHeading>
 
-      <EmptyBookmark
+      {/* this commented code will get removed in subsequent PR's */}
+
+      {/* <EmptyBookmark
         imgSrc={emptyBookmark}
         imgAlt="empty bookmark"
         h1Text="Want to read a Broadcast later?"
         h2Text="Bookmark that"
-      />
+      /> */}
 
-      {/* this commented code will get removed in subsequent PR's */}
-
-      {/* <ListBroadcasts /> */}
+      <ListBroadcasts />
     </>
   );
 };

@@ -34,6 +34,10 @@ button.btn_unfollow:hover {
   color: var(--COLOR-SEARCH-BACKGROUND);
 }
 
+div.tabs {
+  margin-top: 1rem;
+}
+
 div.tabs button {
   font-size: 1.5rem;
   text-transform: none;

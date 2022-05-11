@@ -11,7 +11,11 @@ li.menuItem.error {
   color: var(--COLOR-ERROR);
 }
 
-li.menuItem:not(.error) {
+li.menuItem.warning {
+  color: var(--COLOR-FOLLOW-BACKGROUND);
+}
+
+li.menuItem:not(.error, .warning) {
   color: var(--COLOR-TEXT);
 }
 
@@ -24,7 +28,11 @@ li.menuItem.error svg {
   fill: var(--COLOR-ERROR);
 }
 
-li.menuItem:not(.error) svg {
+li.menuItem.warning svg {
+  fill: var(--COLOR-FOLLOW-BACKGROUND);
+}
+
+li.menuItem:not(.error, .warning) svg {
   fill: var(--COLOR-TEXT);
 }
 

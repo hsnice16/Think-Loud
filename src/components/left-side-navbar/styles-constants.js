@@ -5,6 +5,12 @@ export const AccountCircleSx = {
   width: "max-content",
 };
 
+export const AvatarSxStyles = {
+  "& svg > path": {
+    transform: "translateX(-0.4rem)",
+  },
+};
+
 export const BroadcastBtnSx = {
   boxShadow: "0.1rem 0.1rem 0.2rem var(--COLOR-TEXT)",
   fontSize: "2.2rem",
