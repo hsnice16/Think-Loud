@@ -8,6 +8,7 @@ export const BroadcastDialogContent = ({
   children,
   postText,
   handlePostTextChange,
+  minRows,
 }) => {
   return (
     <DialogContent className={styles.dialog_content}>
@@ -19,7 +20,7 @@ export const BroadcastDialogContent = ({
           type="text"
           fullWidth
           multiline
-          minRows={4}
+          minRows={minRows}
           variant="standard"
           placeholder="What are you thinking?"
           value={postText}
@@ -34,10 +35,12 @@ BroadcastDialogContent.propTypes = {
   children: PropTypes.node,
   postText: PropTypes.string,
   handlePostTextChange: PropTypes.func,
+  minRows: PropTypes.number,
 };
 
 BroadcastDialogContent.defaultProps = {
   children: <></>,
   postText: "",
   handlePostTextChange: () => {},
+  minRows: 4,
 };

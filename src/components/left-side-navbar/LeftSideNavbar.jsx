@@ -8,6 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import {
   AccountCircleSx,
+  AvatarSxStyles,
   BroadcastBtnSx,
   ListItemSx,
 } from "./styles-constants";
@@ -96,6 +97,7 @@ export const LeftSideNavbar = () => {
 
       <FollowItem
         onClick={() => setOpenLogoutDialog(true)}
+        avatarSxStyles={AvatarSxStyles}
         itemComponent="button"
         itemSxStyles={AccountCircleSx}
         textClassName={classNames(

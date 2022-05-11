@@ -1,0 +1,4 @@
+.textArea_container {
+  border-bottom: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  padding: 2rem 0 0;
+}

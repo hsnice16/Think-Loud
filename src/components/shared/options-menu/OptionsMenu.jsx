@@ -32,7 +32,7 @@ export const OptionsMenu = ({ anchorEl, setAnchorEl, menuItems }) => {
           onClick={handleClose}
           className={classNames(
             styles.menuItem,
-            color === "error" ? styles.error : ""
+            color !== "normal" ? styles[color] : ""
           )}
         >
           {item}

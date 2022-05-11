@@ -15,8 +15,8 @@ import {
   DeleteIcon,
   EditIcon,
   EllipsisHorizontalIcon,
-  OutlinedBookmarkIcon,
-  OutlinedHeartIcon,
+  FilledBookmarkIcon,
+  FilledHeartIcon,
   FollowAccountIcon,
   HimanshuJPG,
   UnfollowAccountIcon,
@@ -125,8 +125,8 @@ export const BroadcastBox = () => {
               {
                 _id: "0070",
                 ariaLabel: "like",
-                count: 0,
-                Icon: OutlinedHeartIcon,
+                count: 10,
+                Icon: FilledHeartIcon,
                 clickHandler: () => {},
               },
               {
@@ -140,7 +140,7 @@ export const BroadcastBox = () => {
                 _id: "0072",
                 ariaLabel: "bookmark",
                 count: 0,
-                Icon: OutlinedBookmarkIcon,
+                Icon: FilledBookmarkIcon,
                 clickHandler: () => {},
               },
             ].map(({ _id, ariaLabel, count, Icon, clickHandler }) => (

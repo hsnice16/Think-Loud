@@ -27,6 +27,7 @@ export { BroadcastDialogContent } from "./shared/broadcast-dialog-content/Broadc
 export { CircularProgressWithLabel } from "./shared/circular-progress-with-label/CircularProgressWithLabel";
 export { ConnectWithMeLink } from "./shared/connect-with-me-link/ConnectWithMeLink";
 
+export { CustomAvatar } from "./shared/custom-avatar/CustomAvatar";
 export { CustomButton } from "./shared/custom-button/CustomButton";
 export { CustomIconButton } from "./shared/custom-icon-button/CustomIconButton";
 

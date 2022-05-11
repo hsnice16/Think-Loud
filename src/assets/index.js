@@ -19,9 +19,13 @@ export { FilledHeartIcon } from "./icons/FilledHeartIcon";
 export { FilledHomeIcon } from "./icons/FilledHomeIcon";
 export { FilledProfileIcon } from "./icons/FilledProfileIcon";
 
+export { FilterIcon } from "./icons/FilterIcon";
 export { FollowAccountIcon } from "./icons/FollowAccountIcon";
 
+export { GoBackIcon } from "./icons/GoBackIcon";
 export { HashtagIcon } from "./icons/HashtagIcon";
+
+export { LatestIcon } from "./icons/LatestIcon";
 export { LinkIcon } from "./icons/LinkIcon";
 
 export { OpenInNewIcon } from "./icons/OpenInNewIcon";

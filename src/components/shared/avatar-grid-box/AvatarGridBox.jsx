@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import { Avatar, Box } from "@mui/material";
+import { Box } from "@mui/material";
+import { CustomAvatar } from "components";
 
 export const AvatarGridBox = ({ children, imgSrc, imgAlt, className }) => {
   return (
@@ -10,15 +11,10 @@ export const AvatarGridBox = ({ children, imgSrc, imgAlt, className }) => {
       className={className}
     >
       <Box gridColumn="span 1">
-        <Avatar
-          sx={{
+        <CustomAvatar
+          sxStyles={{
             height: "5rem",
             width: "5rem",
-          }}
-          alt={imgAlt}
-          src={imgSrc}
-          imgProps={{
-            loading: "lazy",
           }}
         />
       </Box>
