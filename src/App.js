@@ -4,15 +4,21 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Box, Container, useMediaQuery } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { LeftSideNavbar, RightSideBar } from "components";
-import { Bookmarks, Explore, Home, Landing, Profile } from "pages";
 import {
-  CustomTheme,
-  ROUTE_BOOKMARKS,
-  ROUTE_EXPLORE,
+  ProtectRoute,
+  RightSideBar,
+  RestrictRoute,
+  LeftSideNavbar,
+} from "components";
+import { Bookmarks, Explore, Home, Landing, Profile } from "pages";
+
+import {
   ROUTE_HOME,
+  CustomTheme,
+  ROUTE_EXPLORE,
   ROUTE_LANDING,
   ROUTE_PROFILE,
+  ROUTE_BOOKMARKS,
 } from "utils";
 
 function App() {
@@ -23,7 +29,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       {location.pathname === ROUTE_LANDING ? (
-        <Landing />
+        <Routes>
+          <Route element={<RestrictRoute />}>
+            <Route path={ROUTE_LANDING} element={<Landing />} />
+          </Route>
+        </Routes>
       ) : (
         <Container className="container-lg">
           <Box
@@ -39,10 +49,12 @@ function App() {
               gridColumn={matches ? "span 9" : "span 6"}
             >
               <Routes>
-                <Route path={ROUTE_BOOKMARKS} element={<Bookmarks />} />
-                <Route path={ROUTE_EXPLORE} element={<Explore />} />
-                <Route path={ROUTE_HOME} element={<Home />} />
-                <Route path={ROUTE_PROFILE} element={<Profile />} />
+                <Route element={<ProtectRoute />}>
+                  <Route path={ROUTE_BOOKMARKS} element={<Bookmarks />} />
+                  <Route path={ROUTE_EXPLORE} element={<Explore />} />
+                  <Route path={ROUTE_HOME} element={<Home />} />
+                  <Route path={ROUTE_PROFILE} element={<Profile />} />
+                </Route>
               </Routes>
             </Box>
 

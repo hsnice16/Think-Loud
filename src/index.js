@@ -1,9 +1,12 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-import App from "./App";
-import { BrowserRouter } from "react-router-dom";
 import { makeServer } from "./server";
+
+import App from "./App";
+import { Compose } from "components";
+import { UserProvider } from "context";
+import { BrowserRouter } from "react-router-dom";
 
 // Call make Server
 makeServer();
@@ -13,8 +16,8 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <Compose components={[BrowserRouter, UserProvider]}>
       <App />
-    </BrowserRouter>
+    </Compose>
   </React.StrictMode>
 );

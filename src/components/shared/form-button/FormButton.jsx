@@ -1,27 +1,46 @@
 import PropTypes from "prop-types";
 import { spinnerGIF } from "assets";
+import classNames from "classnames";
 import { Button } from "@mui/material";
+import { isStatusLoading } from "utils";
 import styles from "./FormButton.module.css";
 
-export const FormButton = ({ sxStyles, btnText }) => {
+export const FormButton = ({ btnText, onClick, status, sxStyles }) => {
   return (
-    <Button sx={sxStyles} variant="contained" fullWidth>
-      <img
-        src={spinnerGIF}
-        alt="loading spinner, gif"
-        className={styles.spinnerImg}
-      />
+    <Button
+      fullWidth
+      sx={sxStyles}
+      onClick={onClick}
+      variant="contained"
+      disabled={isStatusLoading(status)}
+      className={
+        isStatusLoading(status)
+          ? classNames(styles.btn, styles.btn_disabled)
+          : ""
+      }
+    >
+      {isStatusLoading(status) && (
+        <img
+          src={spinnerGIF}
+          alt="loading spinner, gif"
+          className={styles.spinnerImg}
+        />
+      )}
       {btnText}
     </Button>
   );
 };
 
 FormButton.propTypes = {
-  sxStyles: PropTypes.object,
+  onClick: PropTypes.func,
+  status: PropTypes.string,
   btnText: PropTypes.string,
+  sxStyles: PropTypes.object,
 };
 
 FormButton.defaultProps = {
-  sxStyles: {},
+  status: "",
   btnText: "",
+  sxStyles: {},
+  onClick: () => {},
 };

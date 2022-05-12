@@ -1,0 +1,3 @@
+export const ACTION_TYPE_ERROR = "ERROR";
+export const ACTION_TYPE_LOADING = "LOADING";
+export const ACTION_TYPE_SUCCESS = "SUCCESS";

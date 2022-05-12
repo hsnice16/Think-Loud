@@ -1,26 +1,37 @@
 import PropTypes from "prop-types";
-import { SignInDialogData } from "data";
+import { useAuthHandler } from "custom-hooks";
 import styles from "./SignInDialog.module.css";
 
 import {
-  DialogActionsCloseIcon,
+  FormError,
   FormButton,
   FormHeading,
   FormWrapper,
   PasswordInput,
+  DialogActionsCloseIcon,
 } from "components";
+
 import {
-  Checkbox,
   Dialog,
+  Checkbox,
+  TextField,
   DialogActions,
   DialogContent,
   FormControlLabel,
-  TextField,
 } from "@mui/material";
 
-const { buttonData } = SignInDialogData;
-
 export const SignInDialog = ({ openSignInDialog, setOpenSignInDialog }) => {
+  const {
+    status,
+    error,
+    email,
+    password,
+    rememberMe,
+    handleInputChange,
+    handleGuestLogInClick,
+    handleSignInFormSubmit,
+  } = useAuthHandler();
+
   const handleClose = () => {
     setOpenSignInDialog(false);
   };
@@ -32,33 +43,52 @@ export const SignInDialog = ({ openSignInDialog, setOpenSignInDialog }) => {
       <DialogContent className={styles.dialogContent}>
         <FormHeading headingText="Log In" />
 
+        {status === "error" && <FormError errorToShow={error} />}
+
         <FormWrapper>
           <TextField
             autoFocus
-            label="Email Address"
             type="email"
+            name="email"
+            value={email}
+            label="Email Address"
+            onChange={handleInputChange}
+            InputLabelProps={{ shrink: true }}
             placeholder="think.loud@example.com"
-            InputLabelProps={{
-              shrink: true,
-            }}
           />
 
-          <PasswordInput label="Password" placeholder="password" />
+          <PasswordInput
+            name="password"
+            label="Password"
+            value={password}
+            placeholder="password"
+            onChange={handleInputChange}
+          />
 
           <FormControlLabel
-            value="remember-me"
-            control={<Checkbox disableRipple />}
             label="Remember me"
-            aria-label="remember me"
             labelPlacement="end"
+            checked={rememberMe}
+            aria-label="remember me"
+            onChange={handleInputChange}
+            control={<Checkbox disableRipple />}
           />
         </FormWrapper>
       </DialogContent>
 
       <DialogActions className={styles.action_logIn}>
-        {buttonData.map(({ _id, btnText, sxStyles }) => (
-          <FormButton key={_id} sxStyles={sxStyles} btnText={btnText} />
-        ))}
+        <FormButton
+          status={status}
+          btnText="Log In"
+          onClick={handleSignInFormSubmit}
+          sxStyles={{ margin: "1rem 0 0.5rem" }}
+        />
+        <FormButton
+          status={status}
+          btnText="Log In as a Guest"
+          onClick={handleGuestLogInClick}
+          sxStyles={{ margin: "0.5rem 0 0" }}
+        />
       </DialogActions>
     </Dialog>
   );

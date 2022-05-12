@@ -1,23 +1,38 @@
 import PropTypes from "prop-types";
+import { useAuthHandler } from "custom-hooks";
 import styles from "./SignUpDialog.module.css";
 
 import {
-  DialogActionsCloseIcon,
+  FormError,
   FormButton,
   FormHeading,
   FormWrapper,
   PasswordInput,
+  DialogActionsCloseIcon,
 } from "components";
+
 import {
   Box,
   Dialog,
-  DialogActions,
-  DialogContent,
   TextField,
   Typography,
+  DialogActions,
+  DialogContent,
 } from "@mui/material";
 
 export const SignUpDialog = ({ openSignUpDialog, setOpenSignUpDialog }) => {
+  const {
+    error,
+    email,
+    status,
+    lastName,
+    password,
+    firstName,
+    confirmPassword,
+    handleInputChange,
+    handleSignUpFormSubmit,
+  } = useAuthHandler();
+
   const handleClose = () => {
     setOpenSignUpDialog(false);
   };
@@ -29,38 +44,58 @@ export const SignUpDialog = ({ openSignUpDialog, setOpenSignUpDialog }) => {
       <DialogContent className={styles.dialogContent}>
         <FormHeading headingText="Sign Up" />
 
+        {status === "error" && <FormError errorToShow={error} />}
+
         <FormWrapper>
           <Box className={styles.textInput_container}>
             <TextField
               autoFocus
-              label="First Name"
               type="text"
+              name="firstName"
+              value={firstName}
+              label="First Name"
               placeholder="Think"
+              onChange={handleInputChange}
               InputLabelProps={{ shrink: true }}
             />
 
             <TextField
-              label="Last Name"
               type="text"
+              name="lastName"
+              value={lastName}
+              label="Last Name"
               placeholder="Loud"
+              onChange={handleInputChange}
               InputLabelProps={{ shrink: true }}
             />
           </Box>
 
           <TextField
-            label="Email Address"
             type="email"
-            placeholder="think.loud@example.com"
+            name="email"
+            value={email}
+            label="Email Address"
+            onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            placeholder="think.loud@example.com"
           />
 
-          <PasswordInput label="Password" placeholder="password" />
+          <PasswordInput
+            name="password"
+            label="Password"
+            value={password}
+            placeholder="password"
+            onChange={handleInputChange}
+          />
           <Typography mb="1rem" fontSize="1.2rem">
             Should be Alpha Numeric and should have minimum length 6.
           </Typography>
 
           <PasswordInput
+            name="confirmPassword"
+            value={confirmPassword}
             label="Confirm Password"
+            onChange={handleInputChange}
             placeholder="confirm password"
           />
         </FormWrapper>
@@ -72,7 +107,11 @@ export const SignUpDialog = ({ openSignUpDialog, setOpenSignUpDialog }) => {
       </DialogContent>
 
       <DialogActions className={styles.action_signUp}>
-        <FormButton btnText="Create New Account" />
+        <FormButton
+          status={status}
+          btnText="Create New Account"
+          onClick={handleSignUpFormSubmit}
+        />
       </DialogActions>
     </Dialog>
   );

@@ -4,7 +4,13 @@ import styles from "./PasswordInput.module.css";
 import { EyeCloseIcon, EyeOpenIcon } from "assets";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 
-export const PasswordInput = ({ label, placeholder }) => {
+export const PasswordInput = ({
+  name,
+  label,
+  value,
+  onChange,
+  placeholder,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -13,12 +19,13 @@ export const PasswordInput = ({ label, placeholder }) => {
 
   return (
     <TextField
+      name={name}
       label={label}
+      value={value}
+      onChange={onChange}
+      InputLabelProps={{ shrink: true }}
       type={showPassword ? "text" : "password"}
       placeholder={showPassword ? placeholder : "********"}
-      InputLabelProps={{
-        shrink: true,
-      }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -42,11 +49,17 @@ export const PasswordInput = ({ label, placeholder }) => {
 };
 
 PasswordInput.propTypes = {
+  name: PropTypes.string,
   label: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
 };
 
 PasswordInput.defaultProps = {
+  name: "",
   label: "",
+  value: "",
   placeholder: "",
+  onChange: () => {},
 };
