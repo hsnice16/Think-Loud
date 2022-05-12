@@ -15,14 +15,14 @@ export const getAllUsersHandler = function () {
 };
 
 /**
- * This handler handles get a user from userId in the db.
- * send GET Request at /api/users/:userId
+ * This handler handles get a user from username in the db.
+ * send GET Request at /api/users/:username
  * */
 
 export const getUserHandler = function (schema, request) {
-  const userId = request.params.userId;
+  const username = request.params.username;
   try {
-    const user = schema.users.findBy({ _id: userId }).attrs;
+    const user = schema.users.findBy({ username }).attrs;
     return new Response(200, {}, { user });
   } catch (error) {
     return new Response(
@@ -32,6 +32,28 @@ export const getUserHandler = function (schema, request) {
         error,
       }
     );
+  }
+};
+
+/**
+ * This handler handles get the three unfollowed user
+ * by username in the db.
+ * send GET Request at /api/users/uf/:username
+ */
+
+export const getUnfollowedUserHandler = function (schema, request) {
+  const username = request.params.username;
+
+  try {
+    const user = schema.users.findBy({ username }).attrs;
+    const users = this.db.users.filter(
+      (currUser) =>
+        currUser.username !== user.username &&
+        !user.following.some(({ username }) => username === currUser.username)
+    );
+    return new Response(200, {}, { users: users.slice(0, 3) });
+  } catch (error) {
+    return new Response(500, {}, { error });
   }
 };
 

@@ -55,7 +55,8 @@ export const useCookieHandler = () => {
     };
 
     document.cookie.split(";").forEach((cookie) => {
-      const [key, value] = cookie.split("=");
+      let [key, value] = cookie.split("=");
+      value = decodeURIComponent(value);
 
       switch (key.trim()) {
         case userAuthTokenCookieKey:

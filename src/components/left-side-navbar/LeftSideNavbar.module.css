@@ -1,12 +1,27 @@
-.accountCircle_btn {
+button.accountCircle_btn {
   background-color: transparent;
   border: none;
   cursor: pointer;
   margin-left: 1rem;
+  max-width: 25rem;
+  padding: 0 1.5rem 0 1.2rem;
+  width: 25rem;
 }
 
-.accountCircle_btn .accountCircle_btnText > :is(span, p) {
+button.accountCircle_btn .accountCircle_btnText > :is(span, p) {
   font-size: 1.5rem;
+}
+
+button.broadcast_btn {
+  box-shadow: 0.1rem 0.1rem 0.2rem var(--COLOR-TEXT);
+  font-size: 2.2rem;
+  margin-top: 3rem;
+  padding: 0.5rem 1.2rem;
+  width: 18rem;
+}
+
+button.broadcast_btn:hover {
+  box-shadow: 0.1rem 0.1rem 0.2rem var(--COLOR-TEXT);
 }
 
 .aside {

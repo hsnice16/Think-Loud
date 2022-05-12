@@ -1,17 +1,12 @@
 import { useState } from "react";
-import { ROUTE_HOME } from "utils";
+import { useUser } from "context";
 import classNames from "classnames";
 import { LeftSideNavbarData } from "data";
 import { EllipsisHorizontalIcon } from "assets";
 import styles from "./LeftSideNavbar.module.css";
+import { ROUTE_HOME, ROUTE_PROFILE } from "utils";
 import { Link, useLocation } from "react-router-dom";
 
-import {
-  AccountCircleSx,
-  AvatarSxStyles,
-  BroadcastBtnSx,
-  ListItemSx,
-} from "./styles-constants";
 import {
   BroadcastDialog,
   CustomButton,
@@ -24,17 +19,20 @@ const { logoImg, links } = LeftSideNavbarData;
 
 export const LeftSideNavbar = () => {
   const location = useLocation();
+  const {
+    userState: { userFullName, userUsername },
+  } = useUser();
 
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
   const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);
 
   return (
     <Box
+      py={2}
       component="aside"
       gridColumn="span 2"
-      py={2}
-      className={classNames("aside", styles.aside)}
       sx={{ flexDirection: "column" }}
+      className={classNames("aside", styles.aside)}
     >
       <BroadcastDialog
         openBroadcastDialog={openBroadcastDialog}
@@ -50,23 +48,28 @@ export const LeftSideNavbar = () => {
         <Link to={ROUTE_HOME}>
           <img
             loading="lazy"
-            className={styles.logoImg}
             src={logoImg.src}
             alt={logoImg.altText}
+            className={styles.logoImg}
           />
         </Link>
 
         <List component="nav" sx={{ marginTop: "2rem" }}>
           {links.map(({ _id, link }) => {
-            const isLinkActive = location.pathname === link.url;
+            const url =
+              link.url === ROUTE_PROFILE
+                ? `${link.url}/${userUsername}`
+                : link.url;
+
+            const isLinkActive = location.pathname === url;
 
             return (
               <ListItem
+                to={url}
                 key={_id}
                 component={Link}
-                to={link.url}
                 className={styles.link}
-                sx={ListItemSx}
+                sx={{ padding: "0.3rem 1.5rem 0.3rem 1.2rem" }}
               >
                 <ListItemIcon sx={{ minWidth: "1rem" }}>
                   {isLinkActive ? (
@@ -88,24 +91,29 @@ export const LeftSideNavbar = () => {
         </List>
 
         <CustomButton
+          className={styles.broadcast_btn}
           onClick={() => setOpenBroadcastDialog(true)}
-          sxStyles={BroadcastBtnSx}
         >
           Broadcast
         </CustomButton>
       </Box>
 
       <FollowItem
-        onClick={() => setOpenLogoutDialog(true)}
-        avatarSxStyles={AvatarSxStyles}
         itemComponent="button"
-        itemSxStyles={AccountCircleSx}
+        fullName={userFullName}
+        username={userUsername}
+        onClick={() => setOpenLogoutDialog(true)}
+        itemClassName={classNames(styles.link, styles.accountCircle_btn)}
+        avatarSxStyles={{
+          "& svg > path": {
+            transform: "translateX(-0.4rem)",
+          },
+        }}
         textClassName={classNames(
           styles.listText,
           styles.listText_active,
           styles.accountCircle_btnText
         )}
-        itemClassName={classNames(styles.link, styles.accountCircle_btn)}
       >
         <ListItemIcon sx={{ minWidth: "1rem" }}>
           <EllipsisHorizontalIcon className={classNames(styles.ellipsisIcon)} />

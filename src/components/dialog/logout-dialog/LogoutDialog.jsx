@@ -11,33 +11,36 @@ import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 export const LogoutDialog = ({ openLogoutDialog, setOpenLogoutDialog }) => {
   const navigate = useNavigate();
   const { eraseCookies } = useCookieHandler();
-  const { userInitialState, setUserState } = useUser();
+  const {
+    userInitialState,
+    userState: { userFullName, userUsername },
+    setUserState,
+  } = useUser();
 
   const handleClose = () => {
     setOpenLogoutDialog(false);
   };
 
   const handleLogOutClick = () => {
-    setUserState(userInitialState);
     eraseCookies();
+    setUserState(userInitialState);
     navigate(ROUTE_LANDING, { replace: true });
   };
 
   return (
     <Dialog
-      open={openLogoutDialog}
       onClose={handleClose}
+      open={openLogoutDialog}
       className={styles.dialogContainer}
     >
       <DialogTitle className={styles.dialogTitle}>
         <FollowItem
           itemComponent="div"
+          fullName={userFullName}
+          username={userUsername}
           itemSxStyles={{ paddingBottom: "0" }}
-          avatarSxStyles={{
-            height: "4.5rem",
-            width: "4.5rem",
-          }}
           textClassName={styles.followItemText}
+          avatarSxStyles={{ height: "4.5rem", width: "4.5rem" }}
         >
           <TickIcon className={styles.tickIcon} />
         </FollowItem>

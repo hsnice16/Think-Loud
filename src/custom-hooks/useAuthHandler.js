@@ -77,8 +77,6 @@ export const useAuthHandler = () => {
         [propertyToGet]: { firstName, lastName, username },
       } = response.data;
 
-      console.log(username);
-
       const cookiesValue = {
         userAuthToken: encodedToken,
         userUsername: username,

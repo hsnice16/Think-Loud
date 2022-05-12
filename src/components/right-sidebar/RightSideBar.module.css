@@ -1,3 +1,14 @@
+button.followBtn {
+  background-color: var(--COLOR-FOLLOW-BACKGROUND);
+  font-size: 1.2rem;
+  padding: 0.4rem 1rem;
+  width: max-content;
+}
+
+button.followBtn:hover {
+  background-color: var(--COLOR-FOLLOW-BACKGROUND-DARK-100);
+}
+
 div.inputField {
   background-color: var(--COLOR-SEARCH-BACKGROUND);
   border-radius: 5rem;
@@ -24,14 +35,19 @@ div.inputField {
   font-weight: 600;
 }
 
-.listText > :is(span, p) {
+.listText > :is(a, p) {
   color: var(--COLOR-TEXT);
   font-size: 1.5rem;
   padding-left: 1rem;
 }
 
-.listText > span {
+.listText > a {
   font-weight: 600;
+  text-decoration: none;
+}
+
+.listText > a:hover {
+  text-decoration: underline;
 }
 
 .searchIcon {
