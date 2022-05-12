@@ -4,7 +4,7 @@ import styles from "./FormWrapper.module.css";
 
 export const FormWrapper = ({ children }) => {
   return (
-    <Box component="form" noValidate className={styles.form}>
+    <Box component="form" className={styles.form}>
       {children}
     </Box>
   );

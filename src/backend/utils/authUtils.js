@@ -9,7 +9,7 @@ export const requiresAuth = function (request) {
     process.env.REACT_APP_JWT_SECRET
   );
   if (decodedToken) {
-    const user = this.db.users.findBy({ username: decodedToken.username });
+    const user = this.db.users.findBy({ email: decodedToken.email });
     return user;
   }
   return new Response(
