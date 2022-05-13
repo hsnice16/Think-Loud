@@ -3,29 +3,33 @@ import { CustomAvatar } from "components";
 import { ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 
 export const FollowItem = ({
-  avatarSxStyles,
+  onClick,
   children,
+  fullName,
+  username,
+  linkProps,
+  itemSxStyles,
   itemClassName,
   itemComponent,
-  itemSxStyles,
   textClassName,
-  onClick,
+  avatarSxStyles,
 }) => {
   return (
     <ListItem
-      component={itemComponent}
-      className={itemClassName}
       sx={itemSxStyles}
       onClick={onClick}
+      component={itemComponent}
+      className={itemClassName}
     >
       <ListItemAvatar sx={{ minWidth: "1rem" }}>
         <CustomAvatar sxStyles={avatarSxStyles} />
       </ListItemAvatar>
 
       <ListItemText
-        primary="Himanshu Singh"
-        secondary="@hsnice16"
+        primary={fullName}
         className={textClassName}
+        secondary={`@${username}`}
+        primaryTypographyProps={linkProps}
       />
       {children}
     </ListItem>
@@ -33,21 +37,27 @@ export const FollowItem = ({
 };
 
 FollowItem.propTypes = {
-  avatarSxStyles: PropTypes.object,
+  onClick: PropTypes.func,
   children: PropTypes.node,
+  fullName: PropTypes.string,
+  username: PropTypes.string,
+  linkProps: PropTypes.object,
+  itemSxStyles: PropTypes.object,
   itemClassName: PropTypes.string,
   itemComponent: PropTypes.string,
-  itemSxStyles: PropTypes.object,
   textClassName: PropTypes.string,
-  onClick: PropTypes.func,
+  avatarSxStyles: PropTypes.object,
 };
 
 FollowItem.defaultProps = {
-  avatarSxStyles: {},
+  fullName: "",
+  username: "",
+  linkProps: {},
   children: <></>,
+  itemSxStyles: {},
   itemClassName: "",
   itemComponent: "",
-  itemSxStyles: {},
   textClassName: "",
   onClick: () => {},
+  avatarSxStyles: {},
 };

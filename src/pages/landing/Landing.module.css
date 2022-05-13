@@ -12,6 +12,18 @@ button.btn_logIn:hover {
   background-color: var(--COLOR-BACKGROUND-DARK-100);
 }
 
+button.btn_signUp {
+  box-shadow: 0.1rem 0.1rem 0.2rem var(--COLOR-TEXT);
+  font-size: 2rem;
+  margin-top: 3rem;
+  padding: 0.4rem 2rem;
+  width: 18rem;
+}
+
+button.btn_signUp:hover {
+  box-shadow: 0.1rem 0.1rem 0.2rem var(--COLOR-TEXT);
+}
+
 h1.text {
   margin: 4rem 0 2rem;
 }

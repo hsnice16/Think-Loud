@@ -5,17 +5,16 @@ import { useDocumentTitle } from "custom-hooks";
 import { Box, Grid, Typography } from "@mui/material";
 
 import {
-  BroadcastBtnSx,
-  ConnectWithMeLink,
   CustomButton,
   SignInDialog,
   SignUpDialog,
+  ConnectWithMeLink,
 } from "components";
 
 export const Landing = () => {
+  useDocumentTitle("Join today");
   const [openSignInDialog, setOpenSignInDialog] = useState(false);
   const [openSignUpDialog, setOpenSignUpDialog] = useState(false);
-  useDocumentTitle("Join today");
 
   return (
     <Box pb={4}>
@@ -41,10 +40,10 @@ export const Landing = () => {
 
         <Grid item sm={6} p={6}>
           <img
-            loading="lazy"
-            className={styles.logoImg}
             src={logoPNG}
+            loading="lazy"
             alt="think loud logo"
+            className={styles.logoImg}
           />
 
           <Box>
@@ -56,12 +55,8 @@ export const Landing = () => {
             </Typography>
 
             <CustomButton
+              className={styles.btn_signUp}
               onClick={() => setOpenSignUpDialog(true)}
-              sxStyles={{
-                ...BroadcastBtnSx,
-                fontSize: "2rem",
-                padding: "0.3rem 2rem",
-              }}
             >
               Sign Up now
             </CustomButton>
@@ -73,8 +68,8 @@ export const Landing = () => {
             </Typography>
 
             <CustomButton
-              onClick={() => setOpenSignInDialog(true)}
               className={styles.btn_logIn}
+              onClick={() => setOpenSignInDialog(true)}
             >
               Log In
             </CustomButton>

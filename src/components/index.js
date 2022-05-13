@@ -43,9 +43,7 @@ export { FormError } from "./shared/form-error/FormError";
 export { FormHeading } from "./shared/form-heading/FormHeading";
 export { FormWrapper } from "./shared/form-wrapper/FormWrapper";
 
+export { LoadingCircularProgress } from "./shared/loading-circular-progress/LoadingCircularProgress";
+
 export { OptionsMenu } from "./shared/options-menu/OptionsMenu";
 export { PasswordInput } from "./shared/password-input/PasswordInput";
-
-// sx style
-
-export * from "./left-side-navbar/styles-constants";

@@ -66,6 +66,7 @@ export const SignInDialog = ({ openSignInDialog, setOpenSignInDialog }) => {
           />
 
           <FormControlLabel
+            name="rememberMe"
             label="Remember me"
             labelPlacement="end"
             checked={rememberMe}
