@@ -8,6 +8,15 @@ export const API_TO_GET_USER_PROFILE = {
   propertyToGet: "user",
 };
 
+export const API_TO_POST_EDITED_USER_PROFILE = {
+  api: "/api/users/edit",
+  propertyToGet: "user",
+};
+
+export const API_TO_POST_FOLLOW_USER = {
+  api: "/api/users/follow",
+};
+
 export const API_TO_POST_SIGN_IN_DETAILS = {
   api: "/api/auth/login",
   propertyToGet: "foundUser",
@@ -16,4 +25,8 @@ export const API_TO_POST_SIGN_IN_DETAILS = {
 export const API_TO_POST_SIGN_UP_DETAILS = {
   api: "/api/auth/signup",
   propertyToGet: "createdUser",
+};
+
+export const API_TO_POST_UNFOLLOW_USER = {
+  api: "/api/users/unfollow",
 };

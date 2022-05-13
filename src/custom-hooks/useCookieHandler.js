@@ -4,9 +4,8 @@
  * @returns handler functions related to cookie
  */
 export const useCookieHandler = () => {
-  const userAuthTokenCookieKey = "ThinkLoudUserAuthToken";
   const userUsernameCookieKey = "ThinkLoudUserUsername";
-  const userFullNameCookieKey = "ThinkLoudUserFullName";
+  const userAuthTokenCookieKey = "ThinkLoudUserAuthToken";
 
   /**
    * setCookies - function to set cookies value
@@ -16,10 +15,9 @@ export const useCookieHandler = () => {
    * @param {boolean} rememberMe - is rememberMe checked or not
    */
   const setCookies = (cookiesValue, rememberMe) => {
-    const { userAuthToken, userUsername, userFullName } = cookiesValue;
+    const { userAuthToken, userUsername } = cookiesValue;
 
     let maxAge = "";
-
     if (rememberMe) {
       // for 2 days
       maxAge = `max-age=${60 * 60 * 24 * 2};`;
@@ -31,10 +29,6 @@ export const useCookieHandler = () => {
 
     document.cookie = `${userUsernameCookieKey}=${encodeURIComponent(
       userUsername
-    )};${maxAge}secure`;
-
-    document.cookie = `${userFullNameCookieKey}=${encodeURIComponent(
-      userFullName
     )};${maxAge}secure`;
   };
 
@@ -50,7 +44,6 @@ export const useCookieHandler = () => {
   const getCookies = () => {
     const allCookies = {
       userUsername: "",
-      userFullName: "",
       userAuthToken: "",
     };
 
@@ -67,10 +60,6 @@ export const useCookieHandler = () => {
           allCookies.userUsername = value;
           break;
 
-        case userFullNameCookieKey:
-          allCookies.userFullName = value;
-          break;
-
         default:
           console.log("not a valid cookie");
       }
@@ -83,11 +72,7 @@ export const useCookieHandler = () => {
    * eraseCookies - function to erase cookies value
    */
   const eraseCookies = () => {
-    [
-      userAuthTokenCookieKey,
-      userUsernameCookieKey,
-      userFullNameCookieKey,
-    ].forEach((cookieKey) => {
+    [userAuthTokenCookieKey, userUsernameCookieKey].forEach((cookieKey) => {
       document.cookie = `${cookieKey}=;max-age=0`;
     });
   };

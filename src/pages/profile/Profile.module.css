@@ -28,6 +28,7 @@ button.btn_unfollow {
   color: var(--COLOR-FOLLOW-BACKGROUND-DARK-100);
 }
 
+button:is(.btn_follow, .btn_unfollow).btn_disabled,
 button.btn_unfollow:hover {
   background-color: var(--COLOR-FOLLOW-BACKGROUND);
   border-color: var(--COLOR-FOLLOW-BACKGROUND);

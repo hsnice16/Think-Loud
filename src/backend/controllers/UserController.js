@@ -218,13 +218,13 @@ export const removePostFromBookmarkHandler = function (schema, request) {
 
 /**
  * This handler handles follow action.
- * send POST Request at /api/users/follow/:followUserId/
+ * send POST Request at /api/users/follow/:followUsername
  * */
 
 export const followUserHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
-  const { followUserId } = request.params;
-  const followUser = schema.users.findBy({ _id: followUserId }).attrs;
+  const { followUsername } = request.params;
+  const followUser = schema.users.findBy({ username: followUsername }).attrs;
   try {
     if (!user) {
       return new Response(
@@ -279,13 +279,13 @@ export const followUserHandler = function (schema, request) {
 
 /**
  * This handler handles unfollow action.
- * send POST Request at /api/users/unfollow/:followUserId/
+ * send POST Request at /api/users/unfollow/:followUsername
  * */
 
 export const unfollowUserHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
-  const { followUserId } = request.params;
-  const followUser = this.db.users.findBy({ _id: followUserId });
+  const { followUsername } = request.params;
+  const followUser = this.db.users.findBy({ username: followUsername });
   try {
     if (!user) {
       return new Response(

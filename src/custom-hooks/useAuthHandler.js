@@ -74,13 +74,12 @@ export const useAuthHandler = () => {
 
       const {
         encodedToken,
-        [propertyToGet]: { firstName, lastName, username },
+        [propertyToGet]: { username },
       } = response.data;
 
       const cookiesValue = {
-        userAuthToken: encodedToken,
         userUsername: username,
-        userFullName: `${firstName} ${lastName}`,
+        userAuthToken: encodedToken,
       };
 
       setUserState({

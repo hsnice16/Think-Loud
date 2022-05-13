@@ -9,6 +9,11 @@ button.followBtn:hover {
   background-color: var(--COLOR-FOLLOW-BACKGROUND-DARK-100);
 }
 
+button.followBtn.disabledBtn {
+  background-color: var(--COLOR-FOLLOW-BACKGROUND);
+  color: var(--COLOR-SEARCH-BACKGROUND);
+}
+
 div.inputField {
   background-color: var(--COLOR-SEARCH-BACKGROUND);
   border-radius: 5rem;

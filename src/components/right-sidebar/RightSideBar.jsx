@@ -1,14 +1,22 @@
-import { useUser } from "context";
 import { SearchIcon } from "assets";
+import classNames from "classnames";
 import { useAsync } from "custom-hooks";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useFollow, useUser } from "context";
 import styles from "./RightSideBar.module.css";
 import { useTheme } from "@mui/material/styles";
-import { API_TO_GET_UNFOLLOWED_USERS, ROUTE_PROFILE } from "utils";
+
+import {
+  ROUTE_PROFILE,
+  isStatusLoading,
+  API_TO_GET_UNFOLLOWED_USERS,
+} from "utils";
 
 import {
   FollowItem,
   CustomButton,
+  LoadingSpinner,
   ConnectWithMeLink,
   LoadingCircularProgress,
 } from "components";
@@ -26,14 +34,38 @@ export const RightSideBar = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("lg"));
 
+  const [clickedUsername, setClickedUsername] = useState();
   const {
     userState: { userUsername },
   } = useUser();
+
   const { api, propertyToGet } = API_TO_GET_UNFOLLOWED_USERS;
+  const apiToCall = { api: `${api}/${userUsername}`, propertyToGet };
 
   const {
+    callAPI,
+    dispatch,
     state: { status, data },
-  } = useAsync({ api: `${api}/${userUsername}`, propertyToGet });
+  } = useAsync(apiToCall);
+
+  const {
+    postFollowCall,
+    follow: { status: followStatus },
+  } = useFollow();
+
+  const handleFollowClick = (event, username) => {
+    event.stopPropagation();
+    setClickedUsername(username);
+    postFollowCall(username);
+  };
+
+  useEffect(() => {
+    if (followStatus === "success") {
+      callAPI(apiToCall.api, apiToCall.propertyToGet, dispatch);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [followStatus]);
 
   return (
     <Box
@@ -75,7 +107,20 @@ export const RightSideBar = () => {
                   to: `${ROUTE_PROFILE}/${username}`,
                 }}
               >
-                <CustomButton className={styles.followBtn}>Follow</CustomButton>
+                <CustomButton
+                  className={classNames(
+                    styles.followBtn,
+                    isStatusLoading(followStatus) ? styles.disabledBtn : ""
+                  )}
+                  disabled={isStatusLoading(followStatus)}
+                  onClick={(event) => handleFollowClick(event, username)}
+                >
+                  {isStatusLoading(followStatus) &&
+                    clickedUsername === username && (
+                      <LoadingSpinner followSpinner />
+                    )}
+                  Follow
+                </CustomButton>
               </FollowItem>
             ))}
         </List>
