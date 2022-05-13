@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { SearchIcon } from "assets";
 import classNames from "classnames";
 import { useAsync } from "custom-hooks";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { useFollow, useUser } from "context";
 import styles from "./RightSideBar.module.css";
 import { useTheme } from "@mui/material/styles";
@@ -34,7 +34,6 @@ export const RightSideBar = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("lg"));
 
-  const [clickedUsername, setClickedUsername] = useState();
   const {
     userState: { userUsername },
   } = useUser();
@@ -50,12 +49,10 @@ export const RightSideBar = () => {
 
   const {
     postFollowCall,
-    follow: { status: followStatus },
+    follow: { status: followStatus, username: followUsername },
   } = useFollow();
 
-  const handleFollowClick = (event, username) => {
-    event.stopPropagation();
-    setClickedUsername(username);
+  const handleFollowClick = (username) => {
     postFollowCall(username);
   };
 
@@ -113,10 +110,10 @@ export const RightSideBar = () => {
                     isStatusLoading(followStatus) ? styles.disabledBtn : ""
                   )}
                   disabled={isStatusLoading(followStatus)}
-                  onClick={(event) => handleFollowClick(event, username)}
+                  onClick={() => handleFollowClick(username)}
                 >
                   {isStatusLoading(followStatus) &&
-                    clickedUsername === username && (
+                    followUsername === username && (
                       <LoadingSpinner followSpinner />
                     )}
                   Follow

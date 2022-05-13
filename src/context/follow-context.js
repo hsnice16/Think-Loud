@@ -3,7 +3,7 @@ import { useUser } from "context";
 import { createContext, useContext, useReducer } from "react";
 import { API_TO_POST_FOLLOW_USER, API_TO_POST_UNFOLLOW_USER } from "utils";
 import {
-  sharedReducer,
+  followReducer,
   ACTION_TYPE_ERROR,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
@@ -14,7 +14,7 @@ const FollowContext = createContext({
   dispatch: () => {},
   postFollowCall: async () => {},
   postUnfollowCall: async () => {},
-  follow: { ...sharedInitialReducerState, status: null },
+  follow: { ...sharedInitialReducerState, status: null, username: "" },
 });
 
 export const useFollow = () => useContext(FollowContext);
@@ -25,16 +25,17 @@ export const FollowProvider = ({ children }) => {
   } = useUser();
   const config = { headers: { authorization: userAuthToken } };
 
-  const [follow, dispatch] = useReducer(sharedReducer, {
+  const [follow, dispatch] = useReducer(followReducer, {
     ...sharedInitialReducerState,
     status: null,
+    username: "",
   });
 
   const postFollowCall = async (username) => {
     const { api } = API_TO_POST_FOLLOW_USER;
 
     try {
-      dispatch({ type: ACTION_TYPE_LOADING });
+      dispatch({ type: ACTION_TYPE_LOADING, payload: username });
 
       const response = await axios.post(`${api}/${username}`, {}, config);
 
@@ -48,7 +49,7 @@ export const FollowProvider = ({ children }) => {
     const { api } = API_TO_POST_UNFOLLOW_USER;
 
     try {
-      dispatch({ type: ACTION_TYPE_LOADING });
+      dispatch({ type: ACTION_TYPE_LOADING, payload: username });
 
       const response = await axios.post(`${api}/${username}`, {}, config);
 

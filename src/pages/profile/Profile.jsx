@@ -27,10 +27,15 @@ export const Profile = () => {
     useProfile();
 
   const {
-    follow: { status: followStatus, data: followData },
     postFollowCall,
     postUnfollowCall,
+    follow: {
+      status: followStatus,
+      data: followData,
+      username: followUsername,
+    },
   } = useFollow();
+
   const {
     userState: { userUsername },
   } = useUser();
@@ -74,7 +79,10 @@ export const Profile = () => {
 
       if (isProfileOfLoggedUser) {
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: followData.user });
-      } else if (!isProfileOfLoggedUser) {
+      } else if (
+        !isProfileOfLoggedUser &&
+        followData.followUser.username === data.username
+      ) {
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: followData.followUser });
       }
     }
@@ -158,18 +166,21 @@ export const Profile = () => {
           <Button
             onClick={onClickHandler}
             variant={btnVariantToShow}
-            disabled={isStatusLoading(followStatus) && !isProfileOfLoggedUser}
+            disabled={
+              isStatusLoading(followStatus) && followUsername === data.username
+            }
             className={classNames(
               styles.btn,
               btnStyleToShow,
-              isStatusLoading(followStatus) && !isProfileOfLoggedUser
+              isStatusLoading(followStatus) && followUsername === data.username
                 ? styles.btn_disabled
                 : ""
             )}
           >
-            {isStatusLoading(followStatus) && !isProfileOfLoggedUser && (
-              <LoadingSpinner followSpinner />
-            )}
+            {isStatusLoading(followStatus) &&
+              followUsername === data.username && (
+                <LoadingSpinner followSpinner />
+              )}
             {btnTextToShow}
           </Button>
 
