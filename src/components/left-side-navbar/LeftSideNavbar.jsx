@@ -1,27 +1,31 @@
 import { useState } from "react";
-import { useUser } from "context";
 import classNames from "classnames";
 import { LeftSideNavbarData } from "data";
+import { useProfile, useUser } from "context";
 import { EllipsisHorizontalIcon } from "assets";
 import styles from "./LeftSideNavbar.module.css";
 import { ROUTE_HOME, ROUTE_PROFILE } from "utils";
 import { Link, useLocation } from "react-router-dom";
+import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 
 import {
-  BroadcastDialog,
-  CustomButton,
   FollowItem,
+  CustomButton,
   LogoutDialog,
+  BroadcastDialog,
 } from "components";
-import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 
 const { logoImg, links } = LeftSideNavbarData;
 
 export const LeftSideNavbar = () => {
   const location = useLocation();
   const {
-    userState: { userFullName, userUsername },
+    userState: { userUsername },
   } = useUser();
+
+  const {
+    profile: { data },
+  } = useProfile();
 
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
   const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);
@@ -100,9 +104,9 @@ export const LeftSideNavbar = () => {
 
       <FollowItem
         itemComponent="button"
-        fullName={userFullName}
         username={userUsername}
         onClick={() => setOpenLogoutDialog(true)}
+        fullName={`${data?.firstName ?? ""} ${data?.lastName ?? ""}`}
         itemClassName={classNames(styles.link, styles.accountCircle_btn)}
         avatarSxStyles={{
           "& svg > path": {

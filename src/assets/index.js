@@ -39,7 +39,10 @@ export { TickIcon } from "./icons/TickIcon";
 export { UnfollowAccountIcon } from "./icons/UnfollowAccountIcon";
 
 export { default as thinkJPG } from "./landing/think.jpg";
+
+export { default as followSpinnerGIF } from "./loading/follow-spinner.gif";
 export { default as spinnerGIF } from "./loading/spinner.gif";
+
 export { default as logoPNG } from "./logo/logo.png";
 
 export { default as HimanshuJPG } from "./himanshu.jpg";

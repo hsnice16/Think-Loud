@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import { spinnerGIF } from "assets";
 import classNames from "classnames";
 import { Button } from "@mui/material";
 import { isStatusLoading } from "utils";
+import { LoadingSpinner } from "components";
 import styles from "./FormButton.module.css";
 
 export const FormButton = ({ btnText, onClick, status, sxStyles }) => {
@@ -19,13 +19,7 @@ export const FormButton = ({ btnText, onClick, status, sxStyles }) => {
           : ""
       }
     >
-      {isStatusLoading(status) && (
-        <img
-          src={spinnerGIF}
-          alt="loading spinner, gif"
-          className={styles.spinnerImg}
-        />
-      )}
+      {isStatusLoading(status) && <LoadingSpinner />}
       {btnText}
     </Button>
   );

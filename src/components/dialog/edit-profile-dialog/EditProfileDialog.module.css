@@ -3,6 +3,11 @@ button.btn_save {
   padding: 0.5rem 1.2rem;
 }
 
+button.btn_save.btn_disabled {
+  background-color: var(--COLOR-PRIMARY);
+  color: var(--COLOR-SEARCH-BACKGROUND);
+}
+
 div.action_save {
   padding: 0.5rem 2rem 1rem;
 }

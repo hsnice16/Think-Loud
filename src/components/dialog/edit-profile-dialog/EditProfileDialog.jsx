@@ -1,53 +1,128 @@
-import { useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
-import { BIO_MAX_CHARACTERS } from "utils";
+import { useReducer } from "react";
+import classNames from "classnames";
+import { useProfile, useUser } from "context";
 import { FilledAccountCircleIcon } from "assets";
 import styles from "./EditProfileDialog.module.css";
 
-import { CustomButton, DialogActionsCloseIcon, FormWrapper } from "components";
+import {
+  isStatusLoading,
+  BIO_MAX_CHARACTERS,
+  API_TO_POST_EDITED_USER_PROFILE,
+} from "utils";
+
+import {
+  FormError,
+  FormWrapper,
+  CustomButton,
+  LoadingSpinner,
+  DialogActionsCloseIcon,
+} from "components";
+
+import {
+  authReducer,
+  ACTION_TYPE_ERROR,
+  ACTION_TYPE_LOADING,
+  ACTION_TYPE_SUCCESS,
+  editProfileInitialReducerState,
+  ACTION_TYPE_ENTER_FORM_DETAILS,
+} from "reducer";
+
 import {
   Box,
   Dialog,
+  TextField,
+  Typography,
   DialogActions,
   DialogContent,
   InputAdornment,
-  TextField,
-  Typography,
 } from "@mui/material";
 
 export const EditProfileDialog = ({
+  profileData,
+  profileDispatch,
   openEditProfileDialog,
   setOpenEditProfileDialog,
-  newProfileData,
-  setNewProfileData,
 }) => {
-  const [bioText, setBioText] = useState(newProfileData.bio);
+  const {
+    userState: { userAuthToken },
+  } = useUser();
 
-  const handleBioTextChange = (event) => {
-    if (BIO_MAX_CHARACTERS - event.target.value.length >= 0) {
-      setBioText(event.target.value);
-      setNewProfileData((prevData) => ({
-        ...prevData,
-        bio: event.target.value.trim(),
-      }));
+  const [state, dispatch] = useReducer(authReducer, {
+    ...editProfileInitialReducerState,
+    ...profileData,
+    fullName: `${profileData.firstName} ${profileData.lastName}`,
+  });
+
+  const { dispatch: profileContextDispatch } = useProfile();
+  const { bio, status, error, fullName, websiteURL } = state;
+
+  const handleInputChange = (event) => {
+    if (status === "error") {
+      dispatch({ type: ACTION_TYPE_SUCCESS });
     }
-  };
 
-  const handleNewProfileDataChange = (event) => {
-    setNewProfileData((prevData) => ({
-      ...prevData,
-      [event.target.name]: event.target.value.trim(),
-    }));
+    if (event.target.name === "bio") {
+      if (BIO_MAX_CHARACTERS - event.target.value.length >= 0) {
+        dispatch({
+          type: ACTION_TYPE_ENTER_FORM_DETAILS,
+          payload: { bio: event.target.value },
+        });
+      }
+    } else {
+      dispatch({
+        type: ACTION_TYPE_ENTER_FORM_DETAILS,
+        payload: { [event.target.name]: event.target.value },
+      });
+    }
   };
 
   const handleClose = () => {
     setOpenEditProfileDialog(false);
   };
 
+  const handleSaveClick = async () => {
+    if (fullName === "") {
+      dispatch({ type: ACTION_TYPE_ERROR, payload: "Please Enter Your Name" });
+    } else {
+      const splittedName = fullName.split(" ");
+      const [firstName = "", lastName = ""] = [
+        splittedName[0],
+        splittedName.slice(1).join(" "),
+      ];
+      const userData = { bio, lastName, firstName, websiteURL };
+      const config = { headers: { authorization: userAuthToken } };
+      const { api, propertyToGet } = API_TO_POST_EDITED_USER_PROFILE;
+
+      try {
+        dispatch({ type: ACTION_TYPE_LOADING });
+
+        const response = await axios.post(api, { userData }, config);
+
+        dispatch({ type: ACTION_TYPE_SUCCESS });
+        profileDispatch({
+          type: ACTION_TYPE_SUCCESS,
+          payload: response.data[propertyToGet],
+        });
+        profileContextDispatch({
+          type: ACTION_TYPE_SUCCESS,
+          payload: response.data[propertyToGet],
+        });
+        handleClose();
+      } catch (error) {
+        dispatch({
+          type: ACTION_TYPE_ERROR,
+          payload: error.message,
+        });
+      }
+    }
+  };
+
   return (
     <Dialog
-      open={openEditProfileDialog}
       onClose={handleClose}
+      open={openEditProfileDialog}
       className={styles.dialogContainer}
     >
       <Box display="flex" alignItems="center">
@@ -67,31 +142,34 @@ export const EditProfileDialog = ({
         </Box>
 
         <FormWrapper>
+          {status === "error" && <FormError errorToShow={error} />}
+
           <TextField
-            label="Name"
-            name="name"
             type="text"
-            placeholder="Your Name..."
-            value={newProfileData.name}
-            onChange={handleNewProfileDataChange}
+            label="Name"
+            name="fullName"
+            value={fullName}
+            onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            placeholder="Your Name... (firstname lastname)"
           />
 
           <TextField
+            multiline
+            name="bio"
             label="Bio"
             type="text"
-            multiline
             minRows={3}
             maxRows={4}
+            value={bio}
             placeholder="Your Bio..."
-            value={bioText}
-            onChange={handleBioTextChange}
+            onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <Typography component="p" className={styles.bioText_count}>
-                    {`${bioText.length} / ${BIO_MAX_CHARACTERS}`}
+                    {`${bio.length} / ${BIO_MAX_CHARACTERS}`}
                   </Typography>
                 </InputAdornment>
               ),
@@ -99,19 +177,27 @@ export const EditProfileDialog = ({
           />
 
           <TextField
-            label="Website URL"
-            name="websiteURL"
             type="url"
-            value={newProfileData.websiteURL}
-            onChange={handleNewProfileDataChange}
-            placeholder="Your Website URL..."
+            name="websiteURL"
+            value={websiteURL}
+            label="Website URL"
+            onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            placeholder="Your Website URL... (https://mywebsite.com)"
           />
         </FormWrapper>
       </DialogContent>
 
       <DialogActions className={styles.action_save}>
-        <CustomButton className={styles.btn_save} onClick={handleClose}>
+        <CustomButton
+          onClick={handleSaveClick}
+          disabled={isStatusLoading(status)}
+          className={classNames(
+            styles.btn_save,
+            isStatusLoading(status) ? styles.btn_disabled : ""
+          )}
+        >
+          {isStatusLoading(status) && <LoadingSpinner />}
           Save
         </CustomButton>
       </DialogActions>
@@ -120,23 +206,37 @@ export const EditProfileDialog = ({
 };
 
 EditProfileDialog.propTypes = {
-  openEditProfileDialog: PropTypes.bool,
-  setOpenEditProfileDialog: PropTypes.func,
-  newProfileData: PropTypes.shape({
-    name: PropTypes.string,
+  profileData: PropTypes.shape({
     bio: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    username: PropTypes.string,
+    lastName: PropTypes.string,
+    followers: PropTypes.array,
+    following: PropTypes.array,
+    bookmarks: PropTypes.array,
+    firstName: PropTypes.string,
     websiteURL: PropTypes.string,
   }),
-  setNewProfileData: PropTypes.func,
+  profileDispatch: PropTypes.func,
+  openEditProfileDialog: PropTypes.bool,
+  setOpenEditProfileDialog: PropTypes.func,
 };
 
 EditProfileDialog.defaultProps = {
-  openEditProfileDialog: false,
-  setOpenEditProfileDialog: () => {},
-  newProfileData: {
-    name: "",
+  profileData: {
     bio: "",
+    email: "",
+    password: "",
+    username: "",
+    lastName: "",
+    firstName: "",
+    followers: [],
+    following: [],
+    bookmarks: [],
     websiteURL: "",
   },
-  setNewProfileData: () => {},
+  profilDispatch: () => {},
+  openEditProfileDialog: false,
+  setOpenEditProfileDialog: () => {},
 };

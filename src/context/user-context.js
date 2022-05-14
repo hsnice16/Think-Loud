@@ -3,7 +3,6 @@ import { createContext, useContext, useState } from "react";
 
 const userInitialState = {
   userUsername: "",
-  userFullName: "",
   userAuthToken: "",
   isUserAuthTokenExist: false,
 };

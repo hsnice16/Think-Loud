@@ -2,7 +2,3 @@ button.btn.btn_disabled {
   background-color: var(--COLOR-PRIMARY);
   color: var(--COLOR-SEARCH-BACKGROUND);
 }
-
-.spinnerImg {
-  margin-right: 0.5rem;
-}

@@ -1,31 +1,44 @@
 import { ProfileData } from "data";
 import classNames from "classnames";
-import { sharedReducer } from "reducer";
 import styles from "./Profile.module.css";
 import { useParams } from "react-router-dom";
-import { useProfile, useUser } from "context";
-import { API_TO_GET_USER_PROFILE } from "utils";
 import { useEffect, useReducer, useState } from "react";
+import { useFollow, useProfile, useUser } from "context";
+import { sharedReducer, ACTION_TYPE_SUCCESS } from "reducer";
+import { isStatusLoading, API_TO_GET_USER_PROFILE } from "utils";
 import { Button, Box, Link, Tab, Tabs, Typography } from "@mui/material";
 import { FilledAccountCircleIcon, LinkIcon, noBroadcasts } from "assets";
 import { useAsync, useDocumentTitle, useScrollToTop } from "custom-hooks";
 
 import {
-  EditProfileDialog,
+  PageHeading,
   EmptyBookmark,
   ListBroadcasts,
-  PageHeading,
+  LoadingSpinner,
+  EditProfileDialog,
   LoadingCircularProgress,
 } from "components";
 
 const { tabsOptions } = ProfileData;
 
 export const Profile = () => {
-  const { profile: loggedUserData } = useProfile();
+  const { username } = useParams();
+  const { profile: loggedUserData, dispatch: profileContextDispatch } =
+    useProfile();
+
+  const {
+    postFollowCall,
+    postUnfollowCall,
+    follow: {
+      status: followStatus,
+      data: followData,
+      username: followUsername,
+    },
+  } = useFollow();
+
   const {
     userState: { userUsername },
   } = useUser();
-  const { username } = useParams();
 
   const isProfileOfLoggedUser = username === userUsername;
   const { api, propertyToGet } = API_TO_GET_USER_PROFILE;
@@ -49,7 +62,7 @@ export const Profile = () => {
       callAPI(`${api}/${username}`, propertyToGet, dispatch);
     } else if (
       isProfileOfLoggedUser &&
-      (profile.data === null || profile.data.username !== userUsername)
+      (data === null || data.username !== userUsername)
     ) {
       callAPI(`${api}/${username}`, propertyToGet, dispatch);
     }
@@ -57,11 +70,61 @@ export const Profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api, propertyToGet, userUsername, username]);
 
-  const [newProfileData, setNewProfileData] = useState({
-    name: "Himanshu Singh",
-    bio: "Learning at @neogcamp '22 | Participant @girlscriptsoc | Contributor @hacktoberfest\n\nFollow to read tweets around React JS, JavaScript, Web Dev, and Programming",
-    websiteURL: "https://dynamicprogrammer.hashnode.dev",
-  });
+  useEffect(() => {
+    if (followStatus === "success") {
+      profileContextDispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: followData.user,
+      });
+
+      if (isProfileOfLoggedUser) {
+        dispatch({ type: ACTION_TYPE_SUCCESS, payload: followData.user });
+      } else if (
+        !isProfileOfLoggedUser &&
+        followData.followUser.username === data.username
+      ) {
+        dispatch({ type: ACTION_TYPE_SUCCESS, payload: followData.followUser });
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [followStatus]);
+
+  const isLoggedUserFollowing =
+    status === "success"
+      ? loggedUserData.data.following.some(
+          (currUser) => currUser.username === data.username
+        )
+      : false;
+
+  const btnStyleToShow = isProfileOfLoggedUser
+    ? styles.btn_editProfile
+    : isLoggedUserFollowing
+    ? styles.btn_unfollow
+    : styles.btn_follow;
+
+  const btnVariantToShow =
+    isProfileOfLoggedUser || isLoggedUserFollowing ? "outlined" : "contained";
+
+  const btnTextToShow = isProfileOfLoggedUser
+    ? "Edit Profile"
+    : isLoggedUserFollowing
+    ? "Unfollow"
+    : "Follow";
+
+  const handleFollowClick = () => {
+    postFollowCall(data.username);
+  };
+
+  const handleUnfollowClick = () => {
+    postUnfollowCall(data.username);
+  };
+
+  const onClickHandler = isProfileOfLoggedUser
+    ? () => setOpenEditProfileDialog(true)
+    : isLoggedUserFollowing
+    ? handleUnfollowClick
+    : handleFollowClick;
 
   const handleTabChange = (_, newValue) => {
     setSelectedTab(newValue);
@@ -69,12 +132,14 @@ export const Profile = () => {
 
   return (
     <Box className={styles.profile_container}>
-      <EditProfileDialog
-        openEditProfileDialog={openEditProfileDialog}
-        setOpenEditProfileDialog={setOpenEditProfileDialog}
-        newProfileData={newProfileData}
-        setNewProfileData={setNewProfileData}
-      />
+      {openEditProfileDialog && (
+        <EditProfileDialog
+          profileData={data}
+          profileDispatch={dispatch}
+          openEditProfileDialog={openEditProfileDialog}
+          setOpenEditProfileDialog={setOpenEditProfileDialog}
+        />
+      )}
 
       {status === "loading" && <LoadingCircularProgress />}
 
@@ -99,29 +164,25 @@ export const Profile = () => {
           </Box>
 
           <Button
-            variant={isProfileOfLoggedUser ? "outlined" : "contained"}
+            onClick={onClickHandler}
+            variant={btnVariantToShow}
+            disabled={
+              isStatusLoading(followStatus) && followUsername === data.username
+            }
             className={classNames(
               styles.btn,
-              isProfileOfLoggedUser ? styles.btn_editProfile : styles.btn_follow
+              btnStyleToShow,
+              isStatusLoading(followStatus) && followUsername === data.username
+                ? styles.btn_disabled
+                : ""
             )}
-            onClick={
-              isProfileOfLoggedUser
-                ? () => setOpenEditProfileDialog(true)
-                : () => {}
-            }
           >
-            {isProfileOfLoggedUser ? "Edit Profile" : "Follow"}
+            {isStatusLoading(followStatus) &&
+              followUsername === data.username && (
+                <LoadingSpinner followSpinner />
+              )}
+            {btnTextToShow}
           </Button>
-
-          {/* these comments will get removed in subsequent PR's */}
-
-          {/* <Button
-        variant="outlined"
-        onClick={() => setOpenEditProfileDialog(true)}
-        className={classNames(styles.btn, styles.btn_unfollow)}
-      >
-        Unfollow
-      </Button> */}
 
           <Box mt={2} pl={2} className={styles.border_bottom}>
             <Typography component="h3" fontWeight="bold" variant="h4">
@@ -134,6 +195,7 @@ export const Profile = () => {
             <Typography
               mt={2}
               pr={2}
+              mb="1rem"
               component="p"
               fontSize="1.5rem"
               whiteSpace="pre-line"
@@ -142,13 +204,13 @@ export const Profile = () => {
             </Typography>
 
             {(data?.websiteURL ?? "").length > 0 && (
-              <Box my="1rem" className={styles.url_container}>
+              <Box mb="1rem" className={styles.url_container}>
                 <LinkIcon />
                 <Link
-                  href={data.websiteURL}
-                  target="_blank"
                   rel="noopener"
+                  target="_blank"
                   underline="hover"
+                  href={data.websiteURL}
                 >
                   {data.websiteURL.slice(8)}
                 </Link>

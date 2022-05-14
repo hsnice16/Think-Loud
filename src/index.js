@@ -6,7 +6,7 @@ import { makeServer } from "./server";
 import App from "./App";
 import { Compose } from "components";
 import { BrowserRouter } from "react-router-dom";
-import { ProfileProvider, UserProvider } from "context";
+import { FollowProvider, ProfileProvider, UserProvider } from "context";
 
 // Call make Server
 makeServer();
@@ -16,7 +16,14 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Compose components={[BrowserRouter, UserProvider, ProfileProvider]}>
+    <Compose
+      components={[
+        BrowserRouter,
+        UserProvider,
+        ProfileProvider,
+        FollowProvider,
+      ]}
+    >
       <App />
     </Compose>
   </React.StrictMode>
