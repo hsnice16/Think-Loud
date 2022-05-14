@@ -12,8 +12,8 @@ export const OptionsMenu = ({ anchorEl, setAnchorEl, menuItems }) => {
 
   return (
     <Menu
-      anchorEl={anchorEl}
       open={openMenu}
+      anchorEl={anchorEl}
       onClose={handleClose}
       anchorOrigin={{
         vertical: "top",
@@ -25,11 +25,12 @@ export const OptionsMenu = ({ anchorEl, setAnchorEl, menuItems }) => {
       }}
       className={styles.menuContainer}
     >
-      {menuItems.map(({ _id, color, item }) => (
+      {/* this default of handleclickw ill get remove later */}
+      {menuItems.map(({ _id, color, item, handleClick = () => {} }) => (
         <MenuItem
           key={_id}
           disableRipple
-          onClick={handleClose}
+          onClick={handleClick}
           className={classNames(
             styles.menuItem,
             color !== "normal" ? styles[color] : ""
@@ -47,8 +48,9 @@ OptionsMenu.propTypes = {
   setAnchorEl: PropTypes.func,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string,
       item: PropTypes.node,
+      _id: PropTypes.string,
+      color: PropTypes.string,
     })
   ),
 };
@@ -56,5 +58,5 @@ OptionsMenu.propTypes = {
 OptionsMenu.defaultProps = {
   anchorEl: null,
   setAnchorEl: () => {},
-  menuItems: [{ _id: "", item: "" }],
+  menuItems: [{ _id: "", color: "", item: "" }],
 };

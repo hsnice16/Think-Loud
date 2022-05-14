@@ -4,4 +4,5 @@ export * from "./constants/limits";
 export * from "./constants/routes";
 
 export { checkAlphaNumericString } from "./functions/checkAlphaNumericString";
+export { getTimeDurationToShow } from "./functions/getTimeDurationToShow";
 export { isStatusLoading } from "./functions/isStatusLoading";

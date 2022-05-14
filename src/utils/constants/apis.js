@@ -1,3 +1,8 @@
+export const API_TO_GET_ALL_POSTS = {
+  api: "/api/posts/",
+  propertyToGet: "posts",
+};
+
 export const API_TO_GET_UNFOLLOWED_USERS = {
   api: "/api/users/uf",
   propertyToGet: "users",
