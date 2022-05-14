@@ -42,11 +42,7 @@ export const BroadcastBox = ({ broadcastDetails }) => {
   const {
     profile: { status, data },
   } = useProfile();
-  const {
-    postFollowCall,
-    postUnfollowCall,
-    follow: { status: followStatus },
-  } = useFollow();
+  const { postFollowCall, postUnfollowCall } = useFollow();
 
   const isInLoggedUserBookmarks =
     status === "success"
@@ -78,11 +74,13 @@ export const BroadcastBox = ({ broadcastDetails }) => {
   }, [data?.following, status, username]);
 
   const handleFollowClick = () => {
+    setAnchorEl(null);
     setIsInLoggedUserFollowing(true);
     postFollowCall(username);
   };
 
   const handleUnfollowClick = () => {
+    setAnchorEl(null);
     setIsInLoggedUserFollowing(false);
     postUnfollowCall(username);
   };
@@ -93,12 +91,6 @@ export const BroadcastBox = ({ broadcastDetails }) => {
       : getNotLoggedUserBroadcastOptions(username, isInLoggedUserFollowing).map(
           (option) => ({
             ...option,
-            item:
-              followStatus === "loading"
-                ? isInLoggedUserFollowing
-                  ? "...Following"
-                  : "...Unfollowing"
-                : option.item,
             handleClick: isInLoggedUserFollowing
               ? handleUnfollowClick
               : handleFollowClick,
