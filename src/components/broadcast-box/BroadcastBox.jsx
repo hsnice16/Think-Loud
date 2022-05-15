@@ -42,7 +42,11 @@ export const BroadcastBox = ({ broadcastDetails }) => {
   const {
     profile: { status, data },
   } = useProfile();
-  const { postFollowCall, postUnfollowCall } = useFollow();
+  const {
+    postFollowCall,
+    postUnfollowCall,
+    follow: { status: followStatus, username: followUsername },
+  } = useFollow();
 
   const isInLoggedUserBookmarks =
     status === "success"
@@ -73,15 +77,18 @@ export const BroadcastBox = ({ broadcastDetails }) => {
     }
   }, [data?.following, status, username]);
 
+  useEffect(() => {
+    if (followStatus === "loading" && followUsername === username) {
+      setAnchorEl(null);
+      setIsInLoggedUserFollowing((prevState) => !prevState);
+    }
+  }, [followStatus, followUsername, username]);
+
   const handleFollowClick = () => {
-    setAnchorEl(null);
-    setIsInLoggedUserFollowing(true);
     postFollowCall(username);
   };
 
   const handleUnfollowClick = () => {
-    setAnchorEl(null);
-    setIsInLoggedUserFollowing(false);
     postUnfollowCall(username);
   };
 
