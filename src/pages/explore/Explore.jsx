@@ -14,7 +14,7 @@ export const Explore = () => {
         </Typography>
       </PageHeading>
 
-      <ListBroadcasts />
+      {/* <ListBroadcasts /> */}
     </>
   );
 };

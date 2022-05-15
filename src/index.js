@@ -6,7 +6,12 @@ import { makeServer } from "./server";
 import App from "./App";
 import { Compose } from "components";
 import { BrowserRouter } from "react-router-dom";
-import { FollowProvider, ProfileProvider, UserProvider } from "context";
+import {
+  UserProvider,
+  PostsProvider,
+  FollowProvider,
+  ProfileProvider,
+} from "context";
 
 // Call make Server
 makeServer();
@@ -22,6 +27,7 @@ root.render(
         UserProvider,
         ProfileProvider,
         FollowProvider,
+        PostsProvider,
       ]}
     >
       <App />
