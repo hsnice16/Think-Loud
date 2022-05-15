@@ -86,7 +86,7 @@ export const posts = [
     content:
       "Himanshu Singh (@hsnice16) posts some nice content on Twitter. You all should follow his content.",
     likes: {
-      likeCount: 100,
+      likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
@@ -143,5 +143,5 @@ export const posts = [
     comments: [],
     createdAt: formatDate(),
     updatedAt: formatDate(),
-  }
+  },
 ];

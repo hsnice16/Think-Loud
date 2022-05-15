@@ -35,6 +35,7 @@ export const Home = () => {
       })),
     []
   );
+
   const optionsMenuToShow = useMemo(
     () =>
       clickHandlerMappedMenuOptions.filter(
@@ -59,8 +60,8 @@ export const Home = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const dataToShow = useMemo(
-    () =>
+  const dataToShow = useMemo(() => {
+    let tempDataToShow =
       selectedH1Text === "Most Liked Broadcasts"
         ? data
             ?.filter(({ likes: { likeCount } }) => likeCount !== 0)
@@ -68,15 +69,18 @@ export const Home = () => {
               (firstBroadcast, secondBroadcast) =>
                 secondBroadcast.likes.likeCount - firstBroadcast.likes.likeCount
             )
-        : selectedH1Text === "Latest Broadcasts"
+        : data;
+
+    tempDataToShow =
+      selectedH1Text === "Latest Broadcasts"
         ? data?.sort((firstBroadcast, secondBroadcast) => {
             const currDate = new Date();
 
             const firstBroadcastDateInLocale = new Date(
-              firstBroadcast.updatedAt
+              firstBroadcast.createdAt
             );
             const secondBroadcastDateInLocale = new Date(
-              secondBroadcast.updatedAt
+              secondBroadcast.createdAt
             );
 
             const diffOfFirstBroadcastDate =
@@ -92,15 +96,16 @@ export const Home = () => {
 
             return -1;
           })
-        : data,
-    [data, selectedH1Text]
-  );
+        : tempDataToShow;
+
+    return tempDataToShow;
+  }, [data, selectedH1Text]);
 
   return (
     <>
       {status === "loading" && data === null && <LoadingCircularProgress />}
 
-      {status === "success" && data !== null && (
+      {data !== null && (
         <>
           <PageHeading>
             <Typography component="h1" fontWeight="bold" variant="h4">

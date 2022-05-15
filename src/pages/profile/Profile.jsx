@@ -2,9 +2,9 @@ import { ProfileData } from "data";
 import classNames from "classnames";
 import styles from "./Profile.module.css";
 import { useParams } from "react-router-dom";
-import { useEffect, useReducer, useState } from "react";
 import { useFollow, useProfile, useUser } from "context";
 import { sharedReducer, ACTION_TYPE_SUCCESS } from "reducer";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import { isStatusLoading, API_TO_GET_USER_PROFILE } from "utils";
 import { Button, Box, Link, Tab, Tabs, Typography } from "@mui/material";
 import { FilledAccountCircleIcon, LinkIcon, noBroadcasts } from "assets";
@@ -90,12 +90,15 @@ export const Profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [followStatus]);
 
-  const isLoggedUserFollowing =
-    status === "success"
-      ? loggedUserData.data.following.some(
-          (currUser) => currUser.username === data.username
-        )
-      : false;
+  const isLoggedUserFollowing = useMemo(
+    () =>
+      status === "success"
+        ? loggedUserData.data?.following.some(
+            (currUser) => currUser.username === data.username
+          )
+        : false,
+    [data.username, loggedUserData.data?.following, status]
+  );
 
   const btnStyleToShow = isProfileOfLoggedUser
     ? styles.btn_editProfile
@@ -112,23 +115,11 @@ export const Profile = () => {
     ? "Unfollow"
     : "Follow";
 
-  const handleFollowClick = () => {
-    postFollowCall(data.username);
-  };
-
-  const handleUnfollowClick = () => {
-    postUnfollowCall(data.username);
-  };
-
   const onClickHandler = isProfileOfLoggedUser
     ? () => setOpenEditProfileDialog(true)
     : isLoggedUserFollowing
-    ? handleUnfollowClick
-    : handleFollowClick;
-
-  const handleTabChange = (_, newValue) => {
-    setSelectedTab(newValue);
-  };
+    ? () => postUnfollowCall(data.username)
+    : () => postFollowCall(data.username);
 
   return (
     <Box className={styles.profile_container}>
@@ -231,8 +222,8 @@ export const Profile = () => {
             <Tabs
               value={selectedTab}
               className={styles.tabs}
-              onChange={handleTabChange}
               aria-label="broadcasts likes replies tabs"
+              onChange={(_, newValue) => setSelectedTab(newValue)}
             >
               {tabsOptions.map(({ _id, value }) => (
                 <Tab key={_id} disableRipple label={value} value={value} />
