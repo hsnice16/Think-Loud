@@ -11,6 +11,7 @@ import {
   PostsProvider,
   FollowProvider,
   ProfileProvider,
+  BookmarksProvider,
 } from "context";
 
 // Call make Server
@@ -28,6 +29,7 @@ root.render(
         ProfileProvider,
         FollowProvider,
         PostsProvider,
+        BookmarksProvider,
       ]}
     >
       <App />

@@ -30,24 +30,22 @@ export const useAsync = (apiToCall = {}) => {
    *                        get from api resolved response
    * @param {Function} dispatch - reducer dispatch function
    */
-  const callAPI = (api, propertyToGet, dispatch) => {
-    (async () => {
-      dispatch({ type: ACTION_TYPE_LOADING });
+  const callAPI = async (api, propertyToGet, dispatch) => {
+    dispatch({ type: ACTION_TYPE_LOADING });
 
-      try {
-        const response = await axios.get(api);
+    try {
+      const response = await axios.get(api);
 
-        dispatch({
-          type: ACTION_TYPE_SUCCESS,
-          payload: response.data[propertyToGet],
-        });
-      } catch (error) {
-        dispatch({
-          type: ACTION_TYPE_ERROR,
-          payload: error.message,
-        });
-      }
-    })();
+      dispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: response.data[propertyToGet],
+      });
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPE_ERROR,
+        payload: error.message,
+      });
+    }
   };
 
   useEffect(() => {

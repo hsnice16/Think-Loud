@@ -5,8 +5,8 @@ import { List, ListItem } from "@mui/material";
 export const ListBroadcasts = ({ broadcastsToShow }) => {
   return (
     <List sx={{ padding: "0 0 2rem 0" }}>
-      {broadcastsToShow.map(({ _id, ...broadcastDetails }) => (
-        <ListItem key={_id} sx={{ padding: 0 }}>
+      {broadcastsToShow.map((broadcastDetails) => (
+        <ListItem key={broadcastDetails._id} sx={{ padding: 0 }}>
           <BroadcastBox broadcastDetails={broadcastDetails} />
         </ListItem>
       ))}

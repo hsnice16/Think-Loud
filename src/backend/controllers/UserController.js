@@ -94,7 +94,7 @@ export const editUserHandler = function (schema, request) {
 
 /**
  * This handler gets all the user bookmarks from the db.
- * send GET Request at /api/users/bookmark/
+ * send GET Request at /api/users/bookmark
  * */
 
 export const getBookmarkPostsHandler = function (schema, request) {
@@ -122,9 +122,48 @@ export const getBookmarkPostsHandler = function (schema, request) {
     );
   }
 };
+
+/**
+ * This handler clear all the user bookmarks from the db.
+ * send POST Request at /api/users/bookmark
+ * */
+
+export const clearAllPostBookmarkHandler = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+
+  try {
+    if (!user) {
+      return new Response(
+        404,
+        {},
+        {
+          errors: [
+            "The username you entered is not Registered. Not Found error",
+          ],
+        }
+      );
+    }
+
+    this.db.users.update(
+      { _id: user._id },
+      { ...user, bookmarks: [], updatedAt: formatDate() }
+    );
+
+    return new Response(200, {}, { bookmarks: [] });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
 /**
  * This handler handles adding a post to user's bookmarks in the db.
- * send POST Request at /api/users/bookmark/:postId/
+ * send POST Request at /api/users/bookmark/:postId
  * */
 
 export const bookmarkPostHandler = function (schema, request) {
@@ -172,7 +211,7 @@ export const bookmarkPostHandler = function (schema, request) {
 
 /**
  * This handler handles adding a post to user's bookmarks in the db.
- * send POST Request at /api/users/remove-bookmark/:postId/
+ * send POST Request at /api/users/remove-bookmark/:postId
  * */
 
 export const removePostFromBookmarkHandler = function (schema, request) {

@@ -29,6 +29,7 @@ import {
   getUnfollowedUserHandler,
   getUserHandler,
   getBookmarkPostsHandler,
+  clearAllPostBookmarkHandler,
   bookmarkPostHandler,
   removePostFromBookmarkHandler,
   unfollowUserHandler,
@@ -76,6 +77,7 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/posts", createPostHandler.bind(this));
       this.delete("/posts/:postId", deletePostHandler.bind(this));
       this.post("/posts/edit/:postId", editPostHandler.bind(this));
+      
       this.post("/posts/like/:postId", likePostHandler.bind(this));
       this.post("/posts/dislike/:postId", dislikePostHandler.bind(this));
 
@@ -109,9 +111,10 @@ export function makeServer({ environment = "development" } = {}) {
       // user routes (private)
       this.post("users/edit", editUserHandler.bind(this));
       this.get("/users/bookmark", getBookmarkPostsHandler.bind(this));
-      this.post("/users/bookmark/:postId/", bookmarkPostHandler.bind(this));
+      this.post("/users/bookmark", clearAllPostBookmarkHandler.bind(this));
+      this.post("/users/bookmark/:postId", bookmarkPostHandler.bind(this));
       this.post(
-        "/users/remove-bookmark/:postId/",
+        "/users/remove-bookmark/:postId",
         removePostFromBookmarkHandler.bind(this)
       );
       this.post("/users/follow/:followUsername", followUserHandler.bind(this));
