@@ -1,18 +1,28 @@
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { BROADCAST_MAX_CHARACTERS } from "utils";
 import styles from "./BroadcastDialogActions.module.css";
 import { CircularProgress, DialogActions } from "@mui/material";
-import { CircularProgressWithLabel, CustomButton } from "components";
+import { isStatusLoading, BROADCAST_MAX_CHARACTERS } from "utils";
 
-export const BroadcastDialogActions = ({ postText, btnText }) => {
+import {
+  CustomButton,
+  LoadingSpinner,
+  CircularProgressWithLabel,
+} from "components";
+
+export const BroadcastDialogActions = ({
+  status,
+  btnText,
+  onClick,
+  postText,
+}) => {
   return (
     <DialogActions className={styles.action_broadcast}>
       {BROADCAST_MAX_CHARACTERS - postText.length > 20 ? (
         <CircularProgress
           size="2rem"
-          sx={{ marginRight: "1rem" }}
           variant="determinate"
+          sx={{ marginRight: "1rem" }}
           value={Math.round((postText.length * 100) / BROADCAST_MAX_CHARACTERS)}
         />
       ) : (
@@ -22,24 +32,29 @@ export const BroadcastDialogActions = ({ postText, btnText }) => {
       )}
 
       <CustomButton
-        disabled={postText === ""}
+        onClick={onClick}
+        disabled={postText === "" || isStatusLoading(status)}
         className={classNames(
           styles.btn_broadcast,
-          postText === "" ? styles.btn_disabled : ""
+          postText === "" || isStatusLoading(status) ? styles.btn_disabled : ""
         )}
       >
-        {btnText}
+        {isStatusLoading(status) && <LoadingSpinner />} {btnText}
       </CustomButton>
     </DialogActions>
   );
 };
 
 BroadcastDialogActions.propTypes = {
-  postText: PropTypes.string,
+  onClick: PropTypes.func,
+  status: PropTypes.string,
   btnText: PropTypes.string,
+  postText: PropTypes.string,
 };
 
 BroadcastDialogActions.defaultProps = {
-  postText: "",
+  status: "",
   btnText: "",
+  postText: "",
+  onClick: () => {},
 };

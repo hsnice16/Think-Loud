@@ -2,15 +2,16 @@ import PropTypes from "prop-types";
 import { Box } from "@mui/material";
 import classNames from "classnames";
 import { BroadcastBoxData } from "data";
-import { useEffect, useState } from "react";
 import { getTimeDurationToShow } from "utils";
 import styles from "./BroadcastBox.module.css";
+import { useEffect, useMemo, useState } from "react";
 import { useBookmarks, useFollow, usePosts, useProfile } from "context";
 
 import {
   OptionsMenu,
   ReplyDialog,
   AvatarGridBox,
+  BroadcastDialog,
   CustomIconButton,
   BroadcastBoxHeader,
 } from "components";
@@ -40,7 +41,7 @@ export const BroadcastBox = ({ broadcastDetails }) => {
     likes: { likeCount, likedBy },
   } = broadcastDetails;
 
-  const { postLikeCall, postDisLikeCall } = usePosts();
+  const { postLikeCall, postDisLikeCall, deleteBroadcastCall } = usePosts();
   const { postAddBookmarkCall, postRemoveBookmarkCall } = useBookmarks();
 
   const {
@@ -55,6 +56,7 @@ export const BroadcastBox = ({ broadcastDetails }) => {
 
   const [isInLoggedUserBookmarks, setIsInLoggedUserBookmarks] = useState(false);
   const [isInLoggedUserFollowing, setIsInLoggedUserFollowing] = useState(false);
+  const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);
   const [isLikedByLoggedUser, setIsLikedByLoggedUser] = useState(false);
   const [openReplyDialog, setOpenReplyDialog] = useState(false);
   const [timeDurationToShow, setTimeDurationToShow] = useState(
@@ -102,17 +104,35 @@ export const BroadcastBox = ({ broadcastDetails }) => {
     }
   }, [followStatus, followUsername, username]);
 
-  const optionsToShow =
-    status === "success" && data?.username === username
-      ? loggedUserBroadcastOptions
-      : getNotLoggedUserBroadcastOptions(username, isInLoggedUserFollowing).map(
-          (option) => ({
+  const optionsToShow = useMemo(
+    () =>
+      status === "success" && data?.username === username
+        ? loggedUserBroadcastOptions.map((option) => ({
+            ...option,
+            handleClick:
+              option.color === "error"
+                ? () => {
+                    setAnchorEl(null);
+                    deleteBroadcastCall(_id);
+                  }
+                : () => {
+                    setAnchorEl(null);
+                    setOpenBroadcastDialog(true);
+                  },
+          }))
+        : getNotLoggedUserBroadcastOptions(
+            username,
+            isInLoggedUserFollowing
+          ).map((option) => ({
             ...option,
             handleClick: isInLoggedUserFollowing
               ? () => postUnfollowCall(username)
               : () => postFollowCall(username),
-          })
-        );
+          })),
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [data?.username, isInLoggedUserFollowing, status, username]
+  );
 
   return (
     <>
@@ -120,6 +140,15 @@ export const BroadcastBox = ({ broadcastDetails }) => {
         openReplyDialog={openReplyDialog}
         setOpenReplyDialog={setOpenReplyDialog}
       />
+
+      {openBroadcastDialog && (
+        <BroadcastDialog
+          postId={_id}
+          postContentText={content}
+          openBroadcastDialog={openBroadcastDialog}
+          setOpenBroadcastDialog={setOpenBroadcastDialog}
+        />
+      )}
 
       <AvatarGridBox
         imgSrc={HimanshuJPG}
@@ -183,8 +212,8 @@ export const BroadcastBox = ({ broadcastDetails }) => {
             <Box>
               <CustomIconButton
                 ariaLabel="reply"
-                handleClick={() => setOpenReplyDialog(true)}
                 className={styles.btnAction_icon}
+                handleClick={() => setOpenReplyDialog(true)}
               >
                 <CommentIcon />
               </CustomIconButton>
@@ -194,6 +223,7 @@ export const BroadcastBox = ({ broadcastDetails }) => {
             <Box>
               <CustomIconButton
                 ariaLabel="bookmark"
+                className={styles.btnAction_icon}
                 handleClick={
                   isInLoggedUserBookmarks
                     ? () => {
@@ -205,7 +235,6 @@ export const BroadcastBox = ({ broadcastDetails }) => {
                         postAddBookmarkCall(_id);
                       }
                 }
-                className={styles.btnAction_icon}
               >
                 {isInLoggedUserBookmarks ? (
                   <FilledBookmarkIcon />

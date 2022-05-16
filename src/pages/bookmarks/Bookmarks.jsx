@@ -41,21 +41,13 @@ export const Bookmarks = () => {
 
   const dataToShow = useMemo(
     () =>
-      postsData !== null &&
       data !== null &&
+      postsData !== null &&
       postsData.filter((post) =>
         data.some((bookmarkPost) => bookmarkPost._id === post._id)
       ),
     [data, postsData]
   );
-
-  const handleMenuIconButtonClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClearAllClick = () => {
-    postClearAllBookmarksCall();
-  };
 
   return (
     <>
@@ -73,11 +65,11 @@ export const Bookmarks = () => {
               </Typography>
             </Box>
 
-            {data.length > 0 && (
+            {dataToShow.length > 0 && (
               <>
                 <CustomIconButton
                   ariaLabel="menu"
-                  handleClick={handleMenuIconButtonClick}
+                  handleClick={(event) => setAnchorEl(event.currentTarget)}
                 >
                   <EllipsisHorizontalIcon />
                 </CustomIconButton>
@@ -89,8 +81,8 @@ export const Bookmarks = () => {
                     {
                       _id: "007",
                       color: "error",
-                      handleClick: handleClearAllClick,
                       item: "Clear all Bookmakrs",
+                      handleClick: () => postClearAllBookmarksCall(),
                     },
                   ]}
                 />
@@ -98,7 +90,7 @@ export const Bookmarks = () => {
             )}
           </PageHeading>
 
-          {data.length === 0 ? (
+          {dataToShow.length === 0 ? (
             <EmptyBookmark
               h2Text="Bookmark that"
               imgSrc={emptyBookmark}

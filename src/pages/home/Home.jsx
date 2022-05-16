@@ -4,8 +4,7 @@ import { FilterIcon } from "assets";
 import styles from "./Home.module.css";
 import { useState, useMemo } from "react";
 import { Box, Typography } from "@mui/material";
-import { BROADCAST_MAX_CHARACTERS } from "utils";
-import { useDocumentTitle, useScrollToTop } from "custom-hooks";
+import { useDocumentTitle, usePostText, useScrollToTop } from "custom-hooks";
 
 import {
   PageHeading,
@@ -22,7 +21,6 @@ const { menuOptions } = HomeData;
 export const Home = () => {
   const [selectedH1Text, setSelectedH1Text] = useState("Home");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [postText, setPostText] = useState("");
 
   const clickHandlerMappedMenuOptions = useMemo(
     () =>
@@ -44,21 +42,15 @@ export const Home = () => {
     [clickHandlerMappedMenuOptions, selectedH1Text]
   );
 
+  const { postText, handlePostTextChange, handleBroadcastClick } =
+    usePostText();
+
   const {
     posts: { status, data },
   } = usePosts();
 
   useDocumentTitle(selectedH1Text);
   useScrollToTop(selectedH1Text);
-
-  const handlePostTextChange = (event) => {
-    if (BROADCAST_MAX_CHARACTERS - event.target.value.length >= 0)
-      setPostText(event.target.value);
-  };
-
-  const handleMenuIconButtonClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const dataToShow = useMemo(() => {
     let tempDataToShow =
@@ -114,7 +106,7 @@ export const Home = () => {
 
             <CustomIconButton
               ariaLabel="menu"
-              handleClick={handleMenuIconButtonClick}
+              handleClick={(event) => setAnchorEl(event.currentTarget)}
             >
               <FilterIcon />
             </CustomIconButton>
@@ -134,7 +126,12 @@ export const Home = () => {
                 handlePostTextChange={handlePostTextChange}
               />
 
-              <BroadcastDialogActions postText={postText} btnText="Broadcast" />
+              <BroadcastDialogActions
+                status={status}
+                btnText="Broadcast"
+                postText={postText}
+                onClick={handleBroadcastClick}
+              />
             </Box>
           )}
 
