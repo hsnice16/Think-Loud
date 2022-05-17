@@ -65,29 +65,11 @@ export const Home = () => {
 
     tempDataToShow =
       selectedH1Text === "Latest Broadcasts"
-        ? data?.sort((firstBroadcast, secondBroadcast) => {
-            const currDate = new Date();
-
-            const firstBroadcastDateInLocale = new Date(
-              firstBroadcast.createdAt
-            );
-            const secondBroadcastDateInLocale = new Date(
-              secondBroadcast.createdAt
-            );
-
-            const diffOfFirstBroadcastDate =
-              currDate - firstBroadcastDateInLocale;
-            const diffOfSecondBroadcastDate =
-              currDate - secondBroadcastDateInLocale;
-
-            if (diffOfFirstBroadcastDate === diffOfSecondBroadcastDate) {
-              return 0;
-            } else if (diffOfFirstBroadcastDate > diffOfSecondBroadcastDate) {
-              return 1;
-            }
-
-            return -1;
-          })
+        ? data?.sort(
+            (firstBroadcast, secondBroadcast) =>
+              new Date(secondBroadcast.createdAt) -
+              new Date(firstBroadcast.createdAt)
+          )
         : tempDataToShow;
 
     return tempDataToShow;

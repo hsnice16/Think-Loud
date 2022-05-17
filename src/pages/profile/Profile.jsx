@@ -6,7 +6,6 @@ import { useFollow, useProfile, useUser } from "context";
 import { sharedReducer, ACTION_TYPE_SUCCESS } from "reducer";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { isStatusLoading, API_TO_GET_USER_PROFILE } from "utils";
-import { Button, Box, Link, Tab, Tabs, Typography } from "@mui/material";
 import { FilledAccountCircleIcon, LinkIcon, noBroadcasts } from "assets";
 import { useAsync, useDocumentTitle, useScrollToTop } from "custom-hooks";
 
@@ -19,6 +18,16 @@ import {
   LoadingCircularProgress,
 } from "components";
 
+import {
+  Box,
+  Tab,
+  Link,
+  Tabs,
+  Avatar,
+  Button,
+  Typography,
+} from "@mui/material";
+
 const { tabsOptions } = ProfileData;
 
 export const Profile = () => {
@@ -30,8 +39,8 @@ export const Profile = () => {
     postFollowCall,
     postUnfollowCall,
     follow: {
-      status: followStatus,
       data: followData,
+      status: followStatus,
       username: followUsername,
     },
   } = useFollow();
@@ -94,10 +103,10 @@ export const Profile = () => {
     () =>
       status === "success"
         ? loggedUserData.data?.following.some(
-            (currUser) => currUser.username === data.username
+            (currUser) => currUser.username === data?.username
           )
         : false,
-    [data.username, loggedUserData.data?.following, status]
+    [data?.username, loggedUserData.data?.following, status]
   );
 
   const btnStyleToShow = isProfileOfLoggedUser
@@ -148,9 +157,28 @@ export const Profile = () => {
           </PageHeading>
 
           <Box position="relative">
-            <Box className={styles.background_img}></Box>
+            <Box className={styles.background_img}>
+              {data?.bgPic && (
+                <Avatar
+                  src={data.bgPic}
+                  variant="square"
+                  alt={`${data.username} avatar`}
+                  sx={{ height: "100%", width: "100%" }}
+                />
+              )}
+            </Box>
             <Box ml={2} className={styles.profile_pic}>
-              <FilledAccountCircleIcon className={styles.accountCircle_icon} />
+              {data?.profilePic ? (
+                <Avatar
+                  src={data.profilePic}
+                  alt={`${data.username} avatar`}
+                  sx={{ height: "100%", width: "100%" }}
+                />
+              ) : (
+                <FilledAccountCircleIcon
+                  className={styles.accountCircle_icon}
+                />
+              )}
             </Box>
           </Box>
 

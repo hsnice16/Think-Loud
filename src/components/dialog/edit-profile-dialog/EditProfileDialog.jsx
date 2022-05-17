@@ -14,6 +14,7 @@ import {
 
 import {
   FormError,
+  InputFile,
   FormWrapper,
   CustomButton,
   LoadingSpinner,
@@ -31,6 +32,7 @@ import {
 
 import {
   Box,
+  Avatar,
   Dialog,
   TextField,
   Typography,
@@ -56,7 +58,16 @@ export const EditProfileDialog = ({
   });
 
   const { dispatch: profileContextDispatch } = useProfile();
-  const { bio, status, error, fullName, websiteURL } = state;
+  const {
+    bio,
+    bgPic,
+    error,
+    status,
+    fullName,
+    username,
+    profilePic,
+    websiteURL,
+  } = state;
 
   const handleInputChange = (event) => {
     if (status === "error") {
@@ -78,6 +89,24 @@ export const EditProfileDialog = ({
     }
   };
 
+  const handleFileInputChange = (event) => {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.addEventListener("load", () => {
+        const uploaded_image = reader.result;
+        dispatch({
+          type: ACTION_TYPE_ENTER_FORM_DETAILS,
+          payload: { [event.target.name]: uploaded_image },
+        });
+      });
+
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
   const handleClose = () => {
     setOpenEditProfileDialog(false);
   };
@@ -91,7 +120,14 @@ export const EditProfileDialog = ({
         splittedName[0],
         splittedName.slice(1).join(" "),
       ];
-      const userData = { bio, lastName, firstName, websiteURL };
+      const userData = {
+        bio,
+        bgPic,
+        lastName,
+        firstName,
+        profilePic,
+        websiteURL,
+      };
       const config = { headers: { authorization: userAuthToken } };
       const { api, propertyToGet } = API_TO_POST_EDITED_USER_PROFILE;
 
@@ -135,9 +171,33 @@ export const EditProfileDialog = ({
 
       <DialogContent className={styles.dialogContent}>
         <Box position="relative" px={1}>
-          <Box className={styles.background_img}></Box>
+          <Box className={styles.background_img}>
+            {bgPic && (
+              <Avatar
+                src={bgPic}
+                variant="square"
+                alt={`${username} avatar`}
+                sx={{ height: "100%", width: "100%" }}
+              />
+            )}
+
+            <InputFile inputName="bgPic" handleChange={handleFileInputChange} />
+          </Box>
           <Box ml={2} className={styles.profile_pic}>
-            <FilledAccountCircleIcon className={styles.accountCircle_icon} />
+            {profilePic ? (
+              <Avatar
+                src={profilePic}
+                alt={`${username} avatar`}
+                sx={{ height: "100%", width: "100%" }}
+              />
+            ) : (
+              <FilledAccountCircleIcon className={styles.accountCircle_icon} />
+            )}
+
+            <InputFile
+              inputName="profilePic"
+              handleChange={handleFileInputChange}
+            />
           </Box>
         </Box>
 
@@ -208,6 +268,7 @@ export const EditProfileDialog = ({
 EditProfileDialog.propTypes = {
   profileData: PropTypes.shape({
     bio: PropTypes.string,
+    bgPic: PropTypes.string,
     email: PropTypes.string,
     password: PropTypes.string,
     username: PropTypes.string,
@@ -216,6 +277,7 @@ EditProfileDialog.propTypes = {
     following: PropTypes.array,
     bookmarks: PropTypes.array,
     firstName: PropTypes.string,
+    profilePic: PropTypes.string,
     websiteURL: PropTypes.string,
   }),
   profileDispatch: PropTypes.func,
@@ -226,6 +288,7 @@ EditProfileDialog.propTypes = {
 EditProfileDialog.defaultProps = {
   profileData: {
     bio: "",
+    bgPic: "",
     email: "",
     password: "",
     username: "",
@@ -234,6 +297,7 @@ EditProfileDialog.defaultProps = {
     followers: [],
     following: [],
     bookmarks: [],
+    profilePic: "",
     websiteURL: "",
   },
   profilDispatch: () => {},

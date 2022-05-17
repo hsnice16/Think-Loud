@@ -2,13 +2,13 @@ import PropTypes from "prop-types";
 import { Box } from "@mui/material";
 import { CustomAvatar } from "components";
 
-export const AvatarGridBox = ({ children, imgSrc, imgAlt, className }) => {
+export const AvatarGridBox = ({ children, avatarSrc, username, className }) => {
   return (
     <Box
-      display="grid"
-      gridTemplateColumns="repeat(12, 1fr)"
       gap={2}
+      display="grid"
       className={className}
+      gridTemplateColumns="repeat(12, 1fr)"
     >
       <Box gridColumn="span 1">
         <CustomAvatar
@@ -16,6 +16,8 @@ export const AvatarGridBox = ({ children, imgSrc, imgAlt, className }) => {
             height: "5rem",
             width: "5rem",
           }}
+          username={username}
+          avatarSrc={avatarSrc}
         />
       </Box>
 
@@ -26,14 +28,14 @@ export const AvatarGridBox = ({ children, imgSrc, imgAlt, className }) => {
 
 AvatarGridBox.propTypes = {
   children: PropTypes.node,
-  imgSrc: PropTypes.string,
-  imgAlt: PropTypes.string,
+  username: PropTypes.string,
+  avatarSrc: PropTypes.string,
   className: PropTypes.string,
 };
 
 AvatarGridBox.defaultProps = {
-  children: <></>,
-  imgSrc: "",
-  imgAlt: "",
+  username: "",
+  avatarSrc: "",
   className: "",
+  children: <></>,
 };

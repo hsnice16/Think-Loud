@@ -29,6 +29,7 @@ button.likedIcon svg {
   margin: 1rem 0;
   white-space: pre-line;
 }
+
 .container {
   color: var(--COLOR-TEXT);
 }

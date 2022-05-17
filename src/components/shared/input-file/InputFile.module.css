@@ -1,0 +1,17 @@
+.input_file {
+  display: none;
+}
+
+.label_addPhoto {
+  background-color: var(--COLOR-BACKGROUND-OPACITY-70);
+  border-radius: 50%;
+  cursor: pointer;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.label_addPhoto:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
