@@ -3,24 +3,14 @@ export const API_TO_GET_ALL_POSTS = {
   propertyToGet: "posts",
 };
 
-export const API_TO_GET_USER_PROFILE = {
-  api: "/api/users",
-  propertyToGet: "user",
+export const API_TO_POST_NEW_POST = {
+  api: "/api/user/posts",
+  propertyToGet: "posts",
 };
 
-export const API_TO_POST_EDITED_USER_PROFILE = {
-  api: "/api/users/edit",
-  propertyToGet: "user",
-};
-
-export const API_TO_POST_ADD_BOOKMARK = {
-  api: "/api/users/bookmark",
-  propertyToGet: "bookmarks",
-};
-
-export const API_TO_POST_REMOVE_BOOKMARK = {
-  api: "/api/users/remove-bookmark",
-  propertyToGet: "bookmarks",
+export const API_TO_POST_EDITED_POST = {
+  api: "/api/posts/edit",
+  propertyToGet: "posts",
 };
 
 export const API_TO_POST_LIKE = {
@@ -41,6 +31,26 @@ export const API_TO_POST_SIGN_IN_DETAILS = {
 export const API_TO_POST_SIGN_UP_DETAILS = {
   api: "/api/auth/signup",
   propertyToGet: "createdUser",
+};
+
+export const API_TO_GET_USER_PROFILE = {
+  api: "/api/users",
+  propertyToGet: "user",
+};
+
+export const API_TO_POST_EDITED_USER_PROFILE = {
+  api: "/api/users/edit",
+  propertyToGet: "user",
+};
+
+export const API_TO_POST_ADD_BOOKMARK = {
+  api: "/api/users/bookmark",
+  propertyToGet: "bookmarks",
+};
+
+export const API_TO_POST_REMOVE_BOOKMARK = {
+  api: "/api/users/remove-bookmark",
+  propertyToGet: "bookmarks",
 };
 
 export const API_TO_POST_FOLLOW_USER = {

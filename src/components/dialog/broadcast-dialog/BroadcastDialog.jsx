@@ -1,33 +1,35 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
-import { BROADCAST_MAX_CHARACTERS } from "utils";
+import { usePostText } from "custom-hooks";
 
 import {
-  BroadcastDialogActions,
-  BroadcastDialogContainer,
   BroadcastDialogContent,
+  BroadcastDialogActions,
   DialogActionsCloseIcon,
+  BroadcastDialogContainer,
 } from "components";
 
 export const BroadcastDialog = ({
+  postId,
+  postContentText,
   openBroadcastDialog,
   setOpenBroadcastDialog,
 }) => {
-  const [postText, setPostText] = useState("");
-
-  const handlePostTextChange = (event) => {
-    if (BROADCAST_MAX_CHARACTERS - event.target.value.length >= 0)
-      setPostText(event.target.value);
-  };
-
   const handleClose = () => {
     setOpenBroadcastDialog(false);
   };
 
+  const {
+    status,
+    postText,
+    handlePostTextChange,
+    handleBroadcastClick,
+    handleEditBroadcastClick,
+  } = usePostText(postContentText, handleClose);
+
   return (
     <BroadcastDialogContainer
-      openDialog={openBroadcastDialog}
       handleClose={handleClose}
+      openDialog={openBroadcastDialog}
     >
       <DialogActionsCloseIcon handleClose={handleClose} />
 
@@ -36,17 +38,30 @@ export const BroadcastDialog = ({
         handlePostTextChange={handlePostTextChange}
       />
 
-      <BroadcastDialogActions postText={postText} btnText="Broadcast" />
+      <BroadcastDialogActions
+        status={status}
+        btnText="Broadcast"
+        postText={postText}
+        onClick={
+          postId !== ""
+            ? () => handleEditBroadcastClick(postId)
+            : handleBroadcastClick
+        }
+      />
     </BroadcastDialogContainer>
   );
 };
 
 BroadcastDialog.propTypes = {
+  postId: PropTypes.string,
+  postContentText: PropTypes.string,
   openBroadcastDialog: PropTypes.bool,
   setOpenBroadcastDialog: PropTypes.func,
 };
 
 BroadcastDialog.defaultProps = {
+  postId: "",
+  postContentText: "",
   openBroadcastDialog: false,
   setOpenBroadcastDialog: () => {},
 };

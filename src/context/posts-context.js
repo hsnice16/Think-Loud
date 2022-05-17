@@ -7,6 +7,8 @@ import {
   API_TO_POST_LIKE,
   API_TO_POST_DISLIKE,
   API_TO_GET_ALL_POSTS,
+  API_TO_POST_NEW_POST,
+  API_TO_POST_EDITED_POST,
 } from "utils";
 
 import {
@@ -20,7 +22,10 @@ const PostsContext = createContext({
   dispatch: () => {},
   postLikeCall: () => {},
   postDisLikeCall: () => {},
+  deleteBroadcastCall: () => {},
+  postNewBroadcastCall: () => {},
   posts: sharedInitialReducerState,
+  postEditedBroadcastCall: () => {},
 });
 
 export const usePosts = () => useContext(PostsContext);
@@ -64,7 +69,33 @@ export const PostsProvider = ({ children }) => {
     callAPI(() => axios.post(`${api}/${_id}`, {}, config), propertyToGet);
   };
 
-  const value = { posts, dispatch, postLikeCall, postDisLikeCall };
+  const postNewBroadcastCall = (postData) => {
+    const { api, propertyToGet } = API_TO_POST_NEW_POST;
+    callAPI(() => axios.post(api, { postData }, config), propertyToGet);
+  };
+
+  const deleteBroadcastCall = (_id) => {
+    const { api, propertyToGet } = API_TO_POST_NEW_POST;
+    callAPI(() => axios.delete(`${api}/${_id}`, config), propertyToGet);
+  };
+
+  const postEditedBroadcastCall = (_id, postData) => {
+    const { api, propertyToGet } = API_TO_POST_EDITED_POST;
+    callAPI(
+      () => axios.post(`${api}/${_id}`, { postData }, config),
+      propertyToGet
+    );
+  };
+
+  const value = {
+    posts,
+    dispatch,
+    postLikeCall,
+    postDisLikeCall,
+    deleteBroadcastCall,
+    postNewBroadcastCall,
+    postEditedBroadcastCall,
+  };
 
   return (
     <PostsContext.Provider value={value}>{children}</PostsContext.Provider>

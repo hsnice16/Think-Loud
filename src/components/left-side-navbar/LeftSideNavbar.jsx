@@ -38,15 +38,19 @@ export const LeftSideNavbar = () => {
       sx={{ flexDirection: "column" }}
       className={classNames("aside", styles.aside)}
     >
-      <BroadcastDialog
-        openBroadcastDialog={openBroadcastDialog}
-        setOpenBroadcastDialog={setOpenBroadcastDialog}
-      />
+      {openBroadcastDialog && (
+        <BroadcastDialog
+          openBroadcastDialog={openBroadcastDialog}
+          setOpenBroadcastDialog={setOpenBroadcastDialog}
+        />
+      )}
 
-      <LogoutDialog
-        openLogoutDialog={openLogoutDialog}
-        setOpenLogoutDialog={setOpenLogoutDialog}
-      />
+      {openLogoutDialog && (
+        <LogoutDialog
+          openLogoutDialog={openLogoutDialog}
+          setOpenLogoutDialog={setOpenLogoutDialog}
+        />
+      )}
 
       <Box>
         <Link to={ROUTE_HOME}>

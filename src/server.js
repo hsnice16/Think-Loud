@@ -74,10 +74,10 @@ export function makeServer({ environment = "development" } = {}) {
       this.get("/posts/user/:username", getAllUserPostsHandler.bind(this));
 
       // post routes (private)
-      this.post("/posts", createPostHandler.bind(this));
-      this.delete("/posts/:postId", deletePostHandler.bind(this));
+      this.post("/user/posts", createPostHandler.bind(this));
+      this.delete("/user/posts/:postId", deletePostHandler.bind(this));
       this.post("/posts/edit/:postId", editPostHandler.bind(this));
-      
+
       this.post("/posts/like/:postId", likePostHandler.bind(this));
       this.post("/posts/dislike/:postId", dislikePostHandler.bind(this));
 
