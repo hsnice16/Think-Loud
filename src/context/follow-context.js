@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useUser } from "context";
+import { useProfile, useUser } from "context";
 import { createContext, useContext, useReducer } from "react";
 import { API_TO_POST_FOLLOW_USER, API_TO_POST_UNFOLLOW_USER } from "utils";
 
@@ -26,6 +26,8 @@ export const FollowProvider = ({ children }) => {
   } = useUser();
   const config = { headers: { authorization: userAuthToken } };
 
+  const { dispatch: profileDispatch } = useProfile();
+
   const [follow, dispatch] = useReducer(followReducer, {
     ...sharedInitialReducerState,
     status: null,
@@ -45,6 +47,11 @@ export const FollowProvider = ({ children }) => {
       const response = await callFunc();
 
       dispatch({ type: ACTION_TYPE_SUCCESS, payload: response.data });
+
+      profileDispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: response.data.user,
+      });
     } catch (error) {
       dispatch({ type: ACTION_TYPE_ERROR, payload: error.message });
     }

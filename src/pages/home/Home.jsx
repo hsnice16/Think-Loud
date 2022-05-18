@@ -1,14 +1,15 @@
 import { HomeData } from "data";
-import { usePosts } from "context";
-import { FilterIcon } from "assets";
 import styles from "./Home.module.css";
 import { useState, useMemo } from "react";
+import { emptyHome, FilterIcon } from "assets";
+import { usePosts, useProfile } from "context";
 import { Box, Typography } from "@mui/material";
 import { useDocumentTitle, usePostText, useScrollToTop } from "custom-hooks";
 
 import {
-  PageHeading,
   OptionsMenu,
+  PageHeading,
+  EmptyBookmark,
   ListBroadcasts,
   CustomIconButton,
   BroadcastDialogActions,
@@ -21,6 +22,20 @@ const { menuOptions } = HomeData;
 export const Home = () => {
   const [selectedH1Text, setSelectedH1Text] = useState("Home");
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const { postText, handlePostTextChange, handleBroadcastClick } =
+    usePostText();
+
+  const {
+    profile: { data: profileData },
+  } = useProfile();
+
+  const {
+    posts: { status, data },
+  } = usePosts();
+
+  useDocumentTitle(selectedH1Text);
+  useScrollToTop(selectedH1Text);
 
   const clickHandlerMappedMenuOptions = useMemo(
     () =>
@@ -42,30 +57,33 @@ export const Home = () => {
     [clickHandlerMappedMenuOptions, selectedH1Text]
   );
 
-  const { postText, handlePostTextChange, handleBroadcastClick } =
-    usePostText();
-
-  const {
-    posts: { status, data },
-  } = usePosts();
-
-  useDocumentTitle(selectedH1Text);
-  useScrollToTop(selectedH1Text);
-
   const dataToShow = useMemo(() => {
     let tempDataToShow =
-      selectedH1Text === "Most Liked Broadcasts"
-        ? data
-            ?.filter(({ likes: { likeCount } }) => likeCount !== 0)
-            .sort(
-              (firstBroadcast, secondBroadcast) =>
-                secondBroadcast.likes.likeCount - firstBroadcast.likes.likeCount
+      data !== null && profileData !== null
+        ? [...data]
+            .reverse()
+            .filter(
+              (post) =>
+                post.username === profileData?.username ||
+                profileData?.following.some(
+                  (user) => user.username === post.username
+                )
             )
         : data;
 
     tempDataToShow =
+      selectedH1Text === "Most Liked Broadcasts"
+        ? tempDataToShow
+            .filter(({ likes: { likeCount } }) => likeCount !== 0)
+            .sort(
+              (firstBroadcast, secondBroadcast) =>
+                secondBroadcast.likes.likeCount - firstBroadcast.likes.likeCount
+            )
+        : tempDataToShow;
+
+    tempDataToShow =
       selectedH1Text === "Latest Broadcasts"
-        ? data?.sort(
+        ? tempDataToShow.sort(
             (firstBroadcast, secondBroadcast) =>
               new Date(secondBroadcast.createdAt) -
               new Date(firstBroadcast.createdAt)
@@ -73,7 +91,7 @@ export const Home = () => {
         : tempDataToShow;
 
     return tempDataToShow;
-  }, [data, selectedH1Text]);
+  }, [data, profileData, selectedH1Text]);
 
   return (
     <>
@@ -117,7 +135,16 @@ export const Home = () => {
             </Box>
           )}
 
-          <ListBroadcasts broadcastsToShow={dataToShow} />
+          {dataToShow.length === 0 ? (
+            <EmptyBookmark
+              h1Text="Empty?"
+              imgSrc={emptyHome}
+              imgAlt="empty home"
+              h2Text="Either follow someone or make a broadcast yourself"
+            />
+          ) : (
+            <ListBroadcasts broadcastsToShow={dataToShow} />
+          )}
         </>
       )}
     </>

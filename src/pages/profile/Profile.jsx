@@ -2,11 +2,11 @@ import { ProfileData } from "data";
 import classNames from "classnames";
 import styles from "./Profile.module.css";
 import { useParams } from "react-router-dom";
-import { useFollow, useProfile, useUser } from "context";
+import { FilledAccountCircleIcon, LinkIcon } from "assets";
 import { sharedReducer, ACTION_TYPE_SUCCESS } from "reducer";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { isStatusLoading, API_TO_GET_USER_PROFILE } from "utils";
-import { FilledAccountCircleIcon, LinkIcon, noBroadcasts } from "assets";
+import { useFollow, usePosts, useProfile, useUser } from "context";
 import { useAsync, useDocumentTitle, useScrollToTop } from "custom-hooks";
 
 import {
@@ -28,12 +28,11 @@ import {
   Typography,
 } from "@mui/material";
 
-const { tabsOptions } = ProfileData;
+const { tabsOptions, getEmptyTabDataToShow } = ProfileData;
 
 export const Profile = () => {
   const { username } = useParams();
-  const { profile: loggedUserData, dispatch: profileContextDispatch } =
-    useProfile();
+  const { profile: loggedUserData } = useProfile();
 
   const {
     postFollowCall,
@@ -44,6 +43,10 @@ export const Profile = () => {
       username: followUsername,
     },
   } = useFollow();
+
+  const {
+    posts: { data: postsData },
+  } = usePosts();
 
   const {
     userState: { userUsername },
@@ -69,11 +72,13 @@ export const Profile = () => {
   useEffect(() => {
     if (username !== userUsername) {
       callAPI(`${api}/${username}`, propertyToGet, dispatch);
+      setSelectedTab("Broadcasts");
     } else if (
       isProfileOfLoggedUser &&
       (data === null || data.username !== userUsername)
     ) {
       callAPI(`${api}/${username}`, propertyToGet, dispatch);
+      setSelectedTab("Broadcasts");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,11 +86,6 @@ export const Profile = () => {
 
   useEffect(() => {
     if (followStatus === "success") {
-      profileContextDispatch({
-        type: ACTION_TYPE_SUCCESS,
-        payload: followData.user,
-      });
-
       if (isProfileOfLoggedUser) {
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: followData.user });
       } else if (
@@ -107,6 +107,54 @@ export const Profile = () => {
           )
         : false,
     [data?.username, loggedUserData.data?.following, status]
+  );
+
+  const dataToShow = useMemo(() => {
+    let tempDataToShow = [];
+
+    if (data !== null && postsData !== null) {
+      tempDataToShow =
+        selectedTab === "Broadcasts"
+          ? [...postsData]
+              .reverse()
+              .filter((post) => post.username === data.username)
+          : tempDataToShow;
+
+      tempDataToShow =
+        selectedTab === "Likes"
+          ? [...postsData]
+              .reverse()
+              .filter((post) =>
+                post.likes.likedBy.some(
+                  (user) => user.username === data.username
+                )
+              )
+          : tempDataToShow;
+
+      tempDataToShow =
+        selectedTab === "Replies"
+          ? [...postsData]
+              .reverse()
+              .filter((post) =>
+                post.comments.some((user) => user.username === data.username)
+              )
+          : tempDataToShow;
+    }
+
+    return tempDataToShow;
+  }, [data, postsData, selectedTab]);
+
+  const {
+    imgSrc: emptyImgSrc = "",
+    imgAlt: emptyImgAlt = "",
+    h1Text: emptyH1Text = "",
+    h2Text: emptyH2Text = "",
+  } = useMemo(
+    () =>
+      dataToShow.length === 0
+        ? getEmptyTabDataToShow(isProfileOfLoggedUser, selectedTab)
+        : {},
+    [dataToShow.length, isProfileOfLoggedUser, selectedTab]
   );
 
   const btnStyleToShow = isProfileOfLoggedUser
@@ -151,7 +199,7 @@ export const Profile = () => {
                 {`${data.firstName} ${data.lastName}`}
               </Typography>
               <Typography component="p" fontSize="1.2rem">
-                0 Broadcasts
+                {dataToShow.length} Broadcasts
               </Typography>
             </Box>
           </PageHeading>
@@ -259,16 +307,16 @@ export const Profile = () => {
             </Tabs>
           </Box>
 
-          {/* this commented code will get removed in subsequent PR's */}
-
-          {/* <EmptyBookmark
-        imgSrc={noBroadcasts}
-        imgAlt="no broadcasts"
-        h1Text="Something's going in your mind?"
-        h2Text="Broadcast it"
-      /> */}
-
-          {/* <ListBroadcasts /> */}
+          {dataToShow.length === 0 ? (
+            <EmptyBookmark
+              h1Text={emptyH1Text}
+              h2Text={emptyH2Text}
+              imgAlt={emptyImgAlt}
+              imgSrc={emptyImgSrc}
+            />
+          ) : (
+            <ListBroadcasts broadcastsToShow={dataToShow} />
+          )}
         </>
       )}
     </Box>
