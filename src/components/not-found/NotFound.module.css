@@ -1,0 +1,26 @@
+button.notFound_btn {
+  background-color: var(--COLOR-BACKGROUND);
+  border: thin solid var(--COLOR-PRIMARY);
+  box-shadow: none;
+  color: var(--COLOR-PRIMARY);
+  font-size: 2rem;
+  margin-top: 3rem;
+  padding: 0.3rem 2rem;
+  width: 18rem;
+}
+
+button.notFound_btn:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-100);
+}
+
+.notFound_img {
+  display: block;
+  margin: 5rem auto 0;
+  max-width: 20rem;
+}
+
+.notFound_text {
+  color: var(--COLOR-TEXT);
+  padding: 2rem;
+  text-align: center;
+}

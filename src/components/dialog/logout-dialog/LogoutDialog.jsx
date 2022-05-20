@@ -8,14 +8,16 @@ import styles from "./LogoutDialog.module.css";
 import { useCookieHandler } from "custom-hooks";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 
-export const LogoutDialog = ({ openLogoutDialog, setOpenLogoutDialog }) => {
+export const LogoutDialog = ({
+  fullName,
+  username,
+  avatarSrc,
+  openLogoutDialog,
+  setOpenLogoutDialog,
+}) => {
   const navigate = useNavigate();
   const { eraseCookies } = useCookieHandler();
-  const {
-    userInitialState,
-    userState: { userFullName, userUsername },
-    setUserState,
-  } = useUser();
+  const { userInitialState, setUserState } = useUser();
 
   const handleClose = () => {
     setOpenLogoutDialog(false);
@@ -36,8 +38,9 @@ export const LogoutDialog = ({ openLogoutDialog, setOpenLogoutDialog }) => {
       <DialogTitle className={styles.dialogTitle}>
         <FollowItem
           itemComponent="div"
-          fullName={userFullName}
-          username={userUsername}
+          fullName={fullName}
+          username={username}
+          avatarSrc={avatarSrc}
           itemSxStyles={{ paddingBottom: "0" }}
           textClassName={styles.followItemText}
           avatarSxStyles={{ height: "4.5rem", width: "4.5rem" }}
@@ -52,7 +55,7 @@ export const LogoutDialog = ({ openLogoutDialog, setOpenLogoutDialog }) => {
           onClick={handleLogOutClick}
           className={styles.btn_dialogLogOut}
         >
-          Log out @hsnice16
+          Log out @{username}
         </Button>
       </DialogActions>
     </Dialog>
@@ -60,11 +63,17 @@ export const LogoutDialog = ({ openLogoutDialog, setOpenLogoutDialog }) => {
 };
 
 LogoutDialog.propTypes = {
+  fullName: PropTypes.string,
+  username: PropTypes.string,
+  avatarSrc: PropTypes.string,
   openLogoutDialog: PropTypes.bool,
   setOpenLogoutDialog: PropTypes.func,
 };
 
 LogoutDialog.defaultProps = {
+  fullName: "",
+  username: "",
+  avatarSrc: "",
   openLogoutDialog: false,
   setOpenLogoutDialog: () => {},
 };

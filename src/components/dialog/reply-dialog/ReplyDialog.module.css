@@ -6,6 +6,8 @@ span.replying_span {
 }
 
 .broadcast_message {
+  line-height: 1.5em;
+  margin: 1rem 0;
   white-space: pre-line;
 }
 

@@ -63,11 +63,17 @@ export const posts = [
       {
         _id: uuid(),
         username: "elon",
+        profilePic:
+          "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652807157/elon_f0pmdq.jpg",
+        lastName: "Musk",
+        firstName: "Elon",
         text: "Wow!",
         votes: {
           upvotedBy: [],
           downvotedBy: [],
         },
+        createdAt: formatDate(),
+        updatedAt: formatDate(),
       },
     ],
   },

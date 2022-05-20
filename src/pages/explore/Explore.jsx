@@ -22,11 +22,8 @@ export const Explore = () => {
   } = useUser();
 
   const dataToShow = useMemo(
-    () =>
-      status === "success"
-        ? data?.filter((post) => post.username !== userUsername)
-        : data,
-    [data, status, userUsername]
+    () => data?.filter((post) => post.username !== userUsername),
+    [data, userUsername]
   );
 
   return (

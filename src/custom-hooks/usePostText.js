@@ -5,6 +5,8 @@ import { BROADCAST_MAX_CHARACTERS } from "utils";
 /**
  * usePostText - hook to handle text to post
  * 
+ * @param {string} postContentText - text with which 
+ *    to pre-fill the postText, in case of edit post
  * @param {Function} handleClose - function to close 
  *                                 the dialog box
  * @returns an object having structure {

@@ -9,6 +9,7 @@ import {
   API_TO_GET_ALL_POSTS,
   API_TO_POST_NEW_POST,
   API_TO_POST_EDITED_POST,
+  API_TO_POST_NEW_COMMENT,
 } from "utils";
 
 import {
@@ -87,11 +88,20 @@ export const PostsProvider = ({ children }) => {
     );
   };
 
+  const postNewCommentCall = (_id, commentData) => {
+    const { api, propertyToGet } = API_TO_POST_NEW_COMMENT;
+    callAPI(
+      () => axios.post(`${api}/${_id}`, { commentData }, config),
+      propertyToGet
+    );
+  };
+
   const value = {
     posts,
     dispatch,
     postLikeCall,
     postDisLikeCall,
+    postNewCommentCall,
     deleteBroadcastCall,
     postNewBroadcastCall,
     postEditedBroadcastCall,

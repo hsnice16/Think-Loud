@@ -24,6 +24,7 @@ export const OptionsMenu = ({ anchorEl, setAnchorEl, menuItems }) => {
         horizontal: "right",
       }}
       className={styles.menuContainer}
+      onClick={(event) => event.stopPropagation()}
     >
       {/* this default of handleclickw ill get remove later */}
       {menuItems.map(({ _id, color, item, handleClick = () => {} }) => (
