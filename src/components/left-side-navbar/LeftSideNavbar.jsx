@@ -109,9 +109,7 @@ export const LeftSideNavbar = () => {
       <FollowItem
         itemComponent="button"
         username={userUsername}
-        onClick={() => setOpenLogoutDialog(true)}
-        fullName={`${data?.firstName ?? ""} ${data?.lastName ?? ""}`}
-        itemClassName={classNames(styles.link, styles.accountCircle_btn)}
+        avatarSrc={data?.profilePic}
         avatarSxStyles={{
           "& svg > path": {
             transform: "translateX(-0.4rem)",
@@ -122,6 +120,9 @@ export const LeftSideNavbar = () => {
           styles.listText_active,
           styles.accountCircle_btnText
         )}
+        onClick={() => setOpenLogoutDialog(true)}
+        fullName={`${data?.firstName ?? ""} ${data?.lastName ?? ""}`}
+        itemClassName={classNames(styles.link, styles.accountCircle_btn)}
       >
         <ListItemIcon sx={{ minWidth: "1rem" }}>
           <EllipsisHorizontalIcon className={classNames(styles.ellipsisIcon)} />

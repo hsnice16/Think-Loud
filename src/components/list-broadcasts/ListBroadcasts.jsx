@@ -25,6 +25,7 @@ ListBroadcasts.propTypes = {
       firstName: PropTypes.string,
       createdAt: PropTypes.string,
       updatedAt: PropTypes.string,
+      profilePic: PropTypes.string,
       likes: PropTypes.shape({
         likedBy: PropTypes.array,
         likeCount: PropTypes.number,
@@ -45,6 +46,7 @@ ListBroadcasts.defaultProps = {
       firstName: "",
       createdAt: "",
       updatedAt: "",
+      profilePic: "",
       likes: {
         likedBy: [],
         likeCount: 0,

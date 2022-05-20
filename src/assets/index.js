@@ -1,6 +1,11 @@
 export { default as crossSearch } from "./empty/cross-search.png";
 export { default as emptyBookmark } from "./empty/empty-bookmark.png";
+export { default as emptyHome } from "./empty/empty-home.png";
 export { default as noBroadcasts } from "./empty/no-broadcasts.png";
+export { default as noLikes } from "./empty/no-likes.png";
+export { default as noReplies } from "./empty/no-replies.png";
+
+export { AddPhotoIcon } from "./icons/AddPhotoIcon";
 
 export { CloseIcon } from "./icons/CloseIcon";
 export { CommentIcon } from "./icons/CommentIcon";
@@ -44,5 +49,3 @@ export { default as followSpinnerGIF } from "./loading/follow-spinner.gif";
 export { default as spinnerGIF } from "./loading/spinner.gif";
 
 export { default as logoPNG } from "./logo/logo.png";
-
-export { default as HimanshuJPG } from "./himanshu.jpg";

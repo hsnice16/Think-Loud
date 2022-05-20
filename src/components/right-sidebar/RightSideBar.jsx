@@ -91,18 +91,19 @@ export const RightSideBar = () => {
           {status === "loading" && <LoadingCircularProgress />}
 
           {status === "success" &&
-            data.map(({ _id, firstName, lastName, username }) => (
+            data.map(({ _id, firstName, lastName, username, profilePic }) => (
               <FollowItem
                 key={_id}
                 username={username}
+                avatarSrc={profilePic}
                 textClassName={styles.listText}
                 fullName={`${firstName} ${lastName}`}
-                itemSxStyles={{ paddingLeft: 0, paddingRight: 0 }}
-                avatarSxStyles={{ height: "4.5rem", width: "4.5rem" }}
                 linkProps={{
                   component: Link,
                   to: `${ROUTE_PROFILE}/${username}`,
                 }}
+                itemSxStyles={{ paddingLeft: 0, paddingRight: 0 }}
+                avatarSxStyles={{ height: "4.5rem", width: "4.5rem" }}
               >
                 <CustomButton
                   className={classNames(

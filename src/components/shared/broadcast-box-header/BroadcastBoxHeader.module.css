@@ -9,12 +9,21 @@
   display: flex;
 }
 
-.name h2 {
-  font-size: 1.8rem;
-  font-weight: bold;
+.name a {
+  color: var(--COLOR-TEXT);
+  text-decoration: none;
+}
+
+.name a:hover {
+  text-decoration: underline;
 }
 
 .name p {
   font-size: 1.5rem;
   margin-left: 0.5rem;
+}
+
+.name :is(a, h2) {
+  font-size: 1.8rem;
+  font-weight: bold;
 }

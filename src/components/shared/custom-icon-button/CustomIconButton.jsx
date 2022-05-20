@@ -5,16 +5,18 @@ import { IconButton } from "@mui/material";
 import styles from "./CustomIconButton.module.css";
 
 export const CustomIconButton = ({
-  ariaLabel,
-  handleClick,
-  className,
   children,
+  disabled,
+  ariaLabel,
+  className,
+  handleClick,
 }) => {
   return (
     <IconButton
-      aria-label={ariaLabel}
       size="small"
+      disabled={disabled}
       onClick={handleClick}
+      aria-label={ariaLabel}
       className={classNames(styles.btn_icon, className)}
     >
       {cloneElement(children, { className: styles.icon })}
@@ -23,15 +25,17 @@ export const CustomIconButton = ({
 };
 
 CustomIconButton.propTypes = {
-  ariaLabel: PropTypes.string,
-  handleClick: PropTypes.func,
-  className: PropTypes.string,
   children: PropTypes.node,
+  disabled: PropTypes.bool,
+  ariaLabel: PropTypes.string,
+  className: PropTypes.string,
+  handleClick: PropTypes.func,
 };
 
 CustomIconButton.defaultProps = {
   ariaLabel: "",
-  handleClick: () => {},
   className: "",
   children: <></>,
+  disabled: false,
+  handleClick: () => {},
 };

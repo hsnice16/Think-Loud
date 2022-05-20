@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import { Box } from "@mui/material";
 import classNames from "classnames";
 import { BroadcastBoxData } from "data";
-import { getTimeDurationToShow } from "utils";
+import { Link } from "react-router-dom";
 import styles from "./BroadcastBox.module.css";
 import { useEffect, useMemo, useState } from "react";
+import { getTimeDurationToShow, ROUTE_PROFILE } from "utils";
 import { useBookmarks, useFollow, usePosts, useProfile } from "context";
 
 import {
@@ -17,7 +18,6 @@ import {
 } from "components";
 
 import {
-  HimanshuJPG,
   CommentIcon,
   FilledHeartIcon,
   OutlinedHeartIcon,
@@ -38,6 +38,7 @@ export const BroadcastBox = ({ broadcastDetails }) => {
     lastName,
     firstName,
     createdAt,
+    profilePic,
     likes: { likeCount, likedBy },
   } = broadcastDetails;
 
@@ -151,14 +152,18 @@ export const BroadcastBox = ({ broadcastDetails }) => {
       )}
 
       <AvatarGridBox
-        imgSrc={HimanshuJPG}
-        imgAlt="Himanshu Avatar"
+        username={username}
+        avatarSrc={profilePic}
         className={styles.avatarBox}
       >
         <Box className={styles.container}>
           <BroadcastBoxHeader
             className={styles.header}
             h2Text={`${firstName} ${lastName}`}
+            linkProps={{
+              component: Link,
+              to: `${ROUTE_PROFILE}/${username}`,
+            }}
             pText={`@${username} • ${timeDurationToShow}`}
           >
             <CustomIconButton
@@ -171,8 +176,8 @@ export const BroadcastBox = ({ broadcastDetails }) => {
 
             <OptionsMenu
               anchorEl={anchorEl}
-              setAnchorEl={setAnchorEl}
               menuItems={optionsToShow}
+              setAnchorEl={setAnchorEl}
             />
           </BroadcastBoxHeader>
 
@@ -260,6 +265,7 @@ BroadcastBox.propTypes = {
     firstName: PropTypes.string,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string,
+    profilePic: PropTypes.string,
     likes: PropTypes.shape({
       likedBy: PropTypes.array,
       likeCount: PropTypes.number,
@@ -278,6 +284,7 @@ BroadcastBox.defaultProps = {
     firstName: "",
     createdAt: "",
     updatedAt: "",
+    profilePic: "",
     likes: {
       likedBy: [],
       likeCount: 0,

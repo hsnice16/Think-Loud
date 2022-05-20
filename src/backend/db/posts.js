@@ -17,6 +17,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "elon",
+    profilePic:
+      "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652807157/elon_f0pmdq.jpg",
     lastName: "Musk",
     firstName: "Elon",
     comments: [],
@@ -33,6 +35,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "cristiano",
+    profilePic:
+      "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652809914/ronaldo_nklsfu.jpg",
     lastName: "Ronaldo",
     firstName: "Cristiano",
     comments: [],
@@ -49,6 +53,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "johnwick",
+    profilePic:
+      "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652807080/johnwick_nk2ibz.jpg",
     lastName: "Wick",
     firstName: "John",
     createdAt: formatDate(),
@@ -75,6 +81,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "emma",
+    profilePic:
+      "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652807229/emma_pnvnbh.jpg",
     lastName: "Watson",
     firstName: "Emma",
     comments: [],
@@ -91,6 +99,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "elon",
+    profilePic:
+      "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652807157/elon_f0pmdq.jpg",
     lastName: "Musk",
     firstName: "Elon",
     comments: [],
@@ -107,6 +117,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "katherine",
+    profilePic:
+      "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652809914/katherine_whqwrl.jpg",
     lastName: "Langford",
     firstName: "Katherine",
     comments: [],
@@ -122,6 +134,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "mastershi",
+    profilePic:
+      "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652809914/master_shi_wpqvx1.jpg",
     lastName: "Heng",
     firstName: "Master Shi",
     comments: [],
@@ -138,6 +152,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "prabhu",
+    profilePic:
+      "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652809914/amogh_prabhu_baeztz.jpg",
     lastName: "Prabhu",
     firstName: "Amogh",
     comments: [],

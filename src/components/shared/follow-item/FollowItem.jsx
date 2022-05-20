@@ -7,6 +7,7 @@ export const FollowItem = ({
   children,
   fullName,
   username,
+  avatarSrc,
   linkProps,
   itemSxStyles,
   itemClassName,
@@ -16,13 +17,17 @@ export const FollowItem = ({
 }) => {
   return (
     <ListItem
-      sx={itemSxStyles}
       onClick={onClick}
+      sx={itemSxStyles}
       component={itemComponent}
       className={itemClassName}
     >
       <ListItemAvatar sx={{ minWidth: "1rem" }}>
-        <CustomAvatar sxStyles={avatarSxStyles} />
+        <CustomAvatar
+          username={username}
+          avatarSrc={avatarSrc}
+          sxStyles={avatarSxStyles}
+        />
       </ListItemAvatar>
 
       <ListItemText
@@ -41,6 +46,7 @@ FollowItem.propTypes = {
   children: PropTypes.node,
   fullName: PropTypes.string,
   username: PropTypes.string,
+  avatarSrc: PropTypes.string,
   linkProps: PropTypes.object,
   itemSxStyles: PropTypes.object,
   itemClassName: PropTypes.string,
@@ -52,6 +58,7 @@ FollowItem.propTypes = {
 FollowItem.defaultProps = {
   fullName: "",
   username: "",
+  avatarSrc: "",
   linkProps: {},
   children: <></>,
   itemSxStyles: {},

@@ -1,15 +1,13 @@
 import PropTypes from "prop-types";
 import { Avatar } from "@mui/material";
-import { FilledAccountCircleIcon, HimanshuJPG } from "assets";
+import { FilledAccountCircleIcon } from "assets";
 
-export const CustomAvatar = ({ sxStyles }) => {
-  const isImgSrcPresent = false;
-
-  return isImgSrcPresent ? (
+export const CustomAvatar = ({ sxStyles, avatarSrc, username }) => {
+  return avatarSrc ? (
     <Avatar
       sx={sxStyles}
-      alt="Himanshu Avatar"
-      src={HimanshuJPG}
+      src={avatarSrc}
+      alt={`${username} avatar`}
       imgProps={{ loading: "lazy" }}
     />
   ) : (
@@ -21,8 +19,12 @@ export const CustomAvatar = ({ sxStyles }) => {
 
 CustomAvatar.propTypes = {
   sxStyles: PropTypes.object,
+  username: PropTypes.string,
+  avatarSrc: PropTypes.string,
 };
 
 CustomAvatar.defaultProps = {
   sxStyles: {},
+  username: "",
+  avatarSrc: "",
 };

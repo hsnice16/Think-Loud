@@ -1,6 +1,5 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { HimanshuJPG } from "assets";
 import styles from "./ReplyDialog.module.css";
 import { Box, Typography } from "@mui/material";
 import { BROADCAST_MAX_CHARACTERS } from "utils";
@@ -9,9 +8,9 @@ import {
   AvatarGridBox,
   BroadcastBoxHeader,
   BroadcastDialogActions,
-  BroadcastDialogContainer,
   BroadcastDialogContent,
   DialogActionsCloseIcon,
+  BroadcastDialogContainer,
 } from "components";
 
 // this variables are for design purpose only, they will get removed
@@ -42,11 +41,7 @@ export const ReplyDialog = ({ openReplyDialog, setOpenReplyDialog }) => {
         postText={postText}
         handlePostTextChange={handlePostTextChange}
       >
-        <AvatarGridBox
-          imgSrc={HimanshuJPG}
-          imgAlt="Himanshu Avatar"
-          className={styles.filledBox}
-        >
+        <AvatarGridBox className={styles.filledBox}>
           <BroadcastBoxHeader
             h2Text="Himanshu Singh"
             pText="@hsnice16 • Dec 22, 2021"

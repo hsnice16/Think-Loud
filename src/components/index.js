@@ -43,6 +43,8 @@ export { FormError } from "./shared/form-error/FormError";
 export { FormHeading } from "./shared/form-heading/FormHeading";
 export { FormWrapper } from "./shared/form-wrapper/FormWrapper";
 
+export { InputFile } from "./shared/input-file/InputFile";
+
 export { LoadingCircularProgress } from "./shared/loading-circular-progress/LoadingCircularProgress";
 export { LoadingSpinner } from "./shared/loading-spinner/LoadingSpinner";
 
