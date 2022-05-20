@@ -3,6 +3,11 @@ export const API_TO_GET_ALL_POSTS = {
   propertyToGet: "posts",
 };
 
+export const API_TO_GET_SINGLE_POST = {
+  api: "/api/posts",
+  propertyToGet: "post",
+};
+
 export const API_TO_POST_NEW_POST = {
   api: "/api/user/posts",
   propertyToGet: "posts",
@@ -20,6 +25,11 @@ export const API_TO_POST_LIKE = {
 
 export const API_TO_POST_DISLIKE = {
   api: "/api/posts/dislike",
+  propertyToGet: "posts",
+};
+
+export const API_TO_POST_NEW_COMMENT = {
+  api: "/api/comments/add",
   propertyToGet: "posts",
 };
 

@@ -1,16 +1,17 @@
 import "./App.css";
+import { useUser } from "context";
 import { Route, Routes, useLocation } from "react-router-dom";
-
 import { Box, Container, useMediaQuery } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Bookmarks, Explore, Home, Landing, Profile, SinglePost } from "pages";
 
 import {
+  NotFound,
   ProtectRoute,
   RightSideBar,
   RestrictRoute,
   LeftSideNavbar,
 } from "components";
-import { Bookmarks, Explore, Home, Landing, Profile } from "pages";
 
 import {
   ROUTE_HOME,
@@ -19,9 +20,14 @@ import {
   ROUTE_LANDING,
   ROUTE_PROFILE,
   ROUTE_BOOKMARKS,
+  ROUTE_READ_POST,
 } from "utils";
 
 function App() {
+  const {
+    userState: { isUserAuthTokenExist },
+  } = useUser();
+
   const location = useLocation();
   const theme = createTheme(CustomTheme);
   const matches = useMediaQuery(theme.breakpoints.down("lg"));
@@ -38,10 +44,10 @@ function App() {
         <Container className="container-lg">
           <Box
             display="grid"
-            gridTemplateColumns="repeat(12, 1fr)"
             sx={{ minHeight: "100vh" }}
+            gridTemplateColumns="repeat(12, 1fr)"
           >
-            <LeftSideNavbar />
+            {isUserAuthTokenExist && <LeftSideNavbar />}
 
             <Box
               component="main"
@@ -57,11 +63,17 @@ function App() {
                     path={`${ROUTE_PROFILE}/:username`}
                     element={<Profile />}
                   />
+                  <Route
+                    path={`${ROUTE_READ_POST}/:postId`}
+                    element={<SinglePost />}
+                  />
                 </Route>
+
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Box>
 
-            <RightSideBar />
+            {isUserAuthTokenExist && <RightSideBar />}
           </Box>
         </Container>
       )}

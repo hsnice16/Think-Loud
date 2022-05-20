@@ -47,8 +47,11 @@ export const LeftSideNavbar = () => {
 
       {openLogoutDialog && (
         <LogoutDialog
+          username={userUsername}
+          avatarSrc={data?.profilePic}
           openLogoutDialog={openLogoutDialog}
           setOpenLogoutDialog={setOpenLogoutDialog}
+          fullName={`${data?.firstName ?? ""} ${data?.lastName ?? ""}`}
         />
       )}
 

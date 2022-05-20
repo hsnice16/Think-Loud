@@ -1,0 +1,22 @@
+button.btnAction_icon {
+  margin-right: 0.5rem;
+}
+
+button.btnAction_icon svg path {
+  transform: translate(9%, -6%) scale(0.5);
+}
+
+button.likedIcon svg {
+  fill: var(--COLOR-ERROR);
+}
+
+.footer_actions,
+.footer_actions > div {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer_actions button.btnAction_icon:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-150);
+}

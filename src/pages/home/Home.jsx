@@ -127,7 +127,6 @@ export const Home = () => {
               />
 
               <BroadcastDialogActions
-                status={status}
                 btnText="Broadcast"
                 postText={postText}
                 onClick={handleBroadcastClick}

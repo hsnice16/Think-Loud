@@ -1,8 +1,7 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
+import { useReplyText } from "custom-hooks";
 import styles from "./ReplyDialog.module.css";
 import { Box, Typography } from "@mui/material";
-import { BROADCAST_MAX_CHARACTERS } from "utils";
 
 import {
   AvatarGridBox,
@@ -13,42 +12,46 @@ import {
   BroadcastDialogContainer,
 } from "components";
 
-// this variables are for design purpose only, they will get removed
-
-const post =
-  "Hey 👋 everyone\n\nfinally, I have completed all the basic features of the marvelsQuiz app\n\n🌐Live URL: https://marvelsquiz.vercel.app\n🔗GitHub link: https://github.com/hsnice16/react-marvelsQuiz\n\nfeedbacks are appreciated.";
-
-export const ReplyDialog = ({ openReplyDialog, setOpenReplyDialog }) => {
-  const [postText, setPostText] = useState("");
-
-  const handlePostTextChange = (event) => {
-    if (BROADCAST_MAX_CHARACTERS - event.target.value.length >= 0)
-      setPostText(event.target.value);
-  };
-
+export const ReplyDialog = ({
+  postId,
+  postUsername,
+  openReplyDialog,
+  postContentText,
+  postUserFullname,
+  postUserProfilePic,
+  setOpenReplyDialog,
+  postTimeDurationToShow,
+}) => {
   const handleClose = () => {
     setOpenReplyDialog(false);
   };
 
+  const { status, replyText, handleReplyTextChange, handleReplyClick } =
+    useReplyText(handleClose);
+
   return (
     <BroadcastDialogContainer
-      openDialog={openReplyDialog}
       handleClose={handleClose}
+      openDialog={openReplyDialog}
     >
       <DialogActionsCloseIcon handleClose={handleClose} />
 
       <BroadcastDialogContent
-        postText={postText}
-        handlePostTextChange={handlePostTextChange}
+        postText={replyText}
+        handlePostTextChange={handleReplyTextChange}
       >
-        <AvatarGridBox className={styles.filledBox}>
+        <AvatarGridBox
+          username={postUsername}
+          className={styles.filledBox}
+          avatarSrc={postUserProfilePic}
+        >
           <BroadcastBoxHeader
-            h2Text="Himanshu Singh"
-            pText="@hsnice16 • Dec 22, 2021"
+            h2Text={postUserFullname}
+            pText={`@${postUsername} • ${postTimeDurationToShow} `}
           />
 
           <Box component="p" className={styles.broadcast_message}>
-            {post}
+            {postContentText}
 
             <Typography component="span" className={styles.replying_span}>
               Replying
@@ -57,17 +60,34 @@ export const ReplyDialog = ({ openReplyDialog, setOpenReplyDialog }) => {
         </AvatarGridBox>
       </BroadcastDialogContent>
 
-      <BroadcastDialogActions postText={postText} btnText="Reply" />
+      <BroadcastDialogActions
+        btnText="Reply"
+        status={status}
+        postText={replyText}
+        onClick={() => handleReplyClick(postId)}
+      />
     </BroadcastDialogContainer>
   );
 };
 
 ReplyDialog.propTypes = {
+  postId: PropTypes.string,
+  postUsername: PropTypes.string,
   openReplyDialog: PropTypes.bool,
+  postContentText: PropTypes.string,
+  postUserFullname: PropTypes.string,
   setOpenReplyDialog: PropTypes.func,
+  postUserProfilePic: PropTypes.string,
+  postTimeDurationToShow: PropTypes.string,
 };
 
 ReplyDialog.defaultProps = {
+  postId: "",
+  postUsername: "",
+  postContentText: "",
+  postUserFullname: "",
   openReplyDialog: false,
+  postUserProfilePic: "",
+  postTimeDurationToShow: "",
   setOpenReplyDialog: () => {},
 };

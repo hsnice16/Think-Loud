@@ -10,6 +10,7 @@ import { useFollow, usePosts, useProfile, useUser } from "context";
 import { useAsync, useDocumentTitle, useScrollToTop } from "custom-hooks";
 
 import {
+  NotFound,
   PageHeading,
   EmptyBookmark,
   ListBroadcasts,
@@ -178,7 +179,12 @@ export const Profile = () => {
     ? () => postUnfollowCall(data.username)
     : () => postFollowCall(data.username);
 
-  return (
+  return status === "error" ? (
+    <NotFound
+      documentTitle="Profile Not Found"
+      h1Text="This profile isn't available anymore"
+    />
+  ) : (
     <Box className={styles.profile_container}>
       {openEditProfileDialog && (
         <EditProfileDialog

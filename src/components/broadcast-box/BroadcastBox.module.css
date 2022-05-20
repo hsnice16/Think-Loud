@@ -1,17 +1,5 @@
-button.btnAction_icon {
-  margin-right: 0.5rem;
-}
-
-button.btnAction_icon svg path {
-  transform: translate(9%, -6%) scale(0.5);
-}
-
 button.btnMenu_icon svg path {
   transform: translate(-0.2rem, -12%) scale(0.5);
-}
-
-button.likedIcon svg {
-  fill: var(--COLOR-ERROR);
 }
 
 .avatarBox {
@@ -34,19 +22,11 @@ button.likedIcon svg {
   color: var(--COLOR-TEXT);
 }
 
-.footer_actions,
-.footer_actions > div {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-}
-
 .header button.btnMenu_icon {
   height: 3rem;
   width: 3rem;
 }
 
-.header button.btnMenu_icon:hover,
-.footer_actions button.btnAction_icon:hover {
+.header button.btnMenu_icon:hover {
   background-color: var(--COLOR-BACKGROUND-DARK-150);
 }
