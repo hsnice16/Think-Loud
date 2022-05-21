@@ -1,0 +1,53 @@
+button.btnMenu_icon svg path {
+  transform: translate(-0.2rem, -12%) scale(0.5);
+}
+
+.name {
+  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.name a {
+  color: var(--COLOR-TEXT);
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.name a:hover {
+  text-decoration: underline;
+}
+
+.name p {
+  font-size: 1.5rem;
+}
+
+.singleMainPost_container {
+  border-bottom: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  color: var(--COLOR-TEXT);
+  padding: 2rem;
+}
+
+.singleMainPost_content {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.5em;
+  margin: 1rem auto;
+}
+
+.singleMainPost_header {
+  align-items: center;
+  display: flex;
+}
+
+.singleMainPost_header button.btnMenu_icon {
+  height: 3rem;
+  margin-left: auto;
+  width: 3rem;
+}
+
+.singleMainPost_header button.btnMenu_icon:hover {
+  background-color: var(--COLOR-BACKGROUND-DARK-150);
+}

@@ -1,4 +1,5 @@
 export { BroadcastBox } from "./broadcast-box/BroadcastBox";
+export { CommentBox } from "./comment-box/CommentBox";
 export { Compose } from "./compose/Compose";
 
 export { BroadcastDialog } from "./dialog/broadcast-dialog/BroadcastDialog";
@@ -53,3 +54,5 @@ export { LoadingSpinner } from "./shared/loading-spinner/LoadingSpinner";
 
 export { OptionsMenu } from "./shared/options-menu/OptionsMenu";
 export { PasswordInput } from "./shared/password-input/PasswordInput";
+
+export { SingleMainPost } from "./single-main-post/SingleMainPost";
