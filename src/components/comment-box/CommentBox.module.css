@@ -1,0 +1,18 @@
+p.replyingTo_para {
+  font-size: 1.4rem;
+}
+
+.avatarBox {
+  border-bottom: thin solid var(--COLOR-BACKGROUND-DARK-100);
+  padding: 1rem 2rem;
+}
+
+.commentText {
+  line-height: 1.5em;
+  margin: 1rem 0;
+  white-space: pre-line;
+}
+
+.container {
+  color: var(--COLOR-TEXT);
+}

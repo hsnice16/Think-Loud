@@ -139,7 +139,11 @@ export const Home = () => {
               h1Text="Empty?"
               imgSrc={emptyHome}
               imgAlt="empty home"
-              h2Text="Either follow someone or make a broadcast yourself"
+              h2Text={
+                selectedH1Text === "Most Liked Broadcasts"
+                  ? "Like broadcast of your following"
+                  : "Either follow someone or make a broadcast yourself"
+              }
             />
           ) : (
             <ListBroadcasts broadcastsToShow={dataToShow} />

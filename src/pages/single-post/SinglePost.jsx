@@ -1,24 +1,46 @@
+import { useEffect } from "react";
+import { usePosts } from "context";
+import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { useAsync, useDocumentTitle, useScrollToTop } from "custom-hooks";
 import { API_TO_GET_SINGLE_POST } from "utils";
+import { useAsync, useDocumentTitle, useScrollToTop } from "custom-hooks";
 
-import { NotFound, LoadingCircularProgress } from "components";
+import {
+  NotFound,
+  CommentBox,
+  SingleMainPost,
+  LoadingCircularProgress,
+} from "components";
 
 export const SinglePost = () => {
   const { postId } = useParams();
   const { api, propertyToGet } = API_TO_GET_SINGLE_POST;
 
   const {
+    callAPI,
+    dispatch,
     state: { status, data },
   } = useAsync({
-    api: `${api}/${postId}`,
     propertyToGet,
+    api: `${api}/${postId}`,
   });
 
-  useDocumentTitle(
-    status === "success" ? `${data.firstName} ${data.lastName}` : "Post"
-  );
+  const {
+    posts: { status: postsStatus },
+  } = usePosts();
+
   useScrollToTop();
+  useDocumentTitle(
+    status === "success" ? `${data.firstName} ${data.lastName} thinks` : "Post"
+  );
+
+  useEffect(() => {
+    if (postsStatus === "success") {
+      callAPI(`${api}/${postId}`, propertyToGet, dispatch);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postsStatus]);
 
   return status === "error" ? (
     <NotFound
@@ -27,8 +49,35 @@ export const SinglePost = () => {
     />
   ) : (
     <>
-      {status === "loading" && <LoadingCircularProgress />}
-      {status === "success" && <div>SinglePost</div>}
+      {status === "loading" && data === null && <LoadingCircularProgress />}
+
+      {data !== null && (
+        <>
+          <SingleMainPost details={data} />
+
+          {data.comments.length > 0 ? (
+            [...data.comments]
+              .reverse()
+              .map((comment) => (
+                <CommentBox
+                  comment={comment}
+                  key={comment._id}
+                  postUsername={data.username}
+                />
+              ))
+          ) : (
+            <Typography
+              m={2}
+              variant="h4"
+              component="p"
+              textAlign="center"
+              color="var(--COLOR-TEXT)"
+            >
+              No replies
+            </Typography>
+          )}
+        </>
+      )}
     </>
   );
 };
