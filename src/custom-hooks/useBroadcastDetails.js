@@ -1,7 +1,8 @@
 import { BroadcastBoxData } from "data";
 import { getTimeDurationToShow } from "utils";
+import { useFollow, useProfile } from "context";
 import { useEffect, useMemo, useState } from "react";
-import { useFollow, useProfile, usePosts } from "context";
+import { useDeleteBroadcastCallMutation } from "redux/api/postsAPI";
 
 const { loggedUserBroadcastOptions, getNotLoggedUserBroadcastOptions } =
   BroadcastBoxData;
@@ -34,21 +35,21 @@ export const useBroadcastDetails = ({ _id, username, createdAt, likedBy }) => {
     follow: { status: followStatus, username: followUsername },
   } = useFollow();
 
-  const { deleteBroadcastCall } = usePosts();
+  const [deleteBroadcastCall] = useDeleteBroadcastCallMutation();
 
   const {
     profile: { status, data },
   } = useProfile();
 
-  const [isInLoggedUserBookmarks, setIsInLoggedUserBookmarks] = useState(false);
-  const [isInLoggedUserFollowing, setIsInLoggedUserFollowing] = useState(false);
-  const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);
-  const [isLikedByLoggedUser, setIsLikedByLoggedUser] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [openReplyDialog, setOpenReplyDialog] = useState(false);
   const [timeDurationToShow, setTimeDurationToShow] = useState(
     getTimeDurationToShow(createdAt)
   );
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);
+  const [isLikedByLoggedUser, setIsLikedByLoggedUser] = useState(false);
+  const [isInLoggedUserBookmarks, setIsInLoggedUserBookmarks] = useState(false);
+  const [isInLoggedUserFollowing, setIsInLoggedUserFollowing] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(

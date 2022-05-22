@@ -6,9 +6,9 @@ export const EmptyBookmark = ({ imgSrc, imgAlt, h1Text, h2Text }) => {
   return (
     <>
       <img
-        loading="lazy"
         src={imgSrc}
         alt={imgAlt}
+        loading="lazy"
         className={styles.emptyBookmark_img}
       />
 

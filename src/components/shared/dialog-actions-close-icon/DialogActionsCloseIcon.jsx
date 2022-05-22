@@ -7,8 +7,8 @@ export const DialogActionsCloseIcon = ({ handleClose }) => {
   return (
     <DialogActions className={styles.action_closeIcon}>
       <Button
-        onClick={handleClose}
         variant="text"
+        onClick={handleClose}
         className={styles.btn_closeIcon}
       >
         <CloseIcon className={styles.closeIcon} />

@@ -24,7 +24,9 @@ export const Home = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedH1Text, setSelectedH1Text] = useState("Home");
 
-  const { status, data } = useSelector((state) => state.posts);
+  const { status, data, newBroadcastStatus } = useSelector(
+    (state) => state.posts
+  );
   const { postText, handlePostTextChange, handleBroadcastClick } =
     usePostText();
 
@@ -127,6 +129,7 @@ export const Home = () => {
               <BroadcastDialogActions
                 btnText="Broadcast"
                 postText={postText}
+                status={newBroadcastStatus}
                 onClick={handleBroadcastClick}
               />
             </Box>

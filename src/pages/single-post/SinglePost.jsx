@@ -15,7 +15,7 @@ import {
 export const SinglePost = () => {
   const { postId } = useParams();
   const { api, propertyToGet } = API_TO_GET_SINGLE_POST;
-  const { status: postsStatus } = useSelector((state) => state.posts);
+  const { data: postsData } = useSelector((state) => state.posts);
 
   const {
     callAPI,
@@ -32,12 +32,10 @@ export const SinglePost = () => {
   );
 
   useEffect(() => {
-    if (postsStatus === "success") {
-      callAPI(`${api}/${postId}`, propertyToGet, dispatch);
-    }
+    callAPI(`${api}/${postId}`, propertyToGet, dispatch);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postsStatus]);
+  }, [postsData]);
 
   return status === "error" ? (
     <NotFound

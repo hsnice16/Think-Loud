@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import { usePostText } from "custom-hooks";
 
 import {
@@ -19,12 +20,15 @@ export const BroadcastDialog = ({
   };
 
   const {
-    status,
     postText,
     handlePostTextChange,
     handleBroadcastClick,
     handleEditBroadcastClick,
   } = usePostText(postContentText, handleClose);
+
+  const { newBroadcastStatus, editBroadcastStatus } = useSelector(
+    (state) => state.posts
+  );
 
   return (
     <BroadcastDialogContainer
@@ -39,7 +43,6 @@ export const BroadcastDialog = ({
       />
 
       <BroadcastDialogActions
-        status={status}
         btnText="Broadcast"
         postText={postText}
         onClick={
@@ -47,6 +50,7 @@ export const BroadcastDialog = ({
             ? () => handleEditBroadcastClick(postId)
             : handleBroadcastClick
         }
+        status={postId !== "" ? editBroadcastStatus : newBroadcastStatus}
       />
     </BroadcastDialogContainer>
   );

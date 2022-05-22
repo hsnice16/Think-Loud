@@ -7,9 +7,9 @@ export const ConnectWithMeLink = ({ component }) => {
   return (
     <Box sx={{ textAlign: "center" }} component={component}>
       <a
-        href="https://twitter.com/hsnice16"
         target="_blank"
         rel="noreferrer"
+        href="https://twitter.com/hsnice16"
         className={styles.link_connectWithMe}
       >
         connect with me <OpenInNewIcon />

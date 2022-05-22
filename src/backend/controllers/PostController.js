@@ -71,9 +71,7 @@ export const createPostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -120,9 +118,7 @@ export const editPostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -134,7 +130,7 @@ export const editPostHandler = function (schema, request) {
         400,
         {},
         {
-          errors: ["Cannot edit a Post doesn't belong to the logged in User."],
+          error: "Cannot edit a Post doesn't belong to the logged in User.",
         }
       );
     }
@@ -165,9 +161,7 @@ export const likePostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -177,7 +171,7 @@ export const likePostHandler = function (schema, request) {
       return new Response(
         400,
         {},
-        { errors: ["Cannot like a post that is already liked. "] }
+        { error: "Cannot like a post that is already liked. " }
       );
     }
     post.likes.dislikedBy = post.likes.dislikedBy.filter(
@@ -211,9 +205,7 @@ export const dislikePostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -223,14 +215,14 @@ export const dislikePostHandler = function (schema, request) {
       return new Response(
         400,
         {},
-        { errors: ["Cannot decrement like less than 0."] }
+        { error: "Cannot decrement like less than 0." }
       );
     }
     if (post.likes.dislikedBy.some((currUser) => currUser._id === user._id)) {
       return new Response(
         400,
         {},
-        { errors: ["Cannot dislike a post that is already disliked. "] }
+        { error: "Cannot dislike a post that is already disliked. " }
       );
     }
     post.likes.likeCount -= 1;
@@ -264,9 +256,7 @@ export const deletePostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -277,9 +267,7 @@ export const deletePostHandler = function (schema, request) {
         400,
         {},
         {
-          errors: [
-            "Cannot delete a Post doesn't belong to the logged in User.",
-          ],
+          error: "Cannot delete a Post doesn't belong to the logged in User.",
         }
       );
     }

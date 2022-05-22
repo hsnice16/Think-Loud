@@ -6,28 +6,28 @@ export const CircularProgressWithLabel = ({ value }) => {
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
         size="3rem"
-        sx={{ color: "var(--COLOR-FOLLOW-BACKGROUND)", marginRight: "1rem" }}
         variant="determinate"
         value={Math.round((value * 100) / 20)}
+        sx={{ color: "var(--COLOR-FOLLOW-BACKGROUND)", marginRight: "1rem" }}
       />
 
       <Box
         sx={{
-          alignItems: "center",
+          top: 0,
+          left: 0,
+          right: 0,
           bottom: 0,
           display: "flex",
-          justifyContent: "center",
-          left: 0,
           marginRight: "1rem",
+          alignItems: "center",
           position: "absolute",
-          right: 0,
-          top: 0,
+          justifyContent: "center",
         }}
       >
         <Typography
+          component="div"
           fontSize="1.2rem"
           variant="caption"
-          component="div"
           color="text.secondary"
         >
           {value}

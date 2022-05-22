@@ -1,36 +1,6 @@
-export const API_TO_GET_ALL_POSTS = {
-  api: "/api/posts/",
-  propertyToGet: "posts",
-};
-
 export const API_TO_GET_SINGLE_POST = {
   api: "/api/posts",
   propertyToGet: "post",
-};
-
-export const API_TO_POST_NEW_POST = {
-  api: "/api/user/posts",
-  propertyToGet: "posts",
-};
-
-export const API_TO_POST_EDITED_POST = {
-  api: "/api/posts/edit",
-  propertyToGet: "posts",
-};
-
-export const API_TO_POST_LIKE = {
-  api: "/api/posts/like",
-  propertyToGet: "posts",
-};
-
-export const API_TO_POST_DISLIKE = {
-  api: "/api/posts/dislike",
-  propertyToGet: "posts",
-};
-
-export const API_TO_POST_NEW_COMMENT = {
-  api: "/api/comments/add",
-  propertyToGet: "posts",
 };
 
 export const API_TO_POST_SIGN_IN_DETAILS = {

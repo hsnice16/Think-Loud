@@ -1,9 +1,9 @@
 /**
- * useCookieHandler - hook
+ * authCookieHandler - function
  *
  * @returns handler functions related to cookie
  */
-export const useCookieHandler = () => {
+export const authCookieHandler = () => {
   const userUsernameCookieKey = "ThinkLoudUserUsername";
   const userAuthTokenCookieKey = "ThinkLoudUserAuthToken";
 
@@ -23,12 +23,12 @@ export const useCookieHandler = () => {
       maxAge = `max-age=${60 * 60 * 24 * 2};`;
     }
 
-    document.cookie = `${userAuthTokenCookieKey}=${encodeURIComponent(
-      userAuthToken
-    )};${maxAge}secure`;
-
     document.cookie = `${userUsernameCookieKey}=${encodeURIComponent(
       userUsername
+    )};${maxAge}secure`;
+
+    document.cookie = `${userAuthTokenCookieKey}=${encodeURIComponent(
+      userAuthToken
     )};${maxAge}secure`;
   };
 
@@ -36,9 +36,8 @@ export const useCookieHandler = () => {
    * getCookies - function to get cookies value
    *
    * @returns an object having form {
-   *    userAuthToken,
    *    userUsername,
-   *    userFullName
+   *    userAuthToken,
    * }
    */
   const getCookies = () => {
@@ -52,12 +51,12 @@ export const useCookieHandler = () => {
       value = decodeURIComponent(value);
 
       switch (key.trim()) {
-        case userAuthTokenCookieKey:
-          allCookies.userAuthToken = value;
-          break;
-
         case userUsernameCookieKey:
           allCookies.userUsername = value;
+          break;
+
+        case userAuthTokenCookieKey:
+          allCookies.userAuthToken = value;
           break;
 
         default:
@@ -78,8 +77,8 @@ export const useCookieHandler = () => {
   };
 
   const cookieHandler = {
-    setCookies,
     getCookies,
+    setCookies,
     eraseCookies,
   };
 

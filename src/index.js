@@ -3,19 +3,14 @@ import { createRoot } from "react-dom/client";
 
 import { makeServer } from "./server";
 
-import App from "./App";
 import { Compose } from "components";
-import { BrowserRouter } from "react-router-dom";
-import {
-  PostsProvider,
-  FollowProvider,
-  ProfileProvider,
-  BookmarksProvider,
-} from "context";
+import { FollowProvider, ProfileProvider, BookmarksProvider } from "context";
 
+import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "redux/app/store";
 import { AppWrapper } from "./AppWrapper";
+import { BrowserRouter } from "react-router-dom";
 
 // Call make Server
 makeServer();
@@ -25,20 +20,16 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <AppWrapper>
-        <Compose
-          components={[
-            BrowserRouter,
-            ProfileProvider,
-            FollowProvider,
-            PostsProvider,
-            BookmarksProvider,
-          ]}
-        >
-          <App />
-        </Compose>
-      </AppWrapper>
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppWrapper>
+          <Compose
+            components={[ProfileProvider, FollowProvider, BookmarksProvider]}
+          >
+            <App />
+          </Compose>
+        </AppWrapper>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );

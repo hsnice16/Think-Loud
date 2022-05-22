@@ -2,11 +2,11 @@ import axios from "axios";
 import { useReducer } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useCookieHandler } from "custom-hooks";
 import { setUserState } from "redux/features/user/userSlice";
 
 import {
   ROUTE_HOME,
+  authCookieHandler,
   checkAlphaNumericString,
   API_TO_POST_SIGN_IN_DETAILS,
   API_TO_POST_SIGN_UP_DETAILS,
@@ -21,6 +21,8 @@ import {
   ACTION_TYPE_ENTER_FORM_DETAILS,
 } from "reducer";
 
+const { setCookies } = authCookieHandler();
+
 /**
  * useAuthHandler - hook
  *
@@ -30,7 +32,6 @@ import {
 export const useAuthHandler = () => {
   const navigate = useNavigate();
   const userDispatch = useDispatch();
-  const { setCookies } = useCookieHandler();
 
   const [authState, dispatch] = useReducer(
     authReducer,

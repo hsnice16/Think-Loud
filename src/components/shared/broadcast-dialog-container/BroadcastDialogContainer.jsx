@@ -3,9 +3,9 @@ import { Dialog } from "@mui/material";
 import styles from "./BroadcastDialogContainer.module.css";
 
 export const BroadcastDialogContainer = ({
+  children,
   openDialog,
   handleClose,
-  children,
 }) => {
   return (
     <Dialog
@@ -19,13 +19,13 @@ export const BroadcastDialogContainer = ({
 };
 
 BroadcastDialogContainer.propTypes = {
+  children: PropTypes.node,
   openDialog: PropTypes.bool,
   handleClose: PropTypes.func,
-  children: PropTypes.node,
 };
 
 BroadcastDialogContainer.defaultProps = {
+  children: <></>,
   openDialog: false,
   handleClose: () => {},
-  children: <></>,
 };
