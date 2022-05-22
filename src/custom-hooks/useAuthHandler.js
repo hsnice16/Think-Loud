@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useUser } from "context";
 import { useReducer } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCookieHandler } from "custom-hooks";
+import { setUserState } from "redux/features/user/userSlice";
 
 import {
   ROUTE_HOME,
@@ -28,7 +29,7 @@ import {
  */
 export const useAuthHandler = () => {
   const navigate = useNavigate();
-  const { setUserState } = useUser();
+  const userDispatch = useDispatch();
   const { setCookies } = useCookieHandler();
 
   const [authState, dispatch] = useReducer(
@@ -82,10 +83,12 @@ export const useAuthHandler = () => {
         userAuthToken: encodedToken,
       };
 
-      setUserState({
-        isUserAuthTokenExist: true,
-        ...cookiesValue,
-      });
+      userDispatch(
+        setUserState({
+          isUserAuthTokenExist: true,
+          ...cookiesValue,
+        })
+      );
 
       setCookies(cookiesValue, rememberMe);
       dispatch({ type: ACTION_TYPE_SUCCESS });

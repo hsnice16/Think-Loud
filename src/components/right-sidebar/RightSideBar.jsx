@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { SearchIcon } from "assets";
 import classNames from "classnames";
+import { useFollow } from "context";
 import { useAsync } from "custom-hooks";
 import { Link } from "react-router-dom";
-import { useFollow, useUser } from "context";
+import { useSelector } from "react-redux";
 import styles from "./RightSideBar.module.css";
 import { useTheme } from "@mui/material/styles";
 
@@ -34,11 +35,8 @@ export const RightSideBar = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("lg"));
 
-  const {
-    userState: { userUsername },
-  } = useUser();
-
   const { api, propertyToGet } = API_TO_GET_UNFOLLOWED_USERS;
+  const { userUsername } = useSelector((state) => state.user);
   const apiToCall = { api: `${api}/${userUsername}`, propertyToGet };
 
   const {

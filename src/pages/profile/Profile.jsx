@@ -1,12 +1,13 @@
 import { ProfileData } from "data";
 import classNames from "classnames";
 import styles from "./Profile.module.css";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useFollow, useProfile } from "context";
 import { FilledAccountCircleIcon, LinkIcon } from "assets";
 import { sharedReducer, ACTION_TYPE_SUCCESS } from "reducer";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { isStatusLoading, API_TO_GET_USER_PROFILE } from "utils";
-import { useFollow, usePosts, useProfile, useUser } from "context";
 import { useAsync, useDocumentTitle, useScrollToTop } from "custom-hooks";
 
 import {
@@ -32,8 +33,8 @@ import {
 const { tabsOptions, getEmptyTabDataToShow } = ProfileData;
 
 export const Profile = () => {
-  const { username } = useParams();
   const { profile: loggedUserData } = useProfile();
+  const { username } = useParams();
 
   const {
     postFollowCall,
@@ -45,13 +46,8 @@ export const Profile = () => {
     },
   } = useFollow();
 
-  const {
-    posts: { data: postsData },
-  } = usePosts();
-
-  const {
-    userState: { userUsername },
-  } = useUser();
+  const { data: postsData } = useSelector((state) => state.posts);
+  const { userUsername } = useSelector((state) => state.user);
 
   const isProfileOfLoggedUser = username === userUsername;
   const { api, propertyToGet } = API_TO_GET_USER_PROFILE;

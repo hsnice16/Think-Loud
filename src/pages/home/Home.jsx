@@ -1,8 +1,9 @@
 import { HomeData } from "data";
+import { useProfile } from "context";
 import styles from "./Home.module.css";
 import { useState, useMemo } from "react";
+import { useSelector } from "react-redux";
 import { emptyHome, FilterIcon } from "assets";
-import { usePosts, useProfile } from "context";
 import { Box, Typography } from "@mui/material";
 import { useDocumentTitle, usePostText, useScrollToTop } from "custom-hooks";
 
@@ -20,9 +21,10 @@ import {
 const { menuOptions } = HomeData;
 
 export const Home = () => {
-  const [selectedH1Text, setSelectedH1Text] = useState("Home");
   const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedH1Text, setSelectedH1Text] = useState("Home");
 
+  const { status, data } = useSelector((state) => state.posts);
   const { postText, handlePostTextChange, handleBroadcastClick } =
     usePostText();
 
@@ -30,12 +32,8 @@ export const Home = () => {
     profile: { data: profileData },
   } = useProfile();
 
-  const {
-    posts: { status, data },
-  } = usePosts();
-
-  useDocumentTitle(selectedH1Text);
   useScrollToTop(selectedH1Text);
+  useDocumentTitle(selectedH1Text);
 
   const clickHandlerMappedMenuOptions = useMemo(
     () =>

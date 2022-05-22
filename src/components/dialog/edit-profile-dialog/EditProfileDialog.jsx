@@ -2,7 +2,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useReducer } from "react";
 import classNames from "classnames";
-import { useProfile, useUser } from "context";
+import { useProfile } from "context";
+import { useSelector } from "react-redux";
 import { FilledAccountCircleIcon } from "assets";
 import styles from "./EditProfileDialog.module.css";
 
@@ -47,10 +48,7 @@ export const EditProfileDialog = ({
   openEditProfileDialog,
   setOpenEditProfileDialog,
 }) => {
-  const {
-    userState: { userAuthToken },
-  } = useUser();
-
+  const { userAuthToken } = useSelector((state) => state.user);
   const [state, dispatch] = useReducer(authReducer, {
     ...editProfileInitialReducerState,
     ...profileData,

@@ -1,6 +1,7 @@
+import { useBookmarks } from "context";
+import { useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { useBookmarks, usePosts, useUser } from "context";
 import { emptyBookmark, EllipsisHorizontalIcon } from "assets";
 import { useDocumentTitle, useScrollToTop } from "custom-hooks";
 
@@ -14,24 +15,18 @@ import {
 } from "components";
 
 export const Bookmarks = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  useDocumentTitle("Bookmarks");
   useScrollToTop();
+  useDocumentTitle("Bookmarks");
 
-  const {
-    posts: { data: postsData },
-  } = usePosts();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { userUsername } = useSelector((state) => state.user);
+  const { data: postsData } = useSelector((state) => state.posts);
 
   const {
     getBookmarksCall,
     postClearAllBookmarksCall,
     bookmarks: { status, data },
   } = useBookmarks();
-
-  const {
-    userState: { userUsername },
-  } = useUser();
 
   useEffect(() => {
     getBookmarksCall();

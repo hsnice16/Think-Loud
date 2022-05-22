@@ -1,11 +1,11 @@
-import { useUser } from "context";
 import { ROUTE_LANDING } from "utils";
+import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 export const ProtectRoute = () => {
-  const { userState } = useUser();
+  const { isUserAuthTokenExist } = useSelector((state) => state.user);
 
-  return userState.isUserAuthTokenExist ? (
+  return isUserAuthTokenExist ? (
     <Outlet />
   ) : (
     <Navigate to={ROUTE_LANDING} replace={true} />

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { usePosts } from "context";
+import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { API_TO_GET_SINGLE_POST } from "utils";
@@ -15,6 +15,7 @@ import {
 export const SinglePost = () => {
   const { postId } = useParams();
   const { api, propertyToGet } = API_TO_GET_SINGLE_POST;
+  const { status: postsStatus } = useSelector((state) => state.posts);
 
   const {
     callAPI,
@@ -24,10 +25,6 @@ export const SinglePost = () => {
     propertyToGet,
     api: `${api}/${postId}`,
   });
-
-  const {
-    posts: { status: postsStatus },
-  } = usePosts();
 
   useScrollToTop();
   useDocumentTitle(

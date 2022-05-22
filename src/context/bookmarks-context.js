@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useProfile, useUser } from "context";
+import { useProfile } from "context";
+import { useSelector } from "react-redux";
 import { createContext, useContext, useReducer } from "react";
 import { API_TO_POST_ADD_BOOKMARK, API_TO_POST_REMOVE_BOOKMARK } from "utils";
 
@@ -27,9 +28,8 @@ export const BookmarksProvider = ({ children }) => {
     dispatch: profileDispatch,
     profile: { data: profileData },
   } = useProfile();
-  const {
-    userState: { userAuthToken },
-  } = useUser();
+
+  const { userAuthToken } = useSelector((state) => state.user);
   const config = { headers: { authorization: userAuthToken } };
 
   const [bookmarks, dispatch] = useReducer(

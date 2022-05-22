@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useUser } from "context";
 import { useAsync } from "custom-hooks";
+import { useSelector } from "react-redux";
 import { createContext, useContext } from "react";
 
 import {
@@ -32,11 +32,8 @@ const PostsContext = createContext({
 export const usePosts = () => useContext(PostsContext);
 
 export const PostsProvider = ({ children }) => {
-  const {
-    userState: { userAuthToken },
-  } = useUser();
+  const { userAuthToken } = useSelector((state) => state.user);
   const config = { headers: { authorization: userAuthToken } };
-
   const { state: posts, dispatch } = useAsync(API_TO_GET_ALL_POSTS);
 
   /**

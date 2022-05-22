@@ -1,7 +1,8 @@
 import { useState } from "react";
 import classNames from "classnames";
+import { useProfile } from "context";
 import { LeftSideNavbarData } from "data";
-import { useProfile, useUser } from "context";
+import { useSelector } from "react-redux";
 import { EllipsisHorizontalIcon } from "assets";
 import styles from "./LeftSideNavbar.module.css";
 import { ROUTE_HOME, ROUTE_PROFILE } from "utils";
@@ -19,9 +20,7 @@ const { logoImg, links } = LeftSideNavbarData;
 
 export const LeftSideNavbar = () => {
   const location = useLocation();
-  const {
-    userState: { userUsername },
-  } = useUser();
+  const { userUsername } = useSelector((state) => state.user);
 
   const {
     profile: { data },
