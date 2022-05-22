@@ -7,12 +7,15 @@ import App from "./App";
 import { Compose } from "components";
 import { BrowserRouter } from "react-router-dom";
 import {
-  UserProvider,
   PostsProvider,
   FollowProvider,
   ProfileProvider,
   BookmarksProvider,
 } from "context";
+
+import { Provider } from "react-redux";
+import { store } from "redux/app/store";
+import { AppWrapper } from "./AppWrapper";
 
 // Call make Server
 makeServer();
@@ -22,17 +25,20 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Compose
-      components={[
-        BrowserRouter,
-        UserProvider,
-        ProfileProvider,
-        FollowProvider,
-        PostsProvider,
-        BookmarksProvider,
-      ]}
-    >
-      <App />
-    </Compose>
+    <Provider store={store}>
+      <AppWrapper>
+        <Compose
+          components={[
+            BrowserRouter,
+            ProfileProvider,
+            FollowProvider,
+            PostsProvider,
+            BookmarksProvider,
+          ]}
+        >
+          <App />
+        </Compose>
+      </AppWrapper>
+    </Provider>
   </React.StrictMode>
 );

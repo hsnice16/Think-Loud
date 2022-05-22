@@ -1,5 +1,5 @@
 import "./App.css";
-import { useUser } from "context";
+import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Box, Container, useMediaQuery } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -24,13 +24,10 @@ import {
 } from "utils";
 
 function App() {
-  const {
-    userState: { isUserAuthTokenExist },
-  } = useUser();
-
   const location = useLocation();
   const theme = createTheme(CustomTheme);
   const matches = useMediaQuery(theme.breakpoints.down("lg"));
+  const { isUserAuthTokenExist } = useSelector((state) => state.user);
 
   return (
     <ThemeProvider theme={theme}>

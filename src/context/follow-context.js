@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useProfile, useUser } from "context";
+import { useProfile } from "context";
+import { useSelector } from "react-redux";
 import { createContext, useContext, useReducer } from "react";
 import { API_TO_POST_FOLLOW_USER, API_TO_POST_UNFOLLOW_USER } from "utils";
 
@@ -21,12 +22,9 @@ const FollowContext = createContext({
 export const useFollow = () => useContext(FollowContext);
 
 export const FollowProvider = ({ children }) => {
-  const {
-    userState: { userAuthToken },
-  } = useUser();
-  const config = { headers: { authorization: userAuthToken } };
-
   const { dispatch: profileDispatch } = useProfile();
+  const { userAuthToken } = useSelector((state) => state.user);
+  const config = { headers: { authorization: userAuthToken } };
 
   const [follow, dispatch] = useReducer(followReducer, {
     ...sharedInitialReducerState,

@@ -1,12 +1,13 @@
 import { TickIcon } from "assets";
-import { useUser } from "context";
 import PropTypes from "prop-types";
 import { ROUTE_LANDING } from "utils";
 import { FollowItem } from "components";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styles from "./LogoutDialog.module.css";
 import { useCookieHandler } from "custom-hooks";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
+import { setUserState, initialState } from "redux/features/user/userSlice";
 
 export const LogoutDialog = ({
   fullName,
@@ -15,9 +16,9 @@ export const LogoutDialog = ({
   openLogoutDialog,
   setOpenLogoutDialog,
 }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { eraseCookies } = useCookieHandler();
-  const { userInitialState, setUserState } = useUser();
 
   const handleClose = () => {
     setOpenLogoutDialog(false);
@@ -25,7 +26,7 @@ export const LogoutDialog = ({
 
   const handleLogOutClick = () => {
     eraseCookies();
-    setUserState(userInitialState);
+    dispatch(setUserState(initialState));
     navigate(ROUTE_LANDING, { replace: true });
   };
 
