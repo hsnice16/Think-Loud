@@ -3,9 +3,6 @@ import { baseAPI } from "redux/api/baseAPI";
 
 const { getCookies } = authCookieHandler();
 const allCookies = getCookies();
-const headers = {
-  authorization: allCookies.userAuthToken,
-};
 
 export const postsAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,54 +12,66 @@ export const postsAPI = baseAPI.injectEndpoints({
 
     postLikeCall: builder.mutation({
       query: (postId) => ({
-        headers,
         body: {},
         method: "POST",
         url: `/posts/like/${postId}`,
+        headers: {
+          authorization: allCookies.userAuthToken,
+        },
       }),
     }),
 
     postDisLikeCall: builder.mutation({
       query: (postId) => ({
-        headers,
         body: {},
         method: "POST",
         url: `/posts/dislike/${postId}`,
+        headers: {
+          authorization: allCookies.userAuthToken,
+        },
       }),
     }),
 
     deleteBroadcastCall: builder.mutation({
       query: (postId) => ({
-        headers,
         method: "DELETE",
         url: `/user/posts/${postId}`,
+        headers: {
+          authorization: allCookies.userAuthToken,
+        },
       }),
     }),
 
     postNewBroadcastCall: builder.mutation({
       query: (postData) => ({
-        headers,
         method: "POST",
         body: { postData },
         url: "/user/posts",
+        headers: {
+          authorization: allCookies.userAuthToken,
+        },
       }),
     }),
 
     postEditedBroadcastCall: builder.mutation({
       query: ({ postId, postData }) => ({
-        headers,
         method: "POST",
         body: { postData },
         url: `/posts/edit/${postId}`,
+        headers: {
+          authorization: allCookies.userAuthToken,
+        },
       }),
     }),
 
     postNewCommentCall: builder.mutation({
       query: ({ postId, commentData }) => ({
-        headers,
         method: "POST",
         body: { commentData },
         url: `/comments/add/${postId}`,
+        headers: {
+          authorization: allCookies.userAuthToken,
+        },
       }),
     }),
   }),
