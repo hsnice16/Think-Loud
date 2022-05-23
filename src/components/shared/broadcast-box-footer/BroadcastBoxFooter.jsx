@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Box } from "@mui/material";
-import { useBookmarks } from "context";
 import { CustomIconButton } from "components";
 import styles from "./BroadcastBoxFooter.module.css";
 
@@ -18,6 +17,11 @@ import {
   OutlinedBookmarkIcon,
 } from "assets";
 
+import {
+  usePostAddBookmarkCallMutation,
+  usePostRemoveBookmarkCallMutation,
+} from "redux/api/userAPI";
+
 export const BroadcastBoxFooter = ({
   _id,
   comments,
@@ -30,7 +34,8 @@ export const BroadcastBoxFooter = ({
 }) => {
   const [postLikeCall] = usePostLikeCallMutation();
   const [postDisLikeCall] = usePostDisLikeCallMutation();
-  const { postAddBookmarkCall, postRemoveBookmarkCall } = useBookmarks();
+  const [postAddBookmarkCall] = usePostAddBookmarkCallMutation();
+  const [postRemoveBookmarkCall] = usePostRemoveBookmarkCallMutation();
 
   return (
     <Box

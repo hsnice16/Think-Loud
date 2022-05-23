@@ -1,7 +1,6 @@
-import { useBookmarks } from "context";
 import { useSelector } from "react-redux";
+import { useMemo, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
 import { emptyBookmark, EllipsisHorizontalIcon } from "assets";
 import { useDocumentTitle, useScrollToTop } from "custom-hooks";
 
@@ -14,25 +13,25 @@ import {
   LoadingCircularProgress,
 } from "components";
 
+import {
+  useGetBookmarksCallQuery,
+  usePostClearAllBookmarksCallMutation,
+} from "redux/api/userAPI";
+
 export const Bookmarks = () => {
   useScrollToTop();
   useDocumentTitle("Bookmarks");
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const { userUsername } = useSelector((state) => state.user);
-  const { data: postsData } = useSelector((state) => state.posts);
-
   const {
-    getBookmarksCall,
-    postClearAllBookmarksCall,
+    userUsername,
     bookmarks: { status, data },
-  } = useBookmarks();
+  } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    getBookmarksCall();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { data: postsData } = useSelector((state) => state.posts);
+  const [postClearAllBookmarksCall] = usePostClearAllBookmarksCallMutation();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useGetBookmarksCallQuery();
 
   const dataToShow = useMemo(
     () =>

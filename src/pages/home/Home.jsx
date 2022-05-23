@@ -1,5 +1,4 @@
 import { HomeData } from "data";
-import { useProfile } from "context";
 import styles from "./Home.module.css";
 import { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -24,15 +23,16 @@ export const Home = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedH1Text, setSelectedH1Text] = useState("Home");
 
+  const {
+    profile: { data: profileData },
+  } = useSelector((state) => state.user);
+
   const { status, data, newBroadcastStatus } = useSelector(
     (state) => state.posts
   );
+
   const { postText, handlePostTextChange, handleBroadcastClick } =
     usePostText();
-
-  const {
-    profile: { data: profileData },
-  } = useProfile();
 
   useScrollToTop(selectedH1Text);
   useDocumentTitle(selectedH1Text);
@@ -65,7 +65,7 @@ export const Home = () => {
             .filter(
               (post) =>
                 post.username === profileData?.username ||
-                profileData?.following.some(
+                profileData?.following?.some(
                   (user) => user.username === post.username
                 )
             )

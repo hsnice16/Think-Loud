@@ -1,9 +1,9 @@
 import { ProfileData } from "data";
 import classNames from "classnames";
+import { useFollow } from "context";
 import styles from "./Profile.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useFollow, useProfile } from "context";
 import { FilledAccountCircleIcon, LinkIcon } from "assets";
 import { sharedReducer, ACTION_TYPE_SUCCESS } from "reducer";
 import { useEffect, useMemo, useReducer, useState } from "react";
@@ -34,7 +34,9 @@ const { tabsOptions, getEmptyTabDataToShow } = ProfileData;
 
 export const Profile = () => {
   const { username } = useParams();
-  const { profile: loggedUserData } = useProfile();
+  const { userUsername } = useSelector((state) => state.user);
+  const { data: postsData } = useSelector((state) => state.posts);
+  const { profile: loggedUserData } = useSelector((state) => state.user);
 
   const {
     postFollowCall,
@@ -46,25 +48,21 @@ export const Profile = () => {
     },
   } = useFollow();
 
-  const { userUsername } = useSelector((state) => state.user);
-  const { data: postsData } = useSelector((state) => state.posts);
-
-  const isProfileOfLoggedUser = username === userUsername;
-  const { api, propertyToGet } = API_TO_GET_USER_PROFILE;
   const { callAPI } = useAsync();
+  const { api, propertyToGet } = API_TO_GET_USER_PROFILE;
+  const isProfileOfLoggedUser = username === userUsername;
+  const [selectedTab, setSelectedTab] = useState("Broadcasts");
+  const [openEditProfileDialog, setOpenEditProfileDialog] = useState(false);
 
   const [profile, dispatch] = useReducer(sharedReducer, loggedUserData);
   const { status, data } = profile;
 
-  const [openEditProfileDialog, setOpenEditProfileDialog] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("Broadcasts");
-
+  useScrollToTop();
   useDocumentTitle(
     status === "success"
       ? `${data.firstName} ${data.lastName} (@${data.username})`
       : "Profile"
   );
-  useScrollToTop();
 
   useEffect(() => {
     if (username !== userUsername) {

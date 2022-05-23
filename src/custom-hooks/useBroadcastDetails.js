@@ -1,6 +1,7 @@
+import { useFollow } from "context";
 import { BroadcastBoxData } from "data";
+import { useSelector } from "react-redux";
 import { getTimeDurationToShow } from "utils";
-import { useFollow, useProfile } from "context";
 import { useEffect, useMemo, useState } from "react";
 import { useDeleteBroadcastCallMutation } from "redux/api/postsAPI";
 
@@ -35,17 +36,18 @@ export const useBroadcastDetails = ({ _id, username, createdAt, likedBy }) => {
     follow: { status: followStatus, username: followUsername },
   } = useFollow();
 
-  const [deleteBroadcastCall] = useDeleteBroadcastCallMutation();
-
   const {
     profile: { status, data },
-  } = useProfile();
+  } = useSelector((state) => state.user);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [openReplyDialog, setOpenReplyDialog] = useState(false);
   const [timeDurationToShow, setTimeDurationToShow] = useState(
     getTimeDurationToShow(createdAt)
   );
+
+  const [deleteBroadcastCall] = useDeleteBroadcastCallMutation();
+
   const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);
   const [isLikedByLoggedUser, setIsLikedByLoggedUser] = useState(false);
   const [isInLoggedUserBookmarks, setIsInLoggedUserBookmarks] = useState(false);

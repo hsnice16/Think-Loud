@@ -23,16 +23,6 @@ export const API_TO_POST_EDITED_USER_PROFILE = {
   propertyToGet: "user",
 };
 
-export const API_TO_POST_ADD_BOOKMARK = {
-  api: "/api/users/bookmark",
-  propertyToGet: "bookmarks",
-};
-
-export const API_TO_POST_REMOVE_BOOKMARK = {
-  api: "/api/users/remove-bookmark",
-  propertyToGet: "bookmarks",
-};
-
 export const API_TO_POST_FOLLOW_USER = {
   api: "/api/users/follow",
 };
