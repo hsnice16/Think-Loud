@@ -6,9 +6,9 @@ import styles from "./PageHeading.module.css";
 export const PageHeading = ({ children, className }) => {
   return (
     <Box
-      pb={0.5}
       px={2}
       pt={2}
+      pb={0.5}
       className={classNames(styles.page_heading, className)}
     >
       {children}
@@ -22,6 +22,6 @@ PageHeading.propTypes = {
 };
 
 PageHeading.defaultProps = {
-  children: <></>,
   className: "",
+  children: <></>,
 };

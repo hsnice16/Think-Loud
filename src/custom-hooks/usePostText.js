@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { usePosts } from "context";
 import { BROADCAST_MAX_CHARACTERS } from "utils";
+
+import {
+  usePostNewBroadcastCallMutation,
+  usePostEditedBroadcastCallMutation,
+} from "redux/api/postsAPI";
 
 /**
  * usePostText - hook to handle text to post
@@ -20,35 +24,34 @@ import { BROADCAST_MAX_CHARACTERS } from "utils";
  */
 export const usePostText = (postContentText = "", handleClose = () => {}) => {
   const [postText, setPostText] = useState(postContentText);
-  const {
-    posts: { status },
-    postNewBroadcastCall,
-    postEditedBroadcastCall,
-  } = usePosts();
+  const [postNewBroadcastCall] = usePostNewBroadcastCallMutation();
+  const [postEditedBroadcastCall] = usePostEditedBroadcastCallMutation();
 
   const handlePostTextChange = (event) => {
     if (BROADCAST_MAX_CHARACTERS - event.target.value.length >= 0)
       setPostText(event.target.value);
   };
 
-  const handleBroadcastClick = () => {
+  const handleBroadcastClick = async () => {
     if (postText !== "") {
-      handleClose();
+      await postNewBroadcastCall({ content: postText });
       setPostText("");
-      postNewBroadcastCall({ content: postText });
+      handleClose();
     }
   };
 
-  const handleEditBroadcastClick = (_id) => {
+  const handleEditBroadcastClick = async (_id) => {
     if (postText !== "") {
-      handleClose();
+      await postEditedBroadcastCall({
+        postId: _id,
+        postData: { content: postText },
+      });
       setPostText("");
-      postEditedBroadcastCall(_id, { content: postText });
+      handleClose();
     }
   };
 
   const value = {
-    status,
     postText,
     setPostText,
     handleBroadcastClick,

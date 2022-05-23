@@ -33,8 +33,8 @@ import {
 const { tabsOptions, getEmptyTabDataToShow } = ProfileData;
 
 export const Profile = () => {
-  const { profile: loggedUserData } = useProfile();
   const { username } = useParams();
+  const { profile: loggedUserData } = useProfile();
 
   const {
     postFollowCall,
@@ -46,8 +46,8 @@ export const Profile = () => {
     },
   } = useFollow();
 
-  const { data: postsData } = useSelector((state) => state.posts);
   const { userUsername } = useSelector((state) => state.user);
+  const { data: postsData } = useSelector((state) => state.posts);
 
   const isProfileOfLoggedUser = username === userUsername;
   const { api, propertyToGet } = API_TO_GET_USER_PROFILE;

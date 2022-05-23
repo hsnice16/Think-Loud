@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import { ROUTE_LANDING } from "utils";
 import { FollowItem } from "components";
 import { useDispatch } from "react-redux";
+import { authCookieHandler } from "utils";
 import { useNavigate } from "react-router-dom";
 import styles from "./LogoutDialog.module.css";
-import { useCookieHandler } from "custom-hooks";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { setUserState, initialState } from "redux/features/user/userSlice";
+
+const { eraseCookies } = authCookieHandler();
 
 export const LogoutDialog = ({
   fullName,
@@ -18,7 +20,6 @@ export const LogoutDialog = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { eraseCookies } = useCookieHandler();
 
   const handleClose = () => {
     setOpenLogoutDialog(false);

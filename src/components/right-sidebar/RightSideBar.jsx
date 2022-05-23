@@ -104,12 +104,12 @@ export const RightSideBar = () => {
                 avatarSxStyles={{ height: "4.5rem", width: "4.5rem" }}
               >
                 <CustomButton
+                  disabled={isStatusLoading(followStatus)}
+                  onClick={() => handleFollowClick(username)}
                   className={classNames(
                     styles.followBtn,
                     isStatusLoading(followStatus) ? styles.disabledBtn : ""
                   )}
-                  disabled={isStatusLoading(followStatus)}
-                  onClick={() => handleFollowClick(username)}
                 >
                   {isStatusLoading(followStatus) &&
                     followUsername === username && (

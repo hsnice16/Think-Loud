@@ -1,7 +1,10 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
-import { useReplyText } from "custom-hooks";
+import { useSelector } from "react-redux";
 import styles from "./ReplyDialog.module.css";
 import { Box, Typography } from "@mui/material";
+import { BROADCAST_MAX_CHARACTERS } from "utils";
+import { usePostNewCommentCallMutation } from "redux/api/postsAPI";
 
 import {
   AvatarGridBox,
@@ -22,12 +25,29 @@ export const ReplyDialog = ({
   setOpenReplyDialog,
   postTimeDurationToShow,
 }) => {
+  const [replyText, setReplyText] = useState("");
+  const [postNewCommentCall] = usePostNewCommentCallMutation();
+  const { newCommentStatus } = useSelector((state) => state.posts);
+
   const handleClose = () => {
     setOpenReplyDialog(false);
   };
 
-  const { status, replyText, handleReplyTextChange, handleReplyClick } =
-    useReplyText(handleClose);
+  const handleReplyClick = async (_id) => {
+    if (replyText !== "") {
+      await postNewCommentCall({
+        postId: _id,
+        commentData: { text: replyText },
+      });
+      setReplyText("");
+      handleClose();
+    }
+  };
+
+  const handleReplyTextChange = (event) => {
+    if (BROADCAST_MAX_CHARACTERS - event.target.value.length >= 0)
+      setReplyText(event.target.value);
+  };
 
   return (
     <BroadcastDialogContainer
@@ -62,8 +82,8 @@ export const ReplyDialog = ({
 
       <BroadcastDialogActions
         btnText="Reply"
-        status={status}
         postText={replyText}
+        status={newCommentStatus}
         onClick={() => handleReplyClick(postId)}
       />
     </BroadcastDialogContainer>

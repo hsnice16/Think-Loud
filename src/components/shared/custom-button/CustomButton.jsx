@@ -2,23 +2,23 @@ import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 
 export const CustomButton = ({
+  onClick,
   children,
+  disabled,
   sxStyles,
   className,
-  disabled,
-  onClick,
 }) => {
   return (
     <Button
       onClick={onClick}
       disabled={disabled}
       variant="contained"
+      className={className}
       sx={{
-        borderRadius: "3.5rem",
         fontWeight: "400",
+        borderRadius: "3.5rem",
         ...sxStyles,
       }}
-      className={className}
     >
       {children}
     </Button>
@@ -26,17 +26,17 @@ export const CustomButton = ({
 };
 
 CustomButton.propTypes = {
+  onClick: PropTypes.func,
   children: PropTypes.node,
+  disabled: PropTypes.bool,
   sxStyles: PropTypes.object,
   className: PropTypes.string,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func,
 };
 
 CustomButton.defaultProps = {
-  children: <></>,
   sxStyles: {},
   className: "",
+  children: <></>,
   disabled: false,
   onClick: () => {},
 };

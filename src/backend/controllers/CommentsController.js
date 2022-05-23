@@ -40,9 +40,7 @@ export const addPostCommentHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -88,9 +86,7 @@ export const editPostCommentHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -104,7 +100,7 @@ export const editPostCommentHandler = function (schema, request) {
       return new Response(
         400,
         {},
-        { errors: ["Cannot edit a comment doesn't belong to the User."] }
+        { error: "Cannot edit a comment doesn't belong to the User." }
       );
     }
     post.comments[commentIndex] = {
@@ -138,9 +134,7 @@ export const deletePostCommentHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -156,7 +150,7 @@ export const deletePostCommentHandler = function (schema, request) {
       return new Response(
         400,
         {},
-        { errors: ["Cannot delete a comment doesn't belong to the User."] }
+        { error: "Cannot delete a comment doesn't belong to the User." }
       );
     }
     post.comments = post.comments.filter(
@@ -188,9 +182,7 @@ export const upvotePostCommentHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -208,7 +200,7 @@ export const upvotePostCommentHandler = function (schema, request) {
       return new Response(
         400,
         {},
-        { errors: ["Cannot upvote a post that is already upvoted. "] }
+        { error: "Cannot upvote a post that is already upvoted. " }
       );
     }
     post.comments[commentIndex].votes.downvotedBy = post.comments[
@@ -241,9 +233,7 @@ export const downvotePostCommentHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          error: "The username you entered is not Registered. Not Found error",
         }
       );
     }
@@ -261,7 +251,7 @@ export const downvotePostCommentHandler = function (schema, request) {
       return new Response(
         400,
         {},
-        { errors: ["Cannot downvote a post that is already downvoted. "] }
+        { error: "Cannot downvote a post that is already downvoted. " }
       );
     }
     post.comments[commentIndex].votes.upvotedBy = post.comments[
