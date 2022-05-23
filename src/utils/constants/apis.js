@@ -23,14 +23,6 @@ export const API_TO_POST_EDITED_USER_PROFILE = {
   propertyToGet: "user",
 };
 
-export const API_TO_POST_FOLLOW_USER = {
-  api: "/api/users/follow",
-};
-
-export const API_TO_POST_UNFOLLOW_USER = {
-  api: "/api/users/unfollow",
-};
-
 export const API_TO_GET_UNFOLLOWED_USERS = {
   api: "/api/users/uf",
   propertyToGet: "users",

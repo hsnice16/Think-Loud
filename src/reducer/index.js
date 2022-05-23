@@ -7,5 +7,4 @@ export * from "./constants/shared-action-type";
 export { sharedInitialReducerState } from "./constants/shared-initial-state";
 
 export { authReducer } from "./functions/authReducer";
-export { followReducer } from "./functions/followReducer";
 export { sharedReducer } from "./functions/sharedReducer";

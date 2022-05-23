@@ -1,16 +1,13 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-import { makeServer } from "./server";
-
-import { FollowProvider } from "context";
-
 import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "redux/app/store";
 import { AppWrapper } from "./AppWrapper";
 import { BrowserRouter } from "react-router-dom";
 
+import { makeServer } from "./server";
 // Call make Server
 makeServer();
 
@@ -22,9 +19,7 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <AppWrapper>
-          <FollowProvider>
-            <App />
-          </FollowProvider>
+          <App />
         </AppWrapper>
       </Provider>
     </BrowserRouter>

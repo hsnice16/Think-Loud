@@ -48,12 +48,36 @@ export const userAPI = baseAPI.injectEndpoints({
         },
       }),
     }),
+
+    postFollowCall: builder.mutation({
+      query: (username) => ({
+        body: {},
+        method: "POST",
+        url: `/users/follow/${username}`,
+        headers: {
+          authorization: authCookieHandler().getCookies().userAuthToken,
+        },
+      }),
+    }),
+
+    postUnfollowCall: builder.mutation({
+      query: (username) => ({
+        body: {},
+        method: "POST",
+        url: `/users/unfollow/${username}`,
+        headers: {
+          authorization: authCookieHandler().getCookies().userAuthToken,
+        },
+      }),
+    }),
   }),
 });
 
 export const {
   useGetProfileQuery,
   useGetBookmarksCallQuery,
+  usePostFollowCallMutation,
+  usePostUnfollowCallMutation,
   usePostAddBookmarkCallMutation,
   usePostRemoveBookmarkCallMutation,
   usePostClearAllBookmarksCallMutation,

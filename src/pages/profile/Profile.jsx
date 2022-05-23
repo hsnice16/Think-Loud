@@ -1,14 +1,24 @@
 import { ProfileData } from "data";
 import classNames from "classnames";
-import { useFollow } from "context";
 import styles from "./Profile.module.css";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FilledAccountCircleIcon, LinkIcon } from "assets";
 import { sharedReducer, ACTION_TYPE_SUCCESS } from "reducer";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { isStatusLoading, API_TO_GET_USER_PROFILE } from "utils";
+import { setFollowUsername } from "redux/features/user/userSlice";
 import { useAsync, useDocumentTitle, useScrollToTop } from "custom-hooks";
+
+import {
+  Box,
+  Tab,
+  Link,
+  Tabs,
+  Avatar,
+  Button,
+  Typography,
+} from "@mui/material";
 
 import {
   NotFound,
@@ -21,32 +31,28 @@ import {
 } from "components";
 
 import {
-  Box,
-  Tab,
-  Link,
-  Tabs,
-  Avatar,
-  Button,
-  Typography,
-} from "@mui/material";
+  usePostFollowCallMutation,
+  usePostUnfollowCallMutation,
+} from "redux/api/userAPI";
 
 const { tabsOptions, getEmptyTabDataToShow } = ProfileData;
 
 export const Profile = () => {
-  const { username } = useParams();
-  const { userUsername } = useSelector((state) => state.user);
-  const { data: postsData } = useSelector((state) => state.posts);
-  const { profile: loggedUserData } = useSelector((state) => state.user);
-
   const {
-    postFollowCall,
-    postUnfollowCall,
+    userUsername,
+    profile: loggedUserData,
     follow: {
       data: followData,
       status: followStatus,
       username: followUsername,
     },
-  } = useFollow();
+  } = useSelector((state) => state.user);
+
+  const { username } = useParams();
+  const userSliceDispatch = useDispatch();
+  const [postFollowCall] = usePostFollowCallMutation();
+  const [postUnfollowCall] = usePostUnfollowCallMutation();
+  const { data: postsData } = useSelector((state) => state.posts);
 
   const { callAPI } = useAsync();
   const { api, propertyToGet } = API_TO_GET_USER_PROFILE;
@@ -170,8 +176,14 @@ export const Profile = () => {
   const onClickHandler = isProfileOfLoggedUser
     ? () => setOpenEditProfileDialog(true)
     : isLoggedUserFollowing
-    ? () => postUnfollowCall(data.username)
-    : () => postFollowCall(data.username);
+    ? () => {
+        userSliceDispatch(setFollowUsername(data.username));
+        postUnfollowCall(data.username);
+      }
+    : () => {
+        userSliceDispatch(setFollowUsername(data.username));
+        postFollowCall(data.username);
+      };
 
   return status === "error" ? (
     <NotFound

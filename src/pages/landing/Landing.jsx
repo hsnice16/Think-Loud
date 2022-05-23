@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styles from "./Landing.module.css";
 import { logoPNG, thinkJPG } from "assets";
-import { useDocumentTitle } from "custom-hooks";
 import { Box, Grid, Typography } from "@mui/material";
+import { useDocumentTitle, useScrollToTop } from "custom-hooks";
 
 import {
   CustomButton,
@@ -12,6 +12,7 @@ import {
 } from "components";
 
 export const Landing = () => {
+  useScrollToTop();
   useDocumentTitle("Join today");
   const [openSignInDialog, setOpenSignInDialog] = useState(false);
   const [openSignUpDialog, setOpenSignUpDialog] = useState(false);
