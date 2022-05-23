@@ -1,9 +1,6 @@
 import { authCookieHandler } from "utils";
 import { baseAPI } from "redux/api/baseAPI";
 
-const { getCookies } = authCookieHandler();
-const allCookies = getCookies();
-
 export const postsAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query({
@@ -16,7 +13,7 @@ export const postsAPI = baseAPI.injectEndpoints({
         method: "POST",
         url: `/posts/like/${postId}`,
         headers: {
-          authorization: allCookies.userAuthToken,
+          authorization: authCookieHandler().getCookies().userAuthToken,
         },
       }),
     }),
@@ -27,7 +24,7 @@ export const postsAPI = baseAPI.injectEndpoints({
         method: "POST",
         url: `/posts/dislike/${postId}`,
         headers: {
-          authorization: allCookies.userAuthToken,
+          authorization: authCookieHandler().getCookies().userAuthToken,
         },
       }),
     }),
@@ -37,7 +34,7 @@ export const postsAPI = baseAPI.injectEndpoints({
         method: "DELETE",
         url: `/user/posts/${postId}`,
         headers: {
-          authorization: allCookies.userAuthToken,
+          authorization: authCookieHandler().getCookies().userAuthToken,
         },
       }),
     }),
@@ -48,7 +45,7 @@ export const postsAPI = baseAPI.injectEndpoints({
         body: { postData },
         url: "/user/posts",
         headers: {
-          authorization: allCookies.userAuthToken,
+          authorization: authCookieHandler().getCookies().userAuthToken,
         },
       }),
     }),
@@ -59,7 +56,7 @@ export const postsAPI = baseAPI.injectEndpoints({
         body: { postData },
         url: `/posts/edit/${postId}`,
         headers: {
-          authorization: allCookies.userAuthToken,
+          authorization: authCookieHandler().getCookies().userAuthToken,
         },
       }),
     }),
@@ -70,7 +67,7 @@ export const postsAPI = baseAPI.injectEndpoints({
         body: { commentData },
         url: `/comments/add/${postId}`,
         headers: {
-          authorization: allCookies.userAuthToken,
+          authorization: authCookieHandler().getCookies().userAuthToken,
         },
       }),
     }),

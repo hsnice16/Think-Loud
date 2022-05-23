@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useProfile } from "context";
+import { useSelector } from "react-redux";
 import { AvatarGridBox } from "components";
 import styles from "./BroadcastDialogContent.module.css";
 import { DialogContent, TextField } from "@mui/material";
@@ -12,7 +12,7 @@ export const BroadcastDialogContent = ({
 }) => {
   const {
     profile: { data },
-  } = useProfile();
+  } = useSelector((state) => state.user);
 
   return (
     <DialogContent className={styles.dialog_content}>

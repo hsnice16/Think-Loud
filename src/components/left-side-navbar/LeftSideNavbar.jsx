@@ -1,6 +1,5 @@
 import { useState } from "react";
 import classNames from "classnames";
-import { useProfile } from "context";
 import { LeftSideNavbarData } from "data";
 import { useSelector } from "react-redux";
 import { EllipsisHorizontalIcon } from "assets";
@@ -20,11 +19,10 @@ const { logoImg, links } = LeftSideNavbarData;
 
 export const LeftSideNavbar = () => {
   const location = useLocation();
-  const { userUsername } = useSelector((state) => state.user);
-
   const {
+    userUsername,
     profile: { data },
-  } = useProfile();
+  } = useSelector((state) => state.user);
 
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
   const [openBroadcastDialog, setOpenBroadcastDialog] = useState(false);

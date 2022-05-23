@@ -1,6 +1,5 @@
 export { BroadcastBox } from "./broadcast-box/BroadcastBox";
 export { CommentBox } from "./comment-box/CommentBox";
-export { Compose } from "./compose/Compose";
 
 export { BroadcastDialog } from "./dialog/broadcast-dialog/BroadcastDialog";
 export { EditProfileDialog } from "./dialog/edit-profile-dialog/EditProfileDialog";

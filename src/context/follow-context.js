@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useProfile } from "context";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createContext, useContext, useReducer } from "react";
+import { setUserProfile } from "redux/features/user/userSlice";
 import { API_TO_POST_FOLLOW_USER, API_TO_POST_UNFOLLOW_USER } from "utils";
 
 import {
@@ -22,7 +22,7 @@ const FollowContext = createContext({
 export const useFollow = () => useContext(FollowContext);
 
 export const FollowProvider = ({ children }) => {
-  const { dispatch: profileDispatch } = useProfile();
+  const profileDispatch = useDispatch();
   const { userAuthToken } = useSelector((state) => state.user);
   const config = { headers: { authorization: userAuthToken } };
 
@@ -46,10 +46,7 @@ export const FollowProvider = ({ children }) => {
 
       dispatch({ type: ACTION_TYPE_SUCCESS, payload: response.data });
 
-      profileDispatch({
-        type: ACTION_TYPE_SUCCESS,
-        payload: response.data.user,
-      });
+      profileDispatch(setUserProfile(response.data.user));
     } catch (error) {
       dispatch({ type: ACTION_TYPE_ERROR, payload: error.message });
     }

@@ -2,10 +2,10 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useReducer } from "react";
 import classNames from "classnames";
-import { useProfile } from "context";
-import { useSelector } from "react-redux";
 import { FilledAccountCircleIcon } from "assets";
 import styles from "./EditProfileDialog.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserProfile } from "redux/features/user/userSlice";
 
 import {
   isStatusLoading,
@@ -48,14 +48,15 @@ export const EditProfileDialog = ({
   openEditProfileDialog,
   setOpenEditProfileDialog,
 }) => {
+  const loggedUserProfileDispatch = useDispatch();
   const { userAuthToken } = useSelector((state) => state.user);
+
   const [state, dispatch] = useReducer(authReducer, {
     ...editProfileInitialReducerState,
     ...profileData,
     fullName: `${profileData.firstName} ${profileData.lastName}`,
   });
 
-  const { dispatch: profileContextDispatch } = useProfile();
   const {
     bio,
     bgPic,
@@ -139,10 +140,8 @@ export const EditProfileDialog = ({
           type: ACTION_TYPE_SUCCESS,
           payload: response.data[propertyToGet],
         });
-        profileContextDispatch({
-          type: ACTION_TYPE_SUCCESS,
-          payload: response.data[propertyToGet],
-        });
+        loggedUserProfileDispatch(setUserProfile(response.data[propertyToGet]));
+
         handleClose();
       } catch (error) {
         dispatch({

@@ -3,8 +3,7 @@ import { createRoot } from "react-dom/client";
 
 import { makeServer } from "./server";
 
-import { Compose } from "components";
-import { FollowProvider, ProfileProvider, BookmarksProvider } from "context";
+import { FollowProvider } from "context";
 
 import App from "./App";
 import { Provider } from "react-redux";
@@ -23,11 +22,9 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <AppWrapper>
-          <Compose
-            components={[ProfileProvider, FollowProvider, BookmarksProvider]}
-          >
+          <FollowProvider>
             <App />
-          </Compose>
+          </FollowProvider>
         </AppWrapper>
       </Provider>
     </BrowserRouter>

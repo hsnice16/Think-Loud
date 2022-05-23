@@ -11,7 +11,7 @@ export const users = [
     lastName: "Wick",
     firstName: "John",
     username: "johnwick",
-    bio: "an American neo-noir action-thriller media franchise created by screenwriter Derek Kolstad and starring Keanu Reeves as John Wick, a former hitman who is forced back into the criminal underworld he had abandoned",
+    bio: "an American neo-noir action-thriller media franchise starring Keanu Reeves as John Wick, a former hitman who is forced back into the criminal underworld he had abandoned",
     websiteURL: "https://en.wikipedia.org/wiki/John_Wick",
     bgPic:
       "https://res.cloudinary.com/thinkloud/image/upload/c_fill,h_150,w_540/v1652812492/john_bg_kiflfc.jpg",
