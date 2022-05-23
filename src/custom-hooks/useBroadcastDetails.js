@@ -1,9 +1,14 @@
-import { useFollow } from "context";
 import { BroadcastBoxData } from "data";
-import { useSelector } from "react-redux";
 import { getTimeDurationToShow } from "utils";
 import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setFollowUsername } from "redux/features/user/userSlice";
 import { useDeleteBroadcastCallMutation } from "redux/api/postsAPI";
+
+import {
+  usePostFollowCallMutation,
+  usePostUnfollowCallMutation,
+} from "redux/api/userAPI";
 
 const { loggedUserBroadcastOptions, getNotLoggedUserBroadcastOptions } =
   BroadcastBoxData;
@@ -31,16 +36,14 @@ const { loggedUserBroadcastOptions, getNotLoggedUserBroadcastOptions } =
  */
 export const useBroadcastDetails = ({ _id, username, createdAt, likedBy }) => {
   const {
-    postFollowCall,
-    postUnfollowCall,
-    follow: { status: followStatus, username: followUsername },
-  } = useFollow();
-
-  const {
     profile: { status, data },
+    follow: { status: followStatus, username: followUsername },
   } = useSelector((state) => state.user);
 
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [postFollowCall] = usePostFollowCallMutation();
+  const [postUnfollowCall] = usePostUnfollowCallMutation();
   const [openReplyDialog, setOpenReplyDialog] = useState(false);
   const [timeDurationToShow, setTimeDurationToShow] = useState(
     getTimeDurationToShow(createdAt)
@@ -115,8 +118,14 @@ export const useBroadcastDetails = ({ _id, username, createdAt, likedBy }) => {
           ).map((option) => ({
             ...option,
             handleClick: isInLoggedUserFollowing
-              ? () => postUnfollowCall(username)
-              : () => postFollowCall(username),
+              ? () => {
+                  dispatch(setFollowUsername(username));
+                  postUnfollowCall(username);
+                }
+              : () => {
+                  dispatch(setFollowUsername(username));
+                  postFollowCall(username);
+                },
           })),
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

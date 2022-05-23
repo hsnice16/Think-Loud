@@ -1,12 +1,22 @@
 import { useEffect } from "react";
 import { SearchIcon } from "assets";
 import classNames from "classnames";
-import { useFollow } from "context";
 import { useAsync } from "custom-hooks";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import styles from "./RightSideBar.module.css";
 import { useTheme } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { usePostFollowCallMutation } from "redux/api/userAPI";
+import { setFollowUsername } from "redux/features/user/userSlice";
+
+import {
+  Box,
+  List,
+  InputBase,
+  Typography,
+  useMediaQuery,
+  InputAdornment,
+} from "@mui/material";
 
 import {
   ROUTE_PROFILE,
@@ -22,21 +32,15 @@ import {
   LoadingCircularProgress,
 } from "components";
 
-import {
-  Box,
-  List,
-  InputBase,
-  Typography,
-  useMediaQuery,
-  InputAdornment,
-} from "@mui/material";
-
 export const RightSideBar = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("lg"));
 
   const { api, propertyToGet } = API_TO_GET_UNFOLLOWED_USERS;
-  const { userUsername } = useSelector((state) => state.user);
+  const {
+    userUsername,
+    follow: { status: followStatus, username: followUsername },
+  } = useSelector((state) => state.user);
   const apiToCall = { api: `${api}/${userUsername}`, propertyToGet };
 
   const {
@@ -45,12 +49,11 @@ export const RightSideBar = () => {
     state: { status, data },
   } = useAsync(apiToCall);
 
-  const {
-    postFollowCall,
-    follow: { status: followStatus, username: followUsername },
-  } = useFollow();
+  const userSliceDispatch = useDispatch();
+  const [postFollowCall] = usePostFollowCallMutation();
 
   const handleFollowClick = (username) => {
+    userSliceDispatch(setFollowUsername(username));
     postFollowCall(username);
   };
 

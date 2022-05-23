@@ -6,19 +6,40 @@ const STATUS_LOADING = "loading";
 const STATUS_SUCCESS = "success";
 
 export const initialState = {
+  error: null,
   userUsername: "",
   userAuthToken: "",
+  follow: {
+    data: null,
+    status: null,
+    username: "",
+  },
   profile: {
     data: null,
-    error: null,
     status: STATUS_LOADING,
   },
   bookmarks: {
     data: null,
-    error: null,
     status: STATUS_LOADING,
   },
   isUserAuthTokenExist: false,
+};
+
+const actionFollowPending = (state) => {
+  state.follow.status = STATUS_LOADING;
+};
+
+const actionFollowRejected = (state, action) => {
+  state.follow.username = "";
+  state.follow.status = STATUS_ERROR;
+  state.error = action.payload.data.error;
+};
+
+const actionFollowFulfilled = (state, action) => {
+  state.follow.username = "";
+  state.follow.data = action.payload;
+  state.follow.status = STATUS_SUCCESS;
+  state.profile.data = action.payload.user;
 };
 
 const actionBookmarksPending = (state) => {
@@ -27,7 +48,7 @@ const actionBookmarksPending = (state) => {
 
 const actionBookmarksRejected = (state, action) => {
   state.bookmarks.status = STATUS_ERROR;
-  state.bookmarks.error = action.payload.data.error;
+  state.error = action.payload.data.error;
 };
 
 const actionBookmarksFulfilled = (state, action) => {
@@ -51,6 +72,10 @@ export const userSlice = createSlice({
     setUserState(state, action) {
       return { ...state, ...action.payload };
     },
+
+    setFollowUsername(state, action) {
+      state.follow.username = action.payload;
+    },
   },
 
   extraReducers(builder) {
@@ -66,7 +91,7 @@ export const userSlice = createSlice({
         userAPI.endpoints.getProfile.matchRejected,
         (state, action) => {
           state.profile.status = STATUS_ERROR;
-          state.profile.error = action.payload.data.error;
+          state.error = action.payload.data.error;
         }
       )
       .addMatcher(userAPI.endpoints.getProfile.matchPending, (state) => {
@@ -119,9 +144,34 @@ export const userSlice = createSlice({
       .addMatcher(
         userAPI.endpoints.postRemoveBookmarkCall.matchPending,
         actionBookmarksPending
+      )
+      .addMatcher(
+        userAPI.endpoints.postFollowCall.matchFulfilled,
+        actionFollowFulfilled
+      )
+      .addMatcher(
+        userAPI.endpoints.postFollowCall.matchRejected,
+        actionFollowRejected
+      )
+      .addMatcher(
+        userAPI.endpoints.postFollowCall.matchPending,
+        actionFollowPending
+      )
+      .addMatcher(
+        userAPI.endpoints.postUnfollowCall.matchFulfilled,
+        actionFollowFulfilled
+      )
+      .addMatcher(
+        userAPI.endpoints.postUnfollowCall.matchRejected,
+        actionFollowRejected
+      )
+      .addMatcher(
+        userAPI.endpoints.postUnfollowCall.matchPending,
+        actionFollowPending
       );
   },
 });
 
 export const { reducer } = userSlice;
-export const { setUserState, setUserProfile } = userSlice.actions;
+export const { setUserState, setUserProfile, setFollowUsername } =
+  userSlice.actions;
