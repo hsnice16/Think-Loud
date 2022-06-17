@@ -31,7 +31,7 @@ export const Bookmarks = () => {
   const { data: postsData } = useSelector((state) => state.posts);
   const [postClearAllBookmarksCall] = usePostClearAllBookmarksCallMutation();
 
-  useGetBookmarksCallQuery();
+  useGetBookmarksCallQuery(Math.random());
 
   const dataToShow = useMemo(
     () =>
