@@ -75,7 +75,7 @@ export const Bookmarks = () => {
                     {
                       _id: "007",
                       color: "error",
-                      item: "Clear all Bookmakrs",
+                      item: "Clear all Bookmarks",
                       handleClick: () => postClearAllBookmarksCall(),
                     },
                   ]}

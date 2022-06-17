@@ -73,7 +73,7 @@ export const Home = () => {
 
     tempDataToShow =
       selectedH1Text === "Most Liked Broadcasts"
-        ? tempDataToShow
+        ? data
             .filter(({ likes: { likeCount } }) => likeCount !== 0)
             .sort(
               (firstBroadcast, secondBroadcast) =>
@@ -83,7 +83,7 @@ export const Home = () => {
 
     tempDataToShow =
       selectedH1Text === "Latest Broadcasts"
-        ? tempDataToShow.sort(
+        ? [...data].sort(
             (firstBroadcast, secondBroadcast) =>
               new Date(secondBroadcast.createdAt) -
               new Date(firstBroadcast.createdAt)

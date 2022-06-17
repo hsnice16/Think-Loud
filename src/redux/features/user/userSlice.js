@@ -66,6 +66,7 @@ export const userSlice = createSlice({
 
   reducers: {
     setUserProfile(state, action) {
+      state.profile.status = STATUS_SUCCESS;
       state.profile.data = action.payload;
     },
 
