@@ -20,6 +20,7 @@ export const initialState = {
   },
   bookmarks: {
     data: null,
+    callId: Math.random(),
     status: STATUS_LOADING,
   },
   isUserAuthTokenExist: false,
@@ -70,8 +71,9 @@ export const userSlice = createSlice({
 
   reducers: {
     setUserProfile(state, action) {
-      state.profile.status = STATUS_SUCCESS;
       state.profile.data = action.payload;
+      state.profile.status = STATUS_SUCCESS;
+      state.bookmarks.callId = Math.random();
     },
 
     setUserState(state, action) {

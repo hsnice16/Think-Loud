@@ -24,14 +24,14 @@ export const Bookmarks = () => {
 
   const {
     userUsername,
-    bookmarks: { status, data },
+    bookmarks: { status, data, callId },
   } = useSelector((state) => state.user);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const { data: postsData } = useSelector((state) => state.posts);
   const [postClearAllBookmarksCall] = usePostClearAllBookmarksCallMutation();
 
-  useGetBookmarksCallQuery(Math.random());
+  useGetBookmarksCallQuery(callId);
 
   const dataToShow = useMemo(
     () =>
