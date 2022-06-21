@@ -20,6 +20,7 @@ export const initialState = {
   },
   bookmarks: {
     data: null,
+    callId: Math.random(),
     status: STATUS_LOADING,
   },
   isUserAuthTokenExist: false,
@@ -30,9 +31,11 @@ const actionFollowPending = (state) => {
 };
 
 const actionFollowRejected = (state, action) => {
-  state.follow.username = "";
-  state.follow.status = STATUS_ERROR;
-  state.error = action.payload.data.error;
+  if (action.payload) {
+    state.follow.username = "";
+    state.follow.status = STATUS_ERROR;
+    state.error = action.payload.data.error;
+  }
 };
 
 const actionFollowFulfilled = (state, action) => {
@@ -47,8 +50,10 @@ const actionBookmarksPending = (state) => {
 };
 
 const actionBookmarksRejected = (state, action) => {
-  state.bookmarks.status = STATUS_ERROR;
-  state.error = action.payload.data.error;
+  if (action.payload) {
+    state.bookmarks.status = STATUS_ERROR;
+    state.error = action.payload.data.error;
+  }
 };
 
 const actionBookmarksFulfilled = (state, action) => {
@@ -67,6 +72,8 @@ export const userSlice = createSlice({
   reducers: {
     setUserProfile(state, action) {
       state.profile.data = action.payload;
+      state.profile.status = STATUS_SUCCESS;
+      state.bookmarks.callId = Math.random();
     },
 
     setUserState(state, action) {
@@ -90,8 +97,10 @@ export const userSlice = createSlice({
       .addMatcher(
         userAPI.endpoints.getProfile.matchRejected,
         (state, action) => {
-          state.profile.status = STATUS_ERROR;
-          state.error = action.payload.data.error;
+          if (action.payload) {
+            state.profile.status = STATUS_ERROR;
+            state.error = action.payload.data.error;
+          }
         }
       )
       .addMatcher(userAPI.endpoints.getProfile.matchPending, (state) => {

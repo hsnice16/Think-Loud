@@ -75,8 +75,9 @@ export const RightSideBar = () => {
       sx={{ display: matches ? "none" : "unset" }}
     >
       <InputBase
+        disabled
         className={styles.inputField}
-        placeholder="Search ThinkLoud"
+        placeholder="Upcoming feature: Search ThinkLoud"
         inputProps={{ "aria-label": "search thinkloud" }}
         startAdornment={
           <InputAdornment position="start">

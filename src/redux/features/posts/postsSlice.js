@@ -21,8 +21,10 @@ const actionLikePending = (state) => {
 };
 
 const actionLikeRejected = (state, action) => {
-  state.likeStatus = STATUS_ERROR;
-  state.error = action.payload.data.error;
+  if (action.payload) {
+    state.likeStatus = STATUS_ERROR;
+    state.error = action.payload.data.error;
+  }
 };
 
 const actionLikeFulfilled = (state, action) => {
@@ -48,8 +50,10 @@ export const postsSlice = createSlice({
       .addMatcher(
         postsAPI.endpoints.getPosts.matchRejected,
         (state, action) => {
-          state.status = STATUS_ERROR;
-          state.error = action.payload.data.error;
+          if (action.payload) {
+            state.status = STATUS_ERROR;
+            state.error = action.payload.data.error;
+          }
         }
       )
       .addMatcher(
@@ -92,8 +96,10 @@ export const postsSlice = createSlice({
       .addMatcher(
         postsAPI.endpoints.deleteBroadcastCall.matchRejected,
         (state, action) => {
-          state.deleteStatus = STATUS_ERROR;
-          state.error = action.payload.data.error;
+          if (action.payload) {
+            state.deleteStatus = STATUS_ERROR;
+            state.error = action.payload.data.error;
+          }
         }
       )
       .addMatcher(
@@ -112,8 +118,10 @@ export const postsSlice = createSlice({
       .addMatcher(
         postsAPI.endpoints.postNewBroadcastCall.matchRejected,
         (state, action) => {
-          state.newBroadcastStatus = STATUS_ERROR;
-          state.error = action.payload.data.error;
+          if (action.payload) {
+            state.newBroadcastStatus = STATUS_ERROR;
+            state.error = action.payload.data.error;
+          }
         }
       )
       .addMatcher(
@@ -132,8 +140,10 @@ export const postsSlice = createSlice({
       .addMatcher(
         postsAPI.endpoints.postEditedBroadcastCall.matchRejected,
         (state, action) => {
-          state.error = action.payload.data.error;
-          state.editBroadcastStatus = STATUS_ERROR;
+          if (action.payload) {
+            state.error = action.payload.data.error;
+            state.editBroadcastStatus = STATUS_ERROR;
+          }
         }
       )
       .addMatcher(
@@ -152,8 +162,10 @@ export const postsSlice = createSlice({
       .addMatcher(
         postsAPI.endpoints.postNewCommentCall.matchRejected,
         (state, action) => {
-          state.newCommentStatus = STATUS_ERROR;
-          state.error = action.payload.data.error;
+          if (action.payload) {
+            state.newCommentStatus = STATUS_ERROR;
+            state.error = action.payload.data.error;
+          }
         }
       );
   },

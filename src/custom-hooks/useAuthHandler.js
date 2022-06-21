@@ -2,7 +2,7 @@ import axios from "axios";
 import { useReducer } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setUserState } from "redux/features/user/userSlice";
+import { setUserState, setUserProfile } from "redux/features/user/userSlice";
 
 import {
   ROUTE_HOME,
@@ -90,6 +90,7 @@ export const useAuthHandler = () => {
           ...cookiesValue,
         })
       );
+      userDispatch(setUserProfile(response.data[propertyToGet]));
 
       setCookies(cookiesValue, rememberMe);
       dispatch({ type: ACTION_TYPE_SUCCESS });

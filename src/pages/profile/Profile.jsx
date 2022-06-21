@@ -88,7 +88,7 @@ export const Profile = () => {
   useEffect(() => {
     if (followStatus === "success") {
       if (isProfileOfLoggedUser) {
-        dispatch({ type: ACTION_TYPE_SUCCESS, payload: followData.user });
+        dispatch({ type: ACTION_TYPE_SUCCESS, payload: loggedUserData.data });
       } else if (
         !isProfileOfLoggedUser &&
         followData.followUser.username === data.username
