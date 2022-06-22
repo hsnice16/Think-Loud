@@ -1,5 +1,4 @@
 import { v4 as uuid } from "uuid";
-import { formatDate } from "../utils/authUtils";
 
 /**
  * Posts can be added here.
@@ -22,8 +21,8 @@ export const posts = [
     lastName: "Musk",
     firstName: "Elon",
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-06-22T00:05:39+05:30",
+    updatedAt: "2022-06-22T00:05:39+05:30",
   },
   {
     _id: uuid(),
@@ -40,8 +39,8 @@ export const posts = [
     lastName: "Ronaldo",
     firstName: "Cristiano",
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-06-22T00:07:24+05:30",
+    updatedAt: "2022-06-22T00:07:24+05:30",
   },
   {
     _id: uuid(),
@@ -57,8 +56,8 @@ export const posts = [
       "https://res.cloudinary.com/thinkloud/image/upload/c_thumb,h_100,w_100/v1652807080/johnwick_nk2ibz.jpg",
     lastName: "Wick",
     firstName: "John",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-06-22T00:08:15+05:30",
+    updatedAt: "2022-06-22T00:08:15+05:30",
     comments: [
       {
         _id: uuid(),
@@ -72,8 +71,8 @@ export const posts = [
           upvotedBy: [],
           downvotedBy: [],
         },
-        createdAt: formatDate(),
-        updatedAt: formatDate(),
+        createdAt: "2022-06-22T00:10:37+05:30",
+        updatedAt: "2022-06-22T00:10:37+05:30",
       },
     ],
   },
@@ -92,8 +91,8 @@ export const posts = [
     lastName: "Watson",
     firstName: "Emma",
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-06-22T00:08:15+05:30",
+    updatedAt: "2022-06-22T00:08:15+05:30",
   },
   {
     _id: uuid(),
@@ -110,8 +109,8 @@ export const posts = [
     lastName: "Musk",
     firstName: "Elon",
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-06-22T00:08:15+05:30",
+    updatedAt: "2022-06-22T00:08:15+05:30",
   },
   {
     _id: uuid(),
@@ -128,8 +127,8 @@ export const posts = [
     lastName: "Langford",
     firstName: "Katherine",
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-06-22T00:08:15+05:30",
+    updatedAt: "2022-06-22T00:08:15+05:30",
   },
   {
     _id: uuid(),
@@ -145,8 +144,8 @@ export const posts = [
     lastName: "Heng",
     firstName: "Master Shi",
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-06-22T00:08:15+05:30",
+    updatedAt: "2022-06-22T00:08:15+05:30",
   },
   {
     _id: uuid(),
@@ -163,7 +162,7 @@ export const posts = [
     lastName: "Prabhu",
     firstName: "Amogh",
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2022-06-22T00:08:15+05:30",
+    updatedAt: "2022-06-22T00:08:15+05:30",
   },
 ];

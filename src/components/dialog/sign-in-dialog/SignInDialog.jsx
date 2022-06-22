@@ -37,7 +37,11 @@ export const SignInDialog = ({ openSignInDialog, setOpenSignInDialog }) => {
   };
 
   return (
-    <Dialog open={openSignInDialog} className={styles.dialogContainer}>
+    <Dialog
+      onClose={handleClose}
+      open={openSignInDialog}
+      className={styles.dialogContainer}
+    >
       <DialogActionsCloseIcon handleClose={handleClose} />
 
       <DialogContent className={styles.dialogContent}>

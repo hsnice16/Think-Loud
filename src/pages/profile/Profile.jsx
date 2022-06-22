@@ -206,7 +206,7 @@ export const Profile = () => {
       {status === "success" && (
         <>
           <PageHeading>
-            <Box>
+            <Box maxWidth="100%">
               <Typography component="h1" fontWeight="bold" variant="h4">
                 {`${data.firstName} ${data.lastName}`}
               </Typography>
@@ -264,7 +264,12 @@ export const Profile = () => {
           </Button>
 
           <Box mt={2} pl={2} className={styles.border_bottom}>
-            <Typography component="h3" fontWeight="bold" variant="h4">
+            <Typography
+              pr="1.5rem"
+              variant="h4"
+              component="h3"
+              fontWeight="bold"
+            >
               {`${data.firstName} ${data.lastName}`}
             </Typography>
             <Typography component="h4" variant="h5">

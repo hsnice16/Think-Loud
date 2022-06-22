@@ -27,3 +27,10 @@
   font-size: 1.8rem;
   font-weight: bold;
 }
+
+.name :is(a, h2, p) {
+  max-width: 20rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

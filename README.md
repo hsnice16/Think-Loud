@@ -37,10 +37,10 @@ Give it a try today.
 - can check other users Profile
 - can Edit your profile
 
-    + Profile and Background image
-    + Name
-    + Bio (max 180 characters)
-    + Website URL
+  - Profile and Background image
+  - Name
+  - Bio (max 180 characters)
+  - Website URL
 
 - can check Broadcasts (aka Posts), Likes and Replies you did (or, of other users)
 - can check Followers/Following number of yours (or, of other users)
@@ -60,11 +60,11 @@ Give it a try today.
 - see Broadcasts you made or Broadcasts made by users you Follow
 - Filter
 
-    + See most liked Broadcasts
+  - See most liked Broadcasts
 
 - Sort
 
-    + See latest Broadcasts
+  - See latest Broadcasts
 
 **Single Broadcast Page**
 
@@ -80,18 +80,20 @@ Give it a try today.
 
 - can Follow/Unfollow other users, either by
 
-    + going on their Profile
-    + from right sidebar
-    + from the Broadcast menu option
+  - going on their Profile
+  - from right sidebar
+  - from the Broadcast menu option
 
 **Authentication**
 
 - Log In
 
-    + with remember me feature (for max 2 days)
+  - with remember me feature (for max 2 days)
 
 - Sign Up
 - Log Out
+
+**Search the User**
 
 ---
 
@@ -100,7 +102,6 @@ Give it a try today.
 - Dark theme
 - Responsiveness
 - Infinite Scroll
-- Search Functionality
 - Followers/Following list page
 - Toast for better User Experience
 

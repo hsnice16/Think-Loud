@@ -10,6 +10,9 @@ button.accountCircle_btn {
 
 button.accountCircle_btn .accountCircle_btnText > :is(span, p) {
   font-size: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 button.broadcast_btn {

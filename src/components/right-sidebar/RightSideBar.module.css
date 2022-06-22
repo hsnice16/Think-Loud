@@ -64,3 +64,20 @@ div.inputField {
 .searchIcon > path {
   transform: translate(-10%, -10%) scale(0.5);
 }
+
+.searchSuggestions {
+  box-shadow: 0.2rem 0.2rem 2rem var(--COLOR-BACKGROUND-DARK-100);
+  margin: 0.5rem 1.8rem;
+  max-height: 30rem;
+  min-height: 8rem;
+  overflow-y: auto;
+  padding: 0.5rem 2rem;
+  position: absolute;
+  z-index: 1;
+}
+
+.searchSuggestions > p {
+  font-size: 1.6rem;
+  padding: 1rem 0.5rem;
+  text-align: center;
+}

@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import { CustomAvatar } from "components";
+import styles from "./FollowItem.module.css";
 import { ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 
 export const FollowItem = ({
@@ -32,9 +34,9 @@ export const FollowItem = ({
 
       <ListItemText
         primary={fullName}
-        className={textClassName}
         secondary={`@${username}`}
         primaryTypographyProps={linkProps}
+        className={classNames(textClassName, styles.followText)}
       />
       {children}
     </ListItem>
