@@ -36,6 +36,35 @@ export const getUserHandler = function (schema, request) {
 };
 
 /**
+ * This handler handles get of users from searchedQuery in the db.
+ * send GET Request at /api/users/q/:searchedQuery
+ */
+
+export const getAllSearchedUser = function (schema, request) {
+  const searchedQuery = request.params.searchedQuery;
+
+  try {
+    const users = this.db.users.filter(
+      (currUser) =>
+        currUser.username.toLowerCase().includes(searchedQuery.toLowerCase()) ||
+        `${currUser.firstName} ${currUser.lastName}`
+          .toLowerCase()
+          .includes(searchedQuery.toLowerCase())
+    );
+
+    return new Response(200, {}, { users });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
+/**
  * This handler handles get the three unfollowed user
  * by username in the db.
  * send GET Request at /api/users/uf/:username

@@ -52,7 +52,7 @@ export const Landing = () => {
               Think Loud today
             </Typography>
             <Typography variant="h2" component="h2" className={styles.text}>
-              Join
+              Join and share what are you thinking
             </Typography>
 
             <CustomButton

@@ -25,6 +25,7 @@ import {
 } from "./backend/controllers/CommentsController";
 import {
   followUserHandler,
+  getAllSearchedUser,
   getAllUsersHandler,
   getUnfollowedUserHandler,
   getUserHandler,
@@ -106,6 +107,7 @@ export function makeServer({ environment = "development" } = {}) {
       // user routes (public)
       this.get("/users", getAllUsersHandler.bind(this));
       this.get("/users/:username", getUserHandler.bind(this));
+      this.get("/users/q/:searchedQuery", getAllSearchedUser.bind(this));
       this.get("/users/uf/:username", getUnfollowedUserHandler.bind(this));
 
       // user routes (private)
