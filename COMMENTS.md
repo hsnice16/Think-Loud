@@ -1,3 +1,5 @@
+### Merged PR #24 (feat: search functionality)
+
 - **Join** tag line in Landing page
 - margin of button Sign Up in Landing.module.css
 - **onClose** attribute to `<Dialog />` in Sign In dialog and Sign Up dialog

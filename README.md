@@ -93,6 +93,8 @@ Give it a try today.
 - Sign Up
 - Log Out
 
+**Search the User**
+
 ---
 
 ## ✨ Features You will See in Future
