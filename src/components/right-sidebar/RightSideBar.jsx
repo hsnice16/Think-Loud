@@ -75,6 +75,7 @@ export const RightSideBar = () => {
 
   useEffect(() => {
     setSearchedQuery("");
+    setShowSearchSuggestions(false);
   }, [location.pathname]);
 
   useEffect(() => {

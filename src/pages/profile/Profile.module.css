@@ -54,6 +54,13 @@ div.tabs > div span {
   height: 0.4rem;
 }
 
+h1,
+h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .accountCircle_icon {
   fill: var(--COLOR-TEXT);
   height: 100%;
