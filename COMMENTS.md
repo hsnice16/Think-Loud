@@ -1,3 +1,5 @@
+### Merged PR #25 (fix: edited name)
+
 ### Merged PR #24 (feat: search functionality)
 
 - **Join** tag line in Landing page

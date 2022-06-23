@@ -7,13 +7,18 @@ button.btnMenu_icon svg path {
   display: flex;
   flex-direction: column;
   margin-left: 2rem;
+  max-width: 75%;
 }
 
 .name a {
   color: var(--COLOR-TEXT);
   font-size: 1.6rem;
   font-weight: bold;
+  max-width: 100%;
+  overflow: hidden;
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .name a:hover {
