@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import styles from "./CommentBox.module.css";
 import { Box, Typography } from "@mui/material";
@@ -9,6 +10,15 @@ import { AvatarGridBox, BroadcastBoxHeader } from "components";
 export const CommentBox = ({ postUsername, comment }) => {
   const { username, profilePic, lastName, firstName, text, createdAt } =
     comment;
+
+  const {
+    profile: { status, data },
+  } = useSelector((state) => state.user);
+
+  const fullNameToShow =
+    status === "success" && data.username === username
+      ? `${data.firstName} ${data.lastName}`
+      : `${firstName} ${lastName}`;
 
   const [timeDurationToShow, setTimeDurationToShow] = useState(
     getTimeDurationToShow(createdAt)
@@ -31,7 +41,7 @@ export const CommentBox = ({ postUsername, comment }) => {
     >
       <Box className={styles.container}>
         <BroadcastBoxHeader
-          h2Text={`${firstName} ${lastName}`}
+          h2Text={fullNameToShow}
           linkProps={{
             component: Link,
             to: `${ROUTE_PROFILE}/${username}`,

@@ -14,6 +14,9 @@ import {
 
 export const SinglePost = () => {
   const { postId } = useParams();
+  const {
+    profile: { data: profileData },
+  } = useSelector((state) => state.user);
   const { api, propertyToGet } = API_TO_GET_SINGLE_POST;
   const { data: postsData } = useSelector((state) => state.posts);
 
@@ -28,7 +31,11 @@ export const SinglePost = () => {
 
   useScrollToTop();
   useDocumentTitle(
-    status === "success" ? `${data.firstName} ${data.lastName} thinks` : "Post"
+    status === "success"
+      ? profileData.username === data.username
+        ? `${profileData.firstName} ${profileData.lastName} thinks`
+        : `${data.firstName} ${data.lastName} thinks`
+      : "Post"
   );
 
   useEffect(() => {

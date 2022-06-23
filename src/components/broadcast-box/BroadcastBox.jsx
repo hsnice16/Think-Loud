@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
 import styles from "./BroadcastBox.module.css";
 import { EllipsisHorizontalIcon } from "assets";
 import { useBroadcastDetails } from "custom-hooks";
@@ -32,6 +33,15 @@ export const BroadcastBox = ({ broadcastDetails }) => {
   const navigate = useNavigate();
 
   const {
+    profile: { status, data },
+  } = useSelector((state) => state.user);
+
+  const fullNameToShow =
+    status === "success" && data.username === username
+      ? `${data.firstName} ${data.lastName}`
+      : `${firstName} ${lastName}`;
+
+  const {
     anchorEl,
     setAnchorEl,
     optionsToShow,
@@ -55,9 +65,9 @@ export const BroadcastBox = ({ broadcastDetails }) => {
           postContentText={content}
           postUserProfilePic={profilePic}
           openReplyDialog={openReplyDialog}
+          postUserFullname={fullNameToShow}
           setOpenReplyDialog={setOpenReplyDialog}
           postTimeDurationToShow={timeDurationToShow}
-          postUserFullname={`${firstName} ${lastName}`}
         />
       )}
 
@@ -80,8 +90,8 @@ export const BroadcastBox = ({ broadcastDetails }) => {
       >
         <Box className={styles.container}>
           <BroadcastBoxHeader
+            h2Text={fullNameToShow}
             className={styles.header}
-            h2Text={`${firstName} ${lastName}`}
             linkProps={{
               component: Link,
               to: `${ROUTE_PROFILE}/${username}`,

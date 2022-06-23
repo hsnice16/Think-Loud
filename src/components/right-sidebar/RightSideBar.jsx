@@ -135,6 +135,7 @@ export const RightSideBar = () => {
           className={styles.inputField}
           placeholder="Search ThinkLoud"
           onChange={handleSearchInputChange}
+          onClick={(event) => event.stopPropagation()}
           startAdornment={
             <InputAdornment position="start">
               <SearchIcon className={styles.searchIcon} />

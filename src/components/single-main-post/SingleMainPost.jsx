@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { ROUTE_PROFILE } from "utils";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { EllipsisHorizontalIcon } from "assets";
 import { Box, Typography } from "@mui/material";
 import styles from "./SingleMainPost.module.css";
@@ -27,6 +28,15 @@ export const SingleMainPost = ({ details }) => {
     profilePic,
     likes: { likeCount, likedBy },
   } = details;
+
+  const {
+    profile: { status, data },
+  } = useSelector((state) => state.user);
+
+  const fullNameToShow =
+    status === "success" && data.username === username
+      ? `${data.firstName} ${data.lastName}`
+      : `${firstName} ${lastName}`;
 
   const {
     anchorEl,
@@ -57,9 +67,9 @@ export const SingleMainPost = ({ details }) => {
           postContentText={content}
           postUserProfilePic={profilePic}
           openReplyDialog={openReplyDialog}
+          postUserFullname={fullNameToShow}
           setOpenReplyDialog={setOpenReplyDialog}
           postTimeDurationToShow={timeDurationToShow}
-          postUserFullname={`${firstName} ${lastName}`}
         />
       )}
 
@@ -85,7 +95,7 @@ export const SingleMainPost = ({ details }) => {
 
           <Box className={styles.name}>
             <Typography component={Link} to={`${ROUTE_PROFILE}/${username}`}>
-              {`${firstName} ${lastName}`}
+              {fullNameToShow}
             </Typography>
             <Typography component="p">{`@${username} • ${timeDurationToShow}`}</Typography>
           </Box>
