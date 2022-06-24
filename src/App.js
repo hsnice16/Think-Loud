@@ -59,13 +59,7 @@ function App() {
                   <Route
                     path={`${ROUTE_PROFILE}/:username`}
                     element={<Profile />}
-                  >
-                    <Route
-                      path=":followers_following"
-                      element={<FollowersFollowing />}
-                    />
-                  </Route>
-
+                  />
                   <Route
                     path={`${ROUTE_READ_POST}/:postId`}
                     element={<SinglePost />}
