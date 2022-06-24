@@ -1,3 +1,5 @@
+### Merged PR #26 (fix: edited profile pic)
+
 ### Merged PR #25 (fix: edited name)
 
 ### Merged PR #24 (feat: search functionality)

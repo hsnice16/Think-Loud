@@ -20,6 +20,11 @@ export const CommentBox = ({ postUsername, comment }) => {
       ? `${data.firstName} ${data.lastName}`
       : `${firstName} ${lastName}`;
 
+  const profilePicToShow =
+    status === "success" && data.username === username
+      ? data.profilePic
+      : profilePic;
+
   const [timeDurationToShow, setTimeDurationToShow] = useState(
     getTimeDurationToShow(createdAt)
   );
@@ -36,7 +41,7 @@ export const CommentBox = ({ postUsername, comment }) => {
   return (
     <AvatarGridBox
       username={username}
-      avatarSrc={profilePic}
+      avatarSrc={profilePicToShow}
       className={styles.avatarBox}
     >
       <Box className={styles.container}>

@@ -3,7 +3,16 @@ import { useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Box, Container, useMediaQuery } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Bookmarks, Explore, Home, Landing, Profile, SinglePost } from "pages";
+
+import {
+  Home,
+  Explore,
+  Landing,
+  Profile,
+  Bookmarks,
+  SinglePost,
+  FollowersFollowing,
+} from "pages";
 
 import {
   NotFound,
@@ -53,13 +62,20 @@ function App() {
             >
               <Routes>
                 <Route element={<ProtectRoute />}>
-                  <Route path={ROUTE_BOOKMARKS} element={<Bookmarks />} />
-                  <Route path={ROUTE_EXPLORE} element={<Explore />} />
                   <Route path={ROUTE_HOME} element={<Home />} />
+                  <Route path={ROUTE_EXPLORE} element={<Explore />} />
+                  <Route path={ROUTE_BOOKMARKS} element={<Bookmarks />} />
+
                   <Route
                     path={`${ROUTE_PROFILE}/:username`}
                     element={<Profile />}
-                  />
+                  >
+                    <Route
+                      path=":followers_following"
+                      element={<FollowersFollowing />}
+                    />
+                  </Route>
+
                   <Route
                     path={`${ROUTE_READ_POST}/:postId`}
                     element={<SinglePost />}
