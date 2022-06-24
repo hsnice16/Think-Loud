@@ -15,6 +15,7 @@ button.btnMenu_icon svg path {
 .broadcast_message {
   line-height: 1.5em;
   margin: 1rem 0;
+  overflow-wrap: break-word;
   white-space: pre-line;
 }
 

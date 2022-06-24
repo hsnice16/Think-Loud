@@ -41,6 +41,11 @@ export const BroadcastBox = ({ broadcastDetails }) => {
       ? `${data.firstName} ${data.lastName}`
       : `${firstName} ${lastName}`;
 
+  const profilePicToShow =
+    status === "success" && data.username === username
+      ? data.profilePic
+      : profilePic;
+
   const {
     anchorEl,
     setAnchorEl,
@@ -63,9 +68,9 @@ export const BroadcastBox = ({ broadcastDetails }) => {
           postId={_id}
           postUsername={username}
           postContentText={content}
-          postUserProfilePic={profilePic}
           openReplyDialog={openReplyDialog}
           postUserFullname={fullNameToShow}
+          postUserProfilePic={profilePicToShow}
           setOpenReplyDialog={setOpenReplyDialog}
           postTimeDurationToShow={timeDurationToShow}
         />
@@ -82,7 +87,7 @@ export const BroadcastBox = ({ broadcastDetails }) => {
 
       <AvatarGridBox
         username={username}
-        avatarSrc={profilePic}
+        avatarSrc={profilePicToShow}
         className={styles.avatarBox}
         handleClick={() => {
           navigate(`${ROUTE_READ_POST}/${_id}`);
